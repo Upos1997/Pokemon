@@ -1,0 +1,40 @@
+Field:
+    Slot for each pokemon
+    Action for each pokemon
+    Weather
+    Terrain
+    modifiers
+    effects
+    --------
+    List<Slots> get_targets(Move_Type type, Slot user)
+    add_action(Slot slot, Action action)
+    start_turn()
+        get_order()
+        execute_actions()
+
+Action:
+    Pokemon user
+    BiFunction<Field, List<Pokemon>, Void> action 
+    target(s)
+    --------
+    take_action(Field field)
+        if not prevented
+            action.apply(field, user+targets)
+
+
+Reaction extends Action:
+    Message message
+    BiFunction<Field, Action, Void> check
+    override BiFunction<Field, Action, Void> action 
+    static BiFunction<Field, Action, Void> no_check
+    ---------
+    Boolean check(field, action)
+    
+
+Modifier:
+    Message message
+    BiFunction<Field, Action, Void> check
+    Float modifier
+    static BiFunction<Field, Action, Void> no_check
+
+Message: attack_start, attack_end, switch_start, switch_end, item_start, item_end, run, weather_start, weather_end, terrain_start, terrain_end
