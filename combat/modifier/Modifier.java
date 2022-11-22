@@ -4,7 +4,7 @@ import action.Action;
 import field.Field;
 
 public abstract class Modifier {
-    protected MessageModifier message;
+    public MessageModifier message;
     protected Float modifier;
     protected Field field;
     private Boolean singleUse = false;

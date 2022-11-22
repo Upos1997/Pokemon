@@ -1,26 +1,42 @@
 package action;
 
-import java.util.function.BiFunction;
+import java.util.List;
 import java.util.function.Function;
 
 import field.Field;
 import pokemon.Pokemon;
 
 public abstract class Action {
-
-    public Pokemon user;
+    Action(Pokemon user, List<Pokemon> target, Function<Field, Void> action){
+        this.user = user;
+        this.target = target;
+        this.action = action;
+    }
+    protected Pokemon user;
     protected Function<Field, Void> action;
-    public Pokemon target;
+    protected List<Pokemon> target;
     public final static Function<Field, Void> noAction = (field) -> {
         return null;
     };
 
-    public Void takeAction(Field field, BiFunction<Field, Action, Void> beforeAction,
-            BiFunction<Field, Action, Void> afterAction) {
+    public Pokemon getUser() {
+        return this.user;
+    }
+
+    public Pokemon getTarget() {
+        return this.target.get(0);
+    }
+
+    public List<Pokemon> getTargets() {
+        return this.target;
+    }
+
+    protected Void takeAction(Field field, Runnable beforeAction,
+            Runnable afterAction) {
         if (field.isAllowed(this)) {
-            beforeAction.apply(field, this);
+            beforeAction.run();;
             action.apply(field);
-            afterAction.apply(field, this);
+            afterAction.run();
         }
         return null;
     }

@@ -34,27 +34,13 @@ public enum Type {
         public List<Type> weaknesses = new ArrayList<>();
         public List<Type> immunities = new ArrayList<>();
 
-        public float get_modifier(List<Type> types) {
-                float modifier = 1;
-                for (Type type : types) {
-                        if (resistances.contains(type)) {
-                                modifier = modifier * resistance_multiplier;
-                        } else if (weaknesses.contains(type)) {
-                                modifier = modifier * weakness_multiplier;
-                        } else if (immunities.contains(type)) {
-                                return 0;
-                        }
-                }
-                return modifier;
-        }
-
-        static void setupType(Type type, List<Type> weaknesses, List<Type> resistances, List<Type> immunities) {
+        final static void setupType(Type type, List<Type> weaknesses, List<Type> resistances, List<Type> immunities) {
                 type.weaknesses.addAll(weaknesses);
                 type.resistances.addAll(resistances);
                 type.immunities.addAll(immunities);
         }
 
-        static void setupTypes() {
+        final static void setupTypes() {
                 setupType(NORMAL,
                                 List.of(FIGHTING),
                                 Collections.emptyList(),
@@ -131,6 +117,20 @@ public enum Type {
                                 List.of(DRAGON));
         }
 
-        static float resistance_multiplier = (float) 0.5;
-        static int weakness_multiplier = 2;
+        public float get_modifier(List<Type> types) {
+                float modifier = 1;
+                for (Type type : types) {
+                        if (resistances.contains(type)) {
+                                modifier = modifier * resistance_multiplier;
+                        } else if (weaknesses.contains(type)) {
+                                modifier = modifier * weakness_multiplier;
+                        } else if (immunities.contains(type)) {
+                                return 0;
+                        }
+                }
+                return modifier;
+        }
+
+        final static float resistance_multiplier = (float) 0.5;
+        final static int weakness_multiplier = 2;
 }

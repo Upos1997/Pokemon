@@ -2,116 +2,110 @@ package moves;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 
-import action.Reaction;
-import action.ReactionNoCheck;
-import enums.Category;
-import enums.MessageReaction;
 import enums.Stat;
 import enums.Targetting;
-import enums.Weather;
 import field.Field;
-import modifier.MessageModifier;
+import field.Slot;
 import modifier.Modifier;
-import modifier.ModifierNoCheck;
 import pokemon.Pokemon;
 import pokemon.Type;
+import rng.Rng;
 
-public enum Move {
-    GROWL(Type.NORMAL, Category.Status, Targetting.ADJACENT_FOE, 0, 0, 100, 40, false, Collections.emptyList(),
-            (field, user, targets) -> {
-                for (Pokemon target : targets)
-                    target.lowered(Stat.ATTACK, 1);
-                return null;
-            }),
+public abstract class Move{
 
-    TACKLE(Type.NORMAL, Category.Physical,
-            Targetting.TARGET_ADJACENT, 0, 40, 100, 35, true, Collections
-                    .emptyList(),
-            emptyEffect()),
-    VINE_WHIP(Type.GRASS, Category.Physical, Targetting.TARGET_ADJACENT, 0, 45, 100, 25, true, Collections
-            .emptyList(),
-            emptyEffect()),
-    GROWTH(Type.NORMAL, Category.Status, Targetting.SELF, 1, 0, -1, 20, false,
-            Collections.emptyList(), (field, user, pokemon) -> {
-                int stages = 1;
-                if (field.weather == Weather.SUN || field.weather == Weather.HARSH_SUN) {
-                    stages = 2;
-                }
-                user.wentUp(Stat.ATTACK, stages);
-                user.wentUp(Stat.SPECIAL_ATTACK, stages);
-                return null;
-            }),
-    LEECH_SEED(Type.GRASS, Category.Status, Targetting.TARGET_ADJACENT, 1, 0, 90, 20, false,
-            Collections.emptyList(), (field, user, pokemon) -> {
-                Pokemon target = pokemon.get(0);
-                Reaction drain = new ReactionNoCheck(user, Reaction.noAction);
-                drain.action = (the_field, action) -> {
-                    int damage = Math.round(target.hpMax / 8) * -1;
-                    int heal = Math.round(damage / 2 * field.getModifier(MessageModifier.DRAIN, drain));
-                    target.changeHp(damage);
-                    user.changeHp(heal);
-                    return null;
-                };
-                Reaction end = new Reaction(user, (the_field, action) -> {
-                    return action.target == target;
-                }, Reaction.noAction);
-                end.action = (the_field, action) -> {
-                    field.removeReaction(MessageReaction.ROUND_END, drain);
-                    field.removeReaction(MessageReaction.ASWITCH, end);
-                    return null;
-                };
-                field.addReaction(MessageReaction.ROUND_END, drain);
-                field.addReaction(MessageReaction.ASWITCH, end);
-                return null;
-            }),
-    RAZOR_LEAF(Type.GRASS, Category.Physical, Targetting.ADJACENT_FOE, 1, 55, 95, 25, false,
-            List.of(new ModifierNoCheck(MessageModifier.CRIT_CHANCE, 4)), emptyEffect());
+    protected List<Type> types;
+    protected Targetting target;
+    protected double accuracy;
+    protected int ppMax;
+    protected int ppCurrent;
+    protected int power;
+    protected boolean autoHit = false;
 
-    Move(Type type, Category category, Targetting target, int priority, int power, int accuracy, int pp,
-            boolean contact,
-            List<Modifier> modifiers,
-            TriFunction<Field, Pokemon, List<Pokemon>, Void> effect) {
-        this.type = type;
-        this.category = category;
-        this.power = power;
-        this.accuracy = accuracy;
-        this.pp = pp;
-        this.modifiers = modifiers;
-        this.effect = effect;
+    static protected double critChance = 1/24;
+    static protected double critDamage = 1.5;
+    static protected double stab = 1.5;
+    static protected double drain=0.5;
+    static protected List<Type> additionalTypes = Collections.emptyList();
+    static protected Boolean autoHitOnce = false;
+    static protected double damageModifier = 1;
+
+    protected List<Modifier> modifiers = Collections.emptyList();
+
+    public List<Type> getTypes(){
+        List<Type> result = Collections.emptyList();
+        result.addAll(types);
+        result.addAll(additionalTypes);
+        return result;
     }
 
-    Type type;
-    Category category;
-    Targetting target;
-    int power;
-    int accuracy;
-    int pp;
-    boolean contact;
-    List<Modifier> modifiers;
-    TriFunction<Field, Pokemon, List<Pokemon>, Void> effect;
-
-    static TriFunction<Field, Pokemon, List<Pokemon>, Void> emptyEffect() {
-        return (field, user, targets) -> {
-            return null;
-        };
+    public List<Slot> getTargets(Field field, Pokemon user){
+        return target.getTargets(field, user);
     }
 
-    void damage(Field field, Pokemon user, List<Pokemon> targets) {
-        float damageModifier = 1;
-        float critModifier = 1;
-        Stat A;
-        Stat D;
-        if (category == Category.Physical) {
-            A = Stat.ATTACK;
-            D = Stat.DEFENSE;
+    private List<Modifier> getModifiers(Field field){
+        return field.getModifiers(this);
+    }
+
+    private void updateModifiers(List<Modifier> modifiers, BiFunction<Double, Double, Double> updateModifiers, Boolean autohit) {
+        for (Modifier modifier : modifiers){
+            double mod = modifier.getmodifier();
+            Function<Double, Double> update = (baseStat) -> {return updateModifiers.apply(baseStat, mod);};
+            switch (modifier.message) {
+                case ACCURACY:
+                    accuracy = update.apply(accuracy);
+                case AUTO_HIT:
+                    autoHitOnce = autohit;
+                case CRIT_CHANCE:
+                    critChance = update.apply(critChance);
+                case CRIT_DAMAGE:
+                    critDamage = update.apply(critDamage);
+                case DRAIN:
+                    drain = update.apply(drain);
+                case POWER:
+                    damageModifier = update.apply(damageModifier);
+            }
+        }
+    }
+    private void applyModifiers(Field field) {
+        modifiers = getModifiers(field);
+        updateModifiers(modifiers, (Double baseStat, Double mod) -> {return baseStat * mod;}, true);
+    }
+
+    private void revertModifiers(){
+        updateModifiers(modifiers, (Double baseStat, Double mod) -> {return baseStat / mod;}, false);
+        modifiers = Collections.emptyList();
+    }
+
+    private boolean canUse(){
+        return ppCurrent > 0;
+    }
+
+    private boolean isHit(Pokemon user, Pokemon target){
+        if (autoHitOnce || autoHit){
+            return true;
         } else {
-            A = Stat.SPECIAL_ATTACK;
-            D = Stat.SPECIAL_DEFENSE;
+            return Rng.chance(accuracy*Stat.getAccMod(user.getStage(Stat.ACCURACY), target.getStage(Stat.EVASION)));
+        }
+    }
+    public void use(Field field, Pokemon user, List<Pokemon> targets){
+        if (canUse()){
+            ppCurrent--;
+            applyModifiers(field);
+            for (Pokemon target : targets){
+                if (isHit(user, target)){
+                    onHit(field, user, target);
+                }
+            }
+            revertModifiers();
         }
     }
 
-    static float stab = (float) 1.5;
-    static float crit_multiplier = (float) 1.5;
-    static float crit_chance = (float) 1 / 24;
+    public void recharge(){
+        ppCurrent = ppMax;
+    }
+
+    protected abstract void onHit(Field field, Pokemon user, Pokemon target);
 }

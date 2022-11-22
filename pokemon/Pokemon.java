@@ -7,6 +7,7 @@ import ability.Ability;
 import empty.Status;
 import enums.Gender;
 import enums.Stat;
+import field.Field;
 import moves.Move;
 
 public class Pokemon {
@@ -34,13 +35,9 @@ public class Pokemon {
     int evasionStage = 0;
 
     Move move1;
-    int move1Pp;
     Move move2;
-    int move2Pp;
     Move move3;
-    int move3Pp;
     Move move4;
-    int move4Pp;
 
     float calcBase(int baseStat) {
         return ((2 * baseStat) * level / 100) + 5;
@@ -67,32 +64,8 @@ public class Pokemon {
         this.hpCurrent = Math.min(Math.max(hpCurrent + amount, 0), hpMax);
     }
 
-    void use_move1(List<Pokemon> targets) {
-        if (!(move1Pp == 0)) {
-            move1.use(this, targets);
-            move1Pp--;
-        }
-    }
-
-    void use_move2(List<Pokemon> targets) {
-        if (!(move2Pp == 0)) {
-            move2.use(this, targets);
-            move2Pp--;
-        }
-    }
-
-    void use_move3(List<Pokemon> targets) {
-        if (!(move3Pp == 0)) {
-            move3.use(this, targets);
-            move3Pp--;
-        }
-    }
-
-    void use_move4(List<Pokemon> targets) {
-        if (!(move4Pp == 0)) {
-            move4.use(this, targets);
-            move4Pp--;
-        }
+    void use(Field field, Move move, List<Pokemon> targets){
+        move.use(field, this, targets);
     }
 
     void updateStages(Stat stat, int stages, Function<Integer, Integer> update) {
@@ -134,5 +107,52 @@ public class Pokemon {
         if (status == Status.ok) {
             status = new_status;
         }
+    }
+
+    public List<Type> getType() {
+        return species.type;
+    }
+
+    public int getStat(Stat stat){
+        switch (stat) {
+            case ATTACK:
+                return attack;
+            case DEFENSE:
+                return defense;
+            case SPECIAL_ATTACK:
+                return specialAttack;
+            case SPECIAL_DEFENSE:
+                return specialDefense;
+            case SPEED:
+                return speed;
+            default:
+                return 0;
+        }
+    }
+
+    public int getStage(Stat stat){
+        switch (stat){
+            case ACCURACY:
+                return accuracyStage;
+            case ATTACK:
+                return attackStage;
+            case DEFENSE:
+                return defenseStage;
+            case EVASION:
+                return evasionStage;
+            case SPECIAL_ATTACK:
+                return specialAttackStage;
+            case SPECIAL_DEFENSE:
+                return specialDefenseStage;
+            case SPEED:
+                return speedStage;
+            default:
+                return 0;
+            
+        }
+    }
+
+    public int getAdjustedStat(Stat stat){
+        return (int) (getStage(stat) * Stat.getMod(getStage(stat)));
     }
 }

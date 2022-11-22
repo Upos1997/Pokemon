@@ -1,10 +1,8 @@
 package modifier;
 
 public enum MessageModifier {
-    A,
-    D,
     POWER,
     CRIT_CHANCE,
     CRIT_DAMAGE,
-    ACCURACY, DRAIN;
+    ACCURACY, DRAIN, AUTO_HIT;
 }

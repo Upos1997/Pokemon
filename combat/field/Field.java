@@ -1,9 +1,11 @@
 package field;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import action.Action;
@@ -33,7 +35,7 @@ public class Field {
     public Terrain terrain = Terrain.NONE;
 
     Map<Message, List<Reaction>> reactions = new HashMap<>();
-    Map<MessageModifier, List<Modifier>> modifiers = new HashMap<>();
+    List<Modifier> modifiers = new ArrayList<>();
     List<Prevent> prevents = new ArrayList<>();
 
     public Boolean addReaction(MessageReaction message, Reaction reaction) {
@@ -60,14 +62,8 @@ public class Field {
         return prevents.remove(prevent);
     }
 
-    public float getModifier(MessageModifier message, Action action) {
-        float modifier = 1;
-        for (Modifier valid_modifier : modifiers.get(message).stream().filter(aModifier -> {
-            return aModifier.check(action);
-        }).collect(Collectors.toList())) {
-            modifier *= valid_modifier.getmodifier();
-        }
-        return modifier;
+    public List<Modifier> getModifiers(Action action) {
+        return modifiers.stream().filter(modifier -> {return modifier.check(action);}).collect(Collectors.toList());
     }
 
     public Boolean isAllowed(Action action) {
@@ -101,25 +97,28 @@ public class Field {
             return null;
     }
 
-    Slot getOpposing(Pokemon pokemon) {
+    public List<Slot> getFoe(Pokemon pokemon) {
         if (allyPokemon.pokemon == pokemon) {
-            return opponentPokemon;
+            return List.of(opponentPokemon);
         } else if (opponentPokemon.pokemon == pokemon) {
-            return allyPokemon;
+            return List.of(allyPokemon);
         } else
             return null;
     }
 
-    public List<Slot> getTargets(Targetting targetting, Pokemon user) {
-        if (List.of(Targetting.ADJACENT, Targetting.ADJACENT_FOE, Targetting.FOE, Targetting.TARGET_ADJACENT,
-                Targetting.TARGET_ADJACENT_FOE, Targetting.TARGET_ANY).contains(targetting)) {
-            return List.of(getOpposing(user));
-        } else if (List.of(Targetting.ALLY_AND_SELF, Targetting.SELF, Targetting.TARGET_ADJACENT_ALLY_OR_SELF)
-                .contains(targetting)) {
-            return List.of(getSlot(user));
-        } else if (Targetting.ALL == targetting) {
-            return List.of(getOpposing(user), getSlot(user));
-        } else
-            return null;
+    public List<Slot> getAdjacent(Pokemon pokemon) {
+        return getFoe(pokemon);
+    }
+
+    public List<Slot> getAlly(Pokemon pokemon) {
+        return Collections.emptyList();
+    }
+
+    public List<Slot> getSelf(Pokemon pokemon) {
+        return List.of(getSlot(pokemon));
+    }
+
+    public List<Slot> getAll() {
+        return List.of(opponentPokemon, allyPokemon);
     }
 }
