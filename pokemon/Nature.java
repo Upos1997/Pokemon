@@ -1,6 +1,6 @@
 package pokemon;
 
-import enums.Stat;
+import rng.Rng;
 
 public enum Nature {
     HARDY(Stat.ATTACK, Stat.ATTACK),
@@ -47,6 +47,11 @@ public enum Nature {
         } else {
             return 1;
         }
+    }
+
+    static public Nature random(){
+        Nature[] natures = Nature.values();
+        return natures[Rng.nextInt(natures.length)];
     }
 
     static float boost = (float) 1.1;

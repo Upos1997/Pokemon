@@ -5,17 +5,16 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import action.Action;
+import action.MessageReaction;
 import action.Reaction;
-import enums.MessageReaction;
-import enums.Targetting;
 import enums.Terrain;
 import enums.Weather;
 import modifier.MessageModifier;
 import modifier.Modifier;
+import moves.moveLogic.Move;
 import pokemon.Pokemon;
 import prevent.Prevent;
 
@@ -34,7 +33,7 @@ public class Field {
     public Weather weather = Weather.CLEAR_SKIES;
     public Terrain terrain = Terrain.NONE;
 
-    Map<Message, List<Reaction>> reactions = new HashMap<>();
+    Map<MessageReaction, List<Reaction>> reactions = new HashMap<>();
     List<Modifier> modifiers = new ArrayList<>();
     List<Prevent> prevents = new ArrayList<>();
 
@@ -47,11 +46,11 @@ public class Field {
     }
 
     public Boolean addModifier(MessageModifier message, Modifier modifier) {
-        return modifiers.get(message).add(modifier);
+        return modifiers.add(modifier);
     }
 
     public Boolean removeModifier(MessageModifier message, Modifier modifier) {
-        return modifiers.get(message).remove(modifier);
+        return modifiers.remove(modifier);
     }
 
     public Boolean addPrevent(Prevent prevent){
@@ -62,8 +61,8 @@ public class Field {
         return prevents.remove(prevent);
     }
 
-    public List<Modifier> getModifiers(Action action) {
-        return modifiers.stream().filter(modifier -> {return modifier.check(action);}).collect(Collectors.toList());
+    public List<Modifier> getModifiers(Move move) {
+        return modifiers.stream().filter(modifier -> {return modifier.check(move);}).collect(Collectors.toList());
     }
 
     public Boolean isAllowed(Action action) {

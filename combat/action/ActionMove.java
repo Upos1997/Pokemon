@@ -4,11 +4,10 @@ import java.util.List;
 import java.util.Random;
 import java.util.function.Function;
 
-import enums.MessageReaction;
 import field.Field;
 import modifier.MessageModifier;
 import modifier.Modifier;
-import moves.Move;
+import moves.moveLogic.Move;
 import pokemon.Pokemon;
 import rng.Rng;
 

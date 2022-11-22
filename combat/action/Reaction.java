@@ -3,7 +3,6 @@ package action;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
-import enums.MessageReaction;
 import field.Field;
 import pokemon.Pokemon;
 

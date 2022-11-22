@@ -1,4 +1,4 @@
-package moves;
+package moves.moveLogic;
 
 import java.util.List;
 

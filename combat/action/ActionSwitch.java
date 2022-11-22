@@ -2,7 +2,6 @@ package action;
 
 import field.Field;
 import pokemon.Pokemon;
-import enums.MessageReaction;
 
 public class ActionSwitch extends Action {
     ActionSwitch(Pokemon user, Pokemon target) {

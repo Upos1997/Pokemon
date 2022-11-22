@@ -1,4 +1,4 @@
-package enums;
+package action;
 
 public enum MessageReaction {
     BSWITCH, ASWITCH, ROUND_END, TERRAIN_STOPPED, TERRAIN_STARTED, WEATHER_STARTED, WEATHER_STOPPED, BATTACK, AATTACK;

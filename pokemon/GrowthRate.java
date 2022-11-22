@@ -37,6 +37,12 @@ public enum GrowthRate {
     });
 
     GrowthRate(Function<Integer, Integer> xp) {
+        this.xpToLevel = xp;
+    }
 
+    private Function<Integer, Integer> xpToLevel;
+
+    public int calcLevel(int xp){
+        return xpToLevel.apply(xp);
     }
 }

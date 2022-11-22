@@ -5,12 +5,18 @@ import java.util.function.Function;
 
 import ability.Ability;
 import empty.Status;
-import enums.Gender;
-import enums.Stat;
 import field.Field;
-import moves.Move;
+import moves.moveLogic.Move;
 
 public class Pokemon {
+    Pokemon(Species species, int level) {
+        this.species = species;
+        this.level = level;
+        this.nature = Nature.random();
+        this.gender = Gender.random(species.getGenderOdds());
+        updateStats();
+        hpCurrent = hpMax;
+    }
     public Species species;
     public int level;
     public Ability ability;
@@ -43,21 +49,22 @@ public class Pokemon {
         return ((2 * baseStat) * level / 100) + 5;
     }
 
-    int calcStat(int baseStat, Stat stat) {
+    int calcStat(Stat stat) {
+        int baseStat = species.getStat(stat);
         return (int) Math.round(calcBase(baseStat) * nature.get_modifier(stat));
     }
 
     int calcHp() {
-        return Math.round(calcBase(species.hp) + level + 5);
+        return Math.round(calcBase(species.getStat(Stat.HP)) + level + 5);
     }
 
     void updateStats() {
         this.hpMax = calcHp();
-        this.attack = calcStat(species.attack, Stat.ATTACK);
-        this.defense = calcStat(species.defense, Stat.DEFENSE);
-        this.specialAttack = calcStat(species.specialAttack, Stat.SPECIAL_ATTACK);
-        this.specialDefense = calcStat(species.specialDefense, Stat.SPECIAL_DEFENSE);
-        this.speed = calcStat(species.speed, Stat.SPEED);
+        this.attack = calcStat(Stat.ATTACK);
+        this.defense = calcStat(Stat.DEFENSE);
+        this.specialAttack = calcStat(Stat.SPECIAL_ATTACK);
+        this.specialDefense = calcStat(Stat.SPECIAL_DEFENSE);
+        this.speed = calcStat(Stat.SPEED);
     }
 
     public void changeHp(int amount) {
@@ -109,8 +116,8 @@ public class Pokemon {
         }
     }
 
-    public List<Type> getType() {
-        return species.type;
+    public List<Type> getTypes() {
+        return species.getTypes();
     }
 
     public int getStat(Stat stat){

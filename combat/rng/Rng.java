@@ -11,4 +11,7 @@ public class Rng {
         double rangeSize = b-a;
         return rnjesus.nextFloat()*rangeSize+a;
     }
+    static public int nextInt(int max){
+        return rnjesus.nextInt(max);
+    }
 }

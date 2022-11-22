@@ -1,16 +1,24 @@
 package modifier;
 
-import action.Action;
-import field.Field;
+import java.util.function.Function;
 
-public abstract class Modifier {
-    public MessageModifier message;
-    protected Float modifier;
-    protected Field field;
+import field.Field;
+import moves.moveLogic.Move;
+
+public class Modifier {
+    Modifier(MessageModifier message, Float modifier, Function<Move, Boolean> check){
+        this.message = message;
+        this.modifier = modifier;
+        this.check = check;
+    }
+    private MessageModifier message;
+    private Float modifier;
+    private Field field;
+    private Function<Move, Boolean> check;
     private Boolean singleUse = false;
 
-    public Boolean check(Action action){
-        return true;
+    public Boolean check(Move move){
+        return check.apply(move);
     }
 
     public float getmodifier(){
@@ -20,12 +28,16 @@ public abstract class Modifier {
         return modifier;
     }
 
-    private Boolean remove(){
+    public MessageModifier getMessage(){
+        return message;
+    }
+
+    public Boolean remove(){
         this.field = null;
         return field.removeModifier(message, this);
     };
 
-    protected Boolean add(Field field){
+    public Boolean add(Field field){
         this.field = field;
         return field.addModifier(message, this);
     }
@@ -34,4 +46,5 @@ public abstract class Modifier {
         return this.singleUse = true;
     }
 
+    static final public Function<Move, Boolean> noCheck = (move) -> {return true;};
 }

@@ -1,33 +1,36 @@
-package moves;
+package moves.moveLogic;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
-import enums.Stat;
-import enums.Targetting;
 import field.Field;
 import field.Slot;
 import modifier.Modifier;
 import pokemon.Pokemon;
+import pokemon.Stat;
 import pokemon.Type;
 import rng.Rng;
 
-public abstract class Move{
+public abstract class Move implements Cloneable{
 
     protected List<Type> types;
-    protected Targetting target;
-    protected double accuracy;
+    protected Targetting target = Targetting.ADJACENT;
+    protected double accuracy = 1;
     protected int ppMax;
     protected int ppCurrent;
     protected int power;
+    protected boolean makesContact;
     protected boolean autoHit = false;
+    protected int priority = 0;
 
     static protected double critChance = 1/24;
     static protected double critDamage = 1.5;
     static protected double stab = 1.5;
-    static protected double drain=0.5;
+    static protected double drain = 0.5;
+    static protected double randomLow = 0.85;
+    static protected int randomHigh = 1;
     static protected List<Type> additionalTypes = Collections.emptyList();
     static protected Boolean autoHitOnce = false;
     static protected double damageModifier = 1;
@@ -53,7 +56,7 @@ public abstract class Move{
         for (Modifier modifier : modifiers){
             double mod = modifier.getmodifier();
             Function<Double, Double> update = (baseStat) -> {return updateModifiers.apply(baseStat, mod);};
-            switch (modifier.message) {
+            switch (modifier.getMessage()) {
                 case ACCURACY:
                     accuracy = update.apply(accuracy);
                 case AUTO_HIT:
@@ -108,4 +111,14 @@ public abstract class Move{
     }
 
     protected abstract void onHit(Field field, Pokemon user, Pokemon target);
+
+    @Override
+    public Move clone() {
+        try {
+            return (Move) super.clone();
+        } catch (CloneNotSupportedException e) {
+            
+        }
+        return null;
+    }
 }

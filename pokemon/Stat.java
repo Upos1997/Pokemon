@@ -1,4 +1,4 @@
-package enums;
+package pokemon;
 
 public enum Stat {
     HP,

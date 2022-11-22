@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import action.Action;
+import action.MessageReaction;
 import action.Reaction;
 import field.Field;
 import modifier.MessageModifier;

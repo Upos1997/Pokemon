@@ -4,8 +4,8 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 
 import action.Action;
+import action.MessageReaction;
 import action.Reaction;
-import enums.MessageReaction;
 import field.Field;
 import modifier.MessageModifier;
 import modifier.Modifier;
