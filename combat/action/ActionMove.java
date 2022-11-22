@@ -5,11 +5,11 @@ import java.util.Random;
 import java.util.function.Function;
 
 import field.Field;
+import helper.Rng;
 import modifier.MessageModifier;
 import modifier.Modifier;
 import moves.moveLogic.Move;
 import pokemon.Pokemon;
-import rng.Rng;
 
 public class ActionMove extends Action{
 

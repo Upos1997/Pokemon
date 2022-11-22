@@ -7,11 +7,11 @@ import java.util.function.Function;
 
 import field.Field;
 import field.Slot;
+import helper.Rng;
 import modifier.Modifier;
 import pokemon.Pokemon;
 import pokemon.Stat;
 import pokemon.Type;
-import rng.Rng;
 
 public abstract class Move implements Cloneable{
 

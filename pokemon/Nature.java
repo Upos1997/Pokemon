@@ -1,6 +1,6 @@
 package pokemon;
 
-import rng.Rng;
+import helper.Rng;
 
 public enum Nature {
     HARDY(Stat.ATTACK, Stat.ATTACK),

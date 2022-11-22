@@ -1,10 +1,10 @@
 package moves.moveLogic;
 
 import field.Field;
+import helper.Rng;
 import pokemon.Pokemon;
 import pokemon.Stat;
 import pokemon.Type;
-import rng.Rng;
 
 public abstract class MoveDamaging extends Move{
 

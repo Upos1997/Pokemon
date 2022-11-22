@@ -12,7 +12,6 @@ import action.MessageReaction;
 import action.Reaction;
 import enums.Terrain;
 import enums.Weather;
-import modifier.MessageModifier;
 import modifier.Modifier;
 import moves.moveLogic.Move;
 import pokemon.Pokemon;
@@ -45,11 +44,11 @@ public class Field {
         return reactions.get(message).remove(reaction);
     }
 
-    public Boolean addModifier(MessageModifier message, Modifier modifier) {
+    public Boolean addModifier(Modifier modifier) {
         return modifiers.add(modifier);
     }
 
-    public Boolean removeModifier(MessageModifier message, Modifier modifier) {
+    public Boolean removeModifier(Modifier modifier) {
         return modifiers.remove(modifier);
     }
 

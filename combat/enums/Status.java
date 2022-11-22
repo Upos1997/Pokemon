@@ -1,4 +1,4 @@
-package empty;
+package enums;
 
 public enum Status {
     burn,

@@ -1,51 +1,40 @@
 package ability;
 
-import java.util.function.BiFunction;
-import java.util.function.Function;
+import java.util.Collections;
+import java.util.List;
 
-import action.Action;
-import action.MessageReaction;
 import action.Reaction;
 import field.Field;
-import modifier.MessageModifier;
 import modifier.Modifier;
-import moves.TriFunction;
 import pokemon.Pokemon;
-import pokemon.Type;
 import prevent.Prevent;
 
-public enum Ability{
-    OVERGROW(Ability.ModifierEffect(MessageModifier.POWER, (float) 1.5, (pokemon, field, action) -> {
-        return action.user == pokemon && action.move.type == Type.GRASS && pokemon.hpCurrent <= pokemon.hpMax/3;
-    })), 
-    CHLOROPHYLL(Ability.noEffect);
+public abstract class Ability implements Cloneable{
+    private List<Modifier> modifiers = Collections.emptyList();
+    private List<Prevent> prevents = Collections.emptyList();
+    private List<Reaction> reactions = Collections.emptyList();
+    private Pokemon user;
 
-    Ability(BiFunction<Field, Pokemon, Void> effect) {
-        this.effect = effect;
+    public Ability newInstance(Pokemon user){
+        try {
+            Ability newAbility = (Ability) super.clone();
+            newAbility.user = user;
+            return newAbility;
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
-    BiFunction<Field, Pokemon, Void> effect; 
-
-    static BiFunction<Field, Pokemon, Void> ModifierEffect(MessageModifier message, float modifier, TriFunction<Pokemon, Field, Action, Boolean> check) {
-        return (field, pokemon) -> {
-            Modifier newModifier = new Modifier(modifier, (_field, action) -> {return check.apply(pokemon, field, action);});
-            field.addModifier(message, newModifier);
-            return null;};
-    }
-
-    static BiFunction<Field, Pokemon, Void> ReactionEffect(MessageReaction message, Reaction reaction) {
-        return (field, pokemon) -> {
-            field.addReaction(message, reaction);
-            return null;};
-    }
-
-    static BiFunction<Field, Pokemon, Void> PreventEffect(Prevent prevent) {
-        return (field, pokemon) -> {
+    public void activate(Field field){
+        for (Modifier modifier: modifiers){
+            field.addModifier(modifier)
+        }
+        for (Prevent prevent: prevents){
             field.addPrevent(prevent);
-            return null;};
-    }
-
-    void apply(Field field, Pokemon pokemon) {
-        effect.apply(field, pokemon);
+        }
+        for (Reaction reaction: reactions){
+            field.addReaction(reaction., reaction)
+        }
     }
 }

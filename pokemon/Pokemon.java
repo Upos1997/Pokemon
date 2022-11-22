@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.function.Function;
 
 import ability.Ability;
-import empty.Status;
+import enums.Status;
 import field.Field;
 import moves.moveLogic.Move;
 

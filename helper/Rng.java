@@ -1,4 +1,4 @@
-package rng;
+package helper;
 import java.util.Random;
 
 public class Rng {
