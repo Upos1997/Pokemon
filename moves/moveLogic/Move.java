@@ -121,4 +121,8 @@ public abstract class Move implements Cloneable{
         }
         return null;
     }
+
+    public boolean isType(Type type){
+        return types.contains(type);
+    }
 }

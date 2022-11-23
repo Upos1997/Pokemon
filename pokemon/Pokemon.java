@@ -3,7 +3,7 @@ package pokemon;
 import java.util.List;
 import java.util.function.Function;
 
-import ability.Ability;
+import ability.abilityLogic.Ability;
 import enums.Status;
 import field.Field;
 import moves.moveLogic.Move;
@@ -161,5 +161,9 @@ public class Pokemon {
 
     public int getAdjustedStat(Stat stat){
         return (int) (getStage(stat) * Stat.getMod(getStage(stat)));
+    }
+
+    public boolean isBelow(float treshold){
+        return hpCurrent < hpMax * treshold;
     }
 }

@@ -5,18 +5,18 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-import ability.Ability;
-import moves.*;
+import ability.AbilityName;
+import moves.MoveName;
 
 public enum Species {
-    BULBASAUR("Bulbasaur", List.of(Type.GRASS, Type.POISON), List.of(Ability.OVERGROW, Ability.CHLOROPHYLL), 0.7, 6.9,
+    BULBASAUR("Bulbasaur", List.of(Type.GRASS, Type.POISON), List.of(AbilityName.OVERGROW, AbilityName.CHLOROPHYLL), 0.7, 6.9,
             45, 50, 64, GrowthRate.MEDIUM_SLOW,
             List.of(EggGroup.Grass, EggGroup.Monster), 0.875, 20,
             45, 49, 49, 65, 65, 45,
             Map.of(1, List.of(MoveName.GROWL, MoveName.TACKLE), 3, List.of(MoveName.VINE_WHIP)),
             List.of());
         
-    Species(String name, List<Type> types, List<Ability> abilities, double height, double weight, int catchRate,
+    Species(String name, List<Type> types, List<AbilityName> abilities, double height, double weight, int catchRate,
             int friendship, int baseExp, GrowthRate growthRate, List<EggGroup> eggGroups, double genderOdds,
             int eggCycles, int hp, int attack, int defense, int specialAttack, int specialDefense, int speed,
             Map<Integer, List<MoveName>> movesLevelUp, List<MoveName> movesOther) {
@@ -44,7 +44,7 @@ public enum Species {
 
     private String name;
     private List<Type> types;
-    private List<Ability> abilities;
+    private List<AbilityName> abilities;
     private double height;
     private double weight;
 
@@ -54,7 +54,7 @@ public enum Species {
     public List<Type> getTypes(){
         return types;
     }
-    public List<Ability> abilities(){
+    public List<AbilityName> abilities(){
         return abilities;
     }
     public double getHeight(){

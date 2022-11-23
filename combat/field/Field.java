@@ -36,12 +36,12 @@ public class Field {
     List<Modifier> modifiers = new ArrayList<>();
     List<Prevent> prevents = new ArrayList<>();
 
-    public Boolean addReaction(MessageReaction message, Reaction reaction) {
-        return reactions.get(message).add(reaction);
+    public Boolean addReaction(Reaction reaction) {
+        return reactions.get(reaction.getMessage()).add(reaction);
     }
 
     public Boolean removeReaction(MessageReaction message, Reaction reaction) {
-        return reactions.get(message).remove(reaction);
+        return reactions.get(reaction.getMessage()).remove(reaction);
     }
 
     public Boolean addModifier(Modifier modifier) {

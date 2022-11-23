@@ -12,11 +12,15 @@ public class Reaction extends Action {
         this.check = check;
     }
 
+    MessageReaction message;
     BiFunction<Field, Action, Boolean> check;
     static BiFunction<Field, Action, Boolean> noCheck = (field, action) -> {
         return true;
     };
 
+    public MessageReaction getMessage(){
+        return message;
+    }
     public Boolean check(Field field, Action action) {
         return check.apply(field, action);
     }

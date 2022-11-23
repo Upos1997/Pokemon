@@ -54,6 +54,6 @@ public enum Nature {
         return natures[Rng.nextInt(natures.length)];
     }
 
-    static float boost = (float) 1.1;
-    static float detriment = (float) 0.9;
+    static float boost = 1.1f;
+    static float detriment = 0.9f;
 }
