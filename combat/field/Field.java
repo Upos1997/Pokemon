@@ -8,12 +8,12 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import action.Action;
+import action.ActionMove;
 import action.MessageReaction;
 import action.Reaction;
 import enums.Terrain;
 import enums.Weather;
 import modifier.Modifier;
-import moves.moveLogic.Move;
 import pokemon.Pokemon;
 import prevent.Prevent;
 
@@ -60,7 +60,7 @@ public class Field {
         return prevents.remove(prevent);
     }
 
-    public List<Modifier> getModifiers(Move move) {
+    public List<Modifier> getModifiers(ActionMove move) {
         return modifiers.stream().filter(modifier -> {return modifier.check(move);}).collect(Collectors.toList());
     }
 
