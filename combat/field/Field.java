@@ -9,62 +9,106 @@ import java.util.stream.Collectors;
 
 import action.Action;
 import action.ActionMove;
-import action.MessageReaction;
+import action.MessageAction;
 import action.Reaction;
 import enums.Terrain;
 import enums.Weather;
+import modifier.MessageModifier;
 import modifier.Modifier;
 import pokemon.Pokemon;
+import prevent.MessagePrevent;
 import prevent.Prevent;
 
 public class Field {
-    Field() {
-        for (MessageReaction message : MessageReaction.values()) {
-            reactions.put(message, new ArrayList<>());
-        }
-    }
-
     Slot allyPokemon = new Slot();
     Slot opponentPokemon = new Slot();
-    Action allyAction = null;
-    Action opponentAction = null;
+
+    List<Action> actions = null;
+
+    Action currentAction;
 
     public Weather weather = Weather.CLEAR_SKIES;
     public Terrain terrain = Terrain.NONE;
 
-    Map<MessageReaction, List<Reaction>> reactions = new HashMap<>();
-    List<Modifier> modifiers = new ArrayList<>();
-    List<Prevent> prevents = new ArrayList<>();
+    Map<MessageAction, List<Reaction>> reactions = new HashMap<>();
+    Map<MessageModifier, List<Modifier>> modifiers = new HashMap<>();
+    Map<MessagePrevent, List<Prevent>> prevents = new HashMap<>();
 
-    public Boolean addReaction(Reaction reaction) {
-        return reactions.get(reaction.getMessage()).add(reaction);
+    public void addReaction(Reaction reaction) {
+        MessageAction message = reaction.getMessage();
+        List<Reaction> reactions = this.reactions.get(message);
+        if (reactions == null) {
+            this.reactions.put(message, List.of(reaction));
+        } else {
+            reactions.add(reaction);
+        }
     }
 
-    public Boolean removeReaction(MessageReaction message, Reaction reaction) {
-        return reactions.get(reaction.getMessage()).remove(reaction);
+    public void removeReaction(Reaction reaction) {
+        MessageAction message = reaction.getMessage();
+        List<Reaction> reactions = this.reactions.get(message);
+        reactions.remove(reaction);
+        if (reactions.isEmpty()) {
+            this.reactions.remove(message);
+        }
     }
 
-    public Boolean addModifier(Modifier modifier) {
-        return modifiers.add(modifier);
+    public void addModifier(Modifier modifier) {
+        MessageModifier message = modifier.getMessage();
+        List<Modifier> modifiers = this.modifiers.get(message);
+        if (reactions == null) {
+            this.modifiers.put(message, List.of(modifier));
+        } else {
+            modifiers.add(modifier);
+        }
     }
 
-    public Boolean removeModifier(Modifier modifier) {
-        return modifiers.remove(modifier);
+    public void removeModifier(Modifier modifier) {
+        MessageModifier message = modifier.getMessage();
+        List<Modifier> modifiers = this.modifiers.get(message);
+        modifiers.remove(modifier);
+        if (modifiers.isEmpty()) {
+            this.modifiers.remove(message);
+        }
     }
 
-    public Boolean addPrevent(Prevent prevent){
-        return prevents.add(prevent);
+    public void addPrevent(Prevent prevent) {
+        MessagePrevent message = prevent.getMessage();
+        List<Prevent> prevents = this.prevents.get(message);
+        if (prevents == null) {
+            this.prevents.put(message, List.of(prevent));
+        } else {
+            prevents.add(prevent);
+        }
     }
 
-    public Boolean removePrevent(Prevent prevent){
-        return prevents.remove(prevent);
+    public void removePrevent(Prevent prevent) {
+        MessagePrevent message = prevent.getMessage();
+        List<Prevent> prevents = this.prevents.get(message);
+        prevents.remove(prevent);
+        if (prevents.isEmpty()) {
+            this.prevents.remove(message);
+        }
     }
 
-    public List<Modifier> getModifiers(ActionMove move) {
-        return modifiers.stream().filter(modifier -> {return modifier.check(move);}).collect(Collectors.toList());
+    public List<Modifier> getModifiers(MessageModifier message) {
+        return this.modifiers.get(message);
     }
 
-    public Boolean isAllowed(Action action) {
+    public List<Modifier> getMoveModifiers(MessageModifier message) {
+        return getModifiers(message).stream().filter(modifier -> {
+            return modifier.moveCheck(this);
+        }).collect(Collectors.toList());
+    }
+
+    public List<Modifier> getStatModifiers(MessageModifier message, Pokemon pokemon) {
+        return getModifiers(message).stream().filter(modifier -> {
+            return modifier.statCheck(this, pokemon);
+        }).collect(Collectors.toList());
+    }
+
+    public Boolean isAllowed(Action action, List<MessagePrevent> messages) {
+
         return !prevents.stream().filter(prevent -> {
             return prevent.check(this, action);
         }).filter(prevent -> {
