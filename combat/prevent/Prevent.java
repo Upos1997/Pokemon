@@ -1,19 +1,22 @@
 package prevent;
 
 import java.util.function.BiFunction;
+import java.util.function.Function;
 
-import action.Action;
 import field.Field;
 
 public abstract class Prevent {
+    Prevent(Function<Field, Boolean> check) {
+        this.check = check;
+    }
 
-    BiFunction<Field, Action, Boolean> check = (action) ->;
+    Function<Field, Boolean> check;
     BiFunction<Field, Prevent, Boolean> preventCheck = (field, prevent) -> {
         return false;
     };
 
-    public boolean check(Field field, Action action) {
-        return check.apply(field, action);
+    public boolean check(Field field) {
+        return check.apply(field);
     }
 
     public boolean preventCheck(Field field, Prevent prevent) {
