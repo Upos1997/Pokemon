@@ -7,14 +7,14 @@ import field.Field;
 import pokemon.Pokemon;
 
 public abstract class Action {
-    Action(Pokemon user, List<Pokemon> target, Function<Field, Void> action){
+    Action(Pokemon user, Function<Field, Void> action) {
         this.user = user;
-        this.target = target;
         this.action = action;
     }
+
     protected Pokemon user;
     protected Function<Field, Void> action;
-    protected List<Pokemon> target;
+    private List<MessageAction> messages;
     public final static Function<Field, Void> noAction = (field) -> {
         return null;
     };
@@ -23,18 +23,9 @@ public abstract class Action {
         return this.user;
     }
 
-    public Pokemon getTarget() {
-        return this.target.get(0);
-    }
-
-    public List<Pokemon> getTargets() {
-        return this.target;
-    }
-
-    protected Void takeAction(Field field, Runnable beforeAction,
-            Runnable afterAction) {
-        if (field.isAllowed(this)) {
-            beforeAction.run();;
+    protected Void takeAction(Field field, Runnable beforeAction, Runnable afterAction) {
+        if (field.isAllowed(this, messages)) {
+            beforeAction.run();
             action.apply(field);
             afterAction.run();
         }

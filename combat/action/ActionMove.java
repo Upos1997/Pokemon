@@ -7,27 +7,30 @@ import moves.moveLogic.Move;
 import pokemon.Pokemon;
 import pokemon.Type;
 
-public class ActionMove extends Action{
+public class ActionMove extends Action {
 
-    ActionMove(Pokemon user, Move move, List<Pokemon> targets) {
-        super(user, targets, noAction);
+    ActionMove(Field field, Pokemon user, Move move) {
+        super(user, move.getTargets(field, user), (Field field) -> {
+            List<Pokemon> targets = 
+            return null;
+        });
         this.move = move;
+        
     }
-    
+
     public Move move;
 
-   
     public Void takeAction(Field field) {
-        Runnable beforeAction = () -> field.handleReactions(MessageReaction.BATTACK, this);
-        Runnable afterAction = () -> field.handleReactions(MessageReaction.AATTACK, this);
+        Runnable beforeAction = () -> field.handleReactions(MessageAction.BATTACK, this);
+        Runnable afterAction = () -> field.handleReactions(MessageAction.AATTACK, this);
         return super.takeAction(field, beforeAction, afterAction);
     }
-    
-    public boolean isUser(Pokemon pokemon){
+
+    public boolean isUser(Pokemon pokemon) {
         return user == pokemon;
     }
 
-    public boolean isType(Type type){
+    public boolean isType(Type type) {
         return move.isType(type);
     }
 }

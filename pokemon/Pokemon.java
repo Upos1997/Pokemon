@@ -5,7 +5,6 @@ import java.util.function.Function;
 
 import ability.abilityLogic.Ability;
 import enums.Status;
-import field.Field;
 import moves.moveLogic.Move;
 
 public class Pokemon {
@@ -17,6 +16,7 @@ public class Pokemon {
         updateStats();
         hpCurrent = hpMax;
     }
+
     public Species species;
     public int level;
     public Ability ability;
@@ -71,10 +71,6 @@ public class Pokemon {
         this.hpCurrent = Math.min(Math.max(hpCurrent + amount, 0), hpMax);
     }
 
-    void use(Field field, Move move, List<Pokemon> targets){
-        move.use(field, this, targets);
-    }
-
     void updateStages(Stat stat, int stages, Function<Integer, Integer> update) {
         switch (stat) {
             case ATTACK:
@@ -120,7 +116,7 @@ public class Pokemon {
         return species.getTypes();
     }
 
-    public int getStat(Stat stat){
+    public int getStat(Stat stat) {
         switch (stat) {
             case ATTACK:
                 return attack;
@@ -137,8 +133,8 @@ public class Pokemon {
         }
     }
 
-    public int getStage(Stat stat){
-        switch (stat){
+    public int getStage(Stat stat) {
+        switch (stat) {
             case ACCURACY:
                 return accuracyStage;
             case ATTACK:
@@ -155,15 +151,15 @@ public class Pokemon {
                 return speedStage;
             default:
                 return 0;
-            
+
         }
     }
 
-    public int getAdjustedStat(Stat stat){
+    public int getAdjustedStat(Stat stat) {
         return (int) (getStage(stat) * Stat.getMod(getStage(stat)));
     }
 
-    public boolean isBelow(float treshold){
+    public boolean isBelow(float treshold) {
         return hpCurrent < hpMax * treshold;
     }
 }

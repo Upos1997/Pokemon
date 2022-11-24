@@ -13,7 +13,7 @@ import pokemon.Pokemon;
 import pokemon.Stat;
 import pokemon.Type;
 
-public abstract class Move implements Cloneable{
+public abstract class Move implements Cloneable {
 
     protected List<Type> types;
     protected Targetting target = Targetting.ADJACENT;
@@ -25,7 +25,7 @@ public abstract class Move implements Cloneable{
     protected boolean autoHit = false;
     protected int priority = 0;
 
-    static protected double critChance = 1/24;
+    static protected double critChance = 1 / 24;
     static protected double critDamage = 1.5;
     static protected double stab = 1.5;
     static protected double drain = 0.5;
@@ -37,25 +37,24 @@ public abstract class Move implements Cloneable{
 
     protected List<Modifier> modifiers = Collections.emptyList();
 
-    public List<Type> getTypes(){
+    public List<Type> getTypes() {
         List<Type> result = Collections.emptyList();
         result.addAll(types);
         result.addAll(additionalTypes);
         return result;
     }
 
-    public List<Slot> getTargets(Field field, Pokemon user){
+    public List<Slot> getTargets(Field field, Pokemon user) {
         return target.getTargets(field, user);
     }
 
-    private List<Modifier> getModifiers(Field field){
-        return field.getModifiers(this);
-    }
-
-    private void updateModifiers(List<Modifier> modifiers, BiFunction<Double, Double, Double> updateModifiers, Boolean autohit) {
-        for (Modifier modifier : modifiers){
+    private void updateModifiers(List<Modifier> modifiers, BiFunction<Double, Double, Double> updateModifiers,
+            Boolean autohit) {
+        for (Modifier modifier : modifiers) {
             double mod = modifier.getmodifier();
-            Function<Double, Double> update = (baseStat) -> {return updateModifiers.apply(baseStat, mod);};
+            Function<Double, Double> update = (baseStat) -> {
+                return updateModifiers.apply(baseStat, mod);
+            };
             switch (modifier.getMessage()) {
                 case ACCURACY:
                     accuracy = update.apply(accuracy);
@@ -72,33 +71,39 @@ public abstract class Move implements Cloneable{
             }
         }
     }
-    private void applyModifiers(Field field) {
-        modifiers = getModifiers(field);
-        updateModifiers(modifiers, (Double baseStat, Double mod) -> {return baseStat * mod;}, true);
+
+    private void applyModifiers(Field field, List<Modifier> modifiers) {
+        this.modifiers = modifiers;
+        updateModifiers(modifiers, (Double baseStat, Double mod) -> {
+            return baseStat * mod;
+        }, true);
     }
 
-    private void revertModifiers(){
-        updateModifiers(modifiers, (Double baseStat, Double mod) -> {return baseStat / mod;}, false);
+    private void revertModifiers() {
+        updateModifiers(modifiers, (Double baseStat, Double mod) -> {
+            return baseStat / mod;
+        }, false);
         modifiers = Collections.emptyList();
     }
 
-    private boolean canUse(){
+    private boolean canUse() {
         return ppCurrent > 0;
     }
 
-    private boolean isHit(Pokemon user, Pokemon target){
-        if (autoHitOnce || autoHit){
+    private boolean isHit(Pokemon user, Pokemon target) {
+        if (autoHitOnce || autoHit) {
             return true;
         } else {
-            return Rng.chance(accuracy*Stat.getAccMod(user.getStage(Stat.ACCURACY), target.getStage(Stat.EVASION)));
+            return Rng.chance(accuracy * Stat.getAccMod(user.getStage(Stat.ACCURACY), target.getStage(Stat.EVASION)));
         }
     }
-    public void use(Field field, Pokemon user, List<Pokemon> targets){
-        if (canUse()){
+
+    public void use(Field field, Pokemon user, List<Pokemon> targets, List<Modifier> modifiers) {
+        if (canUse()) {
             ppCurrent--;
-            applyModifiers(field);
-            for (Pokemon target : targets){
-                if (isHit(user, target)){
+            applyModifiers(field, modifiers);
+            for (Pokemon target : targets) {
+                if (isHit(user, target)) {
                     onHit(field, user, target);
                 }
             }
@@ -106,7 +111,7 @@ public abstract class Move implements Cloneable{
         }
     }
 
-    public void recharge(){
+    public void recharge() {
         ppCurrent = ppMax;
     }
 
@@ -117,12 +122,12 @@ public abstract class Move implements Cloneable{
         try {
             return (Move) super.clone();
         } catch (CloneNotSupportedException e) {
-            
+
         }
         return null;
     }
 
-    public boolean isType(Type type){
+    public boolean isType(Type type) {
         return types.contains(type);
     }
 }
