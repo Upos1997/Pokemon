@@ -1,10 +1,8 @@
 package action;
 
-import java.util.List;
-import java.util.function.Function;
-
 import field.Field;
 import pokemon.Pokemon;
+import prevent.MessagePrevent;
 
 public abstract class Action {
     Action(Pokemon user) {
@@ -12,7 +10,7 @@ public abstract class Action {
     }
 
     protected Pokemon user;
-    private List<MessageAction> messages;
+    private MessagePrevent message;
 
     public Pokemon getUser() {
         return this.user;
@@ -22,8 +20,8 @@ public abstract class Action {
         return user == pokemon;
     }
 
-    protected Void takeAction(Field field) {
-        if (field.isAllowed(this, messages)) {
+    public Void takeAction(Field field) {
+        if (field.isAllowed(this, message)) {
             action(field);
         }
         return null;

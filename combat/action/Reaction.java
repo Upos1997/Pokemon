@@ -7,13 +7,14 @@ import field.Field;
 import pokemon.Pokemon;
 
 public class Reaction extends Action {
-    public Reaction(Pokemon user, BiFunction<Field, Action, Boolean> check, BiFunction<Field, Action, Void> action) {
-        super(user, action);
+    public Reaction(Pokemon user, Function<Field, Boolean> check, BiFunction<Field, Action, Void> action) {
+        super(user);
         this.check = check;
+        this.action = action;
     }
 
     MessageAction message;
-    BiFunction<Field, Action, Boolean> check;
+    Function<Field, Boolean> check;
     static BiFunction<Field, Action, Boolean> noCheck = (field, action) -> {
         return true;
     };
@@ -22,18 +23,19 @@ public class Reaction extends Action {
         return message;
     }
 
-    public Boolean check(Field field, Action action) {
-        return check.apply(field, action);
+    public Boolean check(Field field) {
+        return check.apply(field);
     }
 
-    public Void takeAction(Field field) {
-        return super.takeAction(field, noAction, noAction);
-    }
-
-    public void makeSingleUse(Field field, MessageReaction message) {
+    public void makeSingleUse(Field field, MessageAction message) {
         action = action.andThen((Function<Void, Void>) arg -> {
             field.removeReaction(message, this);
             return null;
         });
+    }
+
+    @Override
+    Void action(Field field) {
+        action.apply(field);
     }
 }

@@ -1,6 +1,5 @@
 package field;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -8,7 +7,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import action.Action;
-import action.ActionMove;
 import action.MessageAction;
 import action.Reaction;
 import enums.Terrain;
@@ -27,8 +25,20 @@ public class Field {
 
     Action currentAction;
 
-    public Weather weather = Weather.CLEAR_SKIES;
-    public Terrain terrain = Terrain.NONE;
+    public Action getCurrentAction() {
+        return currentAction;
+    }
+
+    Weather weather = Weather.CLEAR_SKIES;
+    Terrain terrain = Terrain.NONE;
+
+    public Weather getWeather() {
+        return weather;
+    }
+
+    public Terrain getTerrain() {
+        return terrain;
+    }
 
     Map<MessageAction, List<Reaction>> reactions = new HashMap<>();
     Map<MessageModifier, List<Modifier>> modifiers = new HashMap<>();
@@ -107,41 +117,41 @@ public class Field {
         }).collect(Collectors.toList());
     }
 
-    public Boolean isAllowed(Action action, List<MessagePrevent> messages) {
-        return !prevents.stream().filter(prevent -> {
+    public Boolean isAllowed(Action action, MessagePrevent message) {
+        return !prevents.get(message).stream().filter(prevent -> {
             return prevent.check(this, action);
         }).filter(prevent -> {
             return isPreventAllowed(prevent);
-        }).findFirst().isPresent();
+        }).findAny().isPresent();
     }
 
     Boolean isPreventAllowed(Prevent prevent) {
-        return !prevents.stream().filter(pprevent -> {
+        return !prevents.get(MessagePrevent.PREVENT).stream().filter(pprevent -> {
             return pprevent.preventCheck(this, prevent);
         }).filter(pprevent -> {
             return isPreventAllowed(pprevent);
-        }).findFirst().isPresent();
+        }).findAny().isPresent();
     }
 
-    public Void handleReactions(MessageReaction message, Action action) {
-        reactions.get(message).stream().filter(reaction -> reaction.check(this, action))
+    public Void handleReactions(MessageAction message) {
+        reactions.get(message).stream().filter(reaction -> reaction.check(this))
                 .forEach(reaction -> reaction.takeAction(this));
         return null;
     }
 
     public Slot getSlot(Pokemon pokemon) {
-        if (allyPokemon.pokemon == pokemon) {
+        if (allyPokemon.getPokemon() == pokemon) {
             return allyPokemon;
-        } else if (opponentPokemon.pokemon == pokemon) {
+        } else if (opponentPokemon.getPokemon() == pokemon) {
             return opponentPokemon;
         } else
             return null;
     }
 
     public List<Slot> getFoe(Pokemon pokemon) {
-        if (allyPokemon.pokemon == pokemon) {
+        if (allyPokemon.getPokemon() == pokemon) {
             return List.of(opponentPokemon);
-        } else if (opponentPokemon.pokemon == pokemon) {
+        } else if (opponentPokemon.getPokemon() == pokemon) {
             return List.of(allyPokemon);
         } else
             return null;

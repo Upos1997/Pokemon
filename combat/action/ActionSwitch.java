@@ -5,21 +5,18 @@ import pokemon.Pokemon;
 
 public class ActionSwitch extends Action {
     ActionSwitch(Pokemon user, Pokemon target) {
-        super(user, (field, action) -> {
-            field.getSlot(user).switch_out(target);
-            return null;
-        });
+        super(user);
         this.target = target;
     }
 
     Pokemon target;
 
-    public void takeAction(Field field) {
-        super.takeAction(field, (aField, action) -> {
-            return aField.handleReactions(MessageReaction.BSWITCH, action);
-        }, (aField, action) -> {
-            return aField.handleReactions(MessageReaction.ASWITCH, action);
-        });
+    @Override
+    Void action(Field field) {
+        field.handleReactions(MessageAction.BEFORE_ATTACK);
+        field.getSlot(user).switchOut(target);
+        field.handleReactions(MessageAction.AFTER_ATTACK);
+        return null;
     }
 
 }

@@ -5,7 +5,7 @@ import pokemon.Pokemon;
 public class Slot {
     private Pokemon pokemon;
 
-    public void switch_out(Pokemon newPokemon) {
+    public void switchOut(Pokemon newPokemon) {
         this.pokemon = newPokemon;
     }
 

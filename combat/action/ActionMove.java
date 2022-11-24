@@ -22,9 +22,7 @@ public class ActionMove extends Action {
     private List<Slot> targets;
 
     public Void takeAction(Field field) {
-        Runnable beforeAction = () -> field.handleReactions(MessageAction.BATTACK, this);
-        Runnable afterAction = () -> field.handleReactions(MessageAction.AATTACK, this);
-        return super.takeAction(field, beforeAction, afterAction);
+        return super.takeAction(field);
     }
 
     public boolean isType(Type type) {
@@ -33,11 +31,12 @@ public class ActionMove extends Action {
 
     @Override
     Void action(Field field) {
-        field.handleReactions(MessageAction.BATTACK, this);
+        field.handleReactions(MessageAction.BEFORE_ATTACK);
         List<Pokemon> targets = this.targets.stream().map((Slot target) -> {
             return target.getPokemon();
         }).collect(Collectors.toList());
         move.use(field, user, targets, null);
-        field.handleReactions(MessageAction.AATTACK, this);
+        field.handleReactions(MessageAction.AFTER_ATTACK);
+        return null;
     }
 }
