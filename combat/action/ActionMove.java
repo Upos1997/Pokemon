@@ -27,10 +27,6 @@ public class ActionMove extends Action {
         return super.takeAction(field, beforeAction, afterAction);
     }
 
-    public boolean isUser(Pokemon pokemon) {
-        return user == pokemon;
-    }
-
     public boolean isType(Type type) {
         return move.isType(type);
     }

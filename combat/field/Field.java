@@ -108,7 +108,6 @@ public class Field {
     }
 
     public Boolean isAllowed(Action action, List<MessagePrevent> messages) {
-
         return !prevents.stream().filter(prevent -> {
             return prevent.check(this, action);
         }).filter(prevent -> {

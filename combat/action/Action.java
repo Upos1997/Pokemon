@@ -18,6 +18,10 @@ public abstract class Action {
         return this.user;
     }
 
+    public boolean hasUser(Pokemon pokemon) {
+        return user == pokemon;
+    }
+
     protected Void takeAction(Field field) {
         if (field.isAllowed(this, messages)) {
             action(field);
