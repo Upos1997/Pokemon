@@ -1,51 +1,47 @@
 package modifier;
 
+import java.util.function.BiFunction;
 import java.util.function.Function;
 
-import action.ActionMove;
 import field.Field;
-import moves.moveLogic.Move;
+import pokemon.Pokemon;
 
 public class Modifier {
-    public Modifier(MessageModifier message, Float modifier, Function<ActionMove, Boolean> check){
+    public Modifier(MessageModifier message, Float modifier) {
         this.message = message;
         this.modifier = modifier;
-        this.check = check;
     }
+
     private MessageModifier message;
     private Float modifier;
-    private Field field;
-    private Function<ActionMove, Boolean> check;
-    private Boolean singleUse = false;
+    protected Function<Field, Boolean> moveCheck = (field) -> {
+        return false;
+    };
+    protected BiFunction<Field, Pokemon, Boolean> statCheck = (field, pokemon) -> {
+        return false;
+    };
 
-    public Boolean check(ActionMove move){
-        return check.apply(move);
-    }
-
-    public float getmodifier(){
-        if (singleUse){
-            remove();
-        }
+    public float getmodifier() {
         return modifier;
     }
 
-    public MessageModifier getMessage(){
+    public MessageModifier getMessage() {
         return message;
     }
 
-    public Boolean remove(){
-        this.field = null;
-        return field.removeModifier(this);
-    };
-
-    public Boolean add(Field field){
-        this.field = field;
-        return field.addModifier(this);
+    public Function<Field, Boolean> getMoveCheck() {
+        return moveCheck;
     }
 
-    public Boolean makeSingleUse(){
-        return this.singleUse = true;
+    public BiFunction<Field, Pokemon, Boolean> getStatCheck() {
+        return statCheck;
     }
 
-    static final public Function<Move, Boolean> noCheck = (move) -> {return true;};
+    public boolean moveCheck(Field field) {
+        return moveCheck.apply(field);
+    }
+
+    public boolean statCheck(Field field, Pokemon pokemon) {
+        return statCheck.apply(field, pokemon);
+    }
 }

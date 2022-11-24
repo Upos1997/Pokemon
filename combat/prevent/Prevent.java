@@ -20,4 +20,8 @@ public abstract class Prevent {
         return preventCheck.apply(field, prevent);
     }
 
+    public MessagePrevent getMessage() {
+        return null;
+    }
+
 }

@@ -32,18 +32,22 @@ public class Pokemon {
     int specialDefense;
     int speed;
 
-    int attackStage = 0;
-    int defenseStage = 0;
-    int specialAttackStage = 0;
-    int specialDefenseStage = 0;
-    int speedStage = 0;
-    int accuracyStage = 0;
-    int evasionStage = 0;
-
-    Move move1;
-    Move move2;
-    Move move3;
-    Move move4;
+    public int getStat(Stat stat) {
+        switch (stat) {
+            case ATTACK:
+                return attack;
+            case DEFENSE:
+                return defense;
+            case SPECIAL_ATTACK:
+                return specialAttack;
+            case SPECIAL_DEFENSE:
+                return specialDefense;
+            case SPEED:
+                return speed;
+            default:
+                return 0;
+        }
+    }
 
     float calcBase(int baseStat) {
         return ((2 * baseStat) * level / 100) + 5;
@@ -69,6 +73,36 @@ public class Pokemon {
 
     public void changeHp(int amount) {
         this.hpCurrent = Math.min(Math.max(hpCurrent + amount, 0), hpMax);
+    }
+
+    int attackStage = 0;
+    int defenseStage = 0;
+    int specialAttackStage = 0;
+    int specialDefenseStage = 0;
+    int speedStage = 0;
+    int accuracyStage = 0;
+    int evasionStage = 0;
+
+    public int getStage(Stat stat) {
+        switch (stat) {
+            case ATTACK:
+                return attackStage;
+            case DEFENSE:
+                return defenseStage;
+            case SPECIAL_ATTACK:
+                return specialAttackStage;
+            case SPECIAL_DEFENSE:
+                return specialDefenseStage;
+            case SPEED:
+                return speedStage;
+            case ACCURACY:
+                return accuracyStage;
+            case EVASION:
+                return evasionStage;
+            default:
+                return 0;
+
+        }
     }
 
     void updateStages(Stat stat, int stages, Function<Integer, Integer> update) {
@@ -106,6 +140,62 @@ public class Pokemon {
         updateStages(stat, stages, function);
     }
 
+    double attackMod = 1;
+    double defenseMod = 1;
+    double specialAttackMod = 1;
+    double specialDefenseMod = 1;
+    double speedMod = 1;
+    double accuracyMod = 1;
+    double evasionMod = 1;
+
+    public double getMod(Stat stat) {
+        switch (stat) {
+            case ATTACK:
+                return attackMod;
+            case DEFENSE:
+                return defenseMod;
+            case SPECIAL_ATTACK:
+                return specialAttackMod;
+            case SPECIAL_DEFENSE:
+                return specialDefenseMod;
+            case SPEED:
+                return speedMod;
+            case ACCURACY:
+                return accuracyMod;
+            case EVASION:
+                return evasionMod;
+            default:
+                return 1;
+
+        }
+    }
+
+    public void updateMod(Stat stat, float mod) {
+        switch (stat) {
+            case ATTACK:
+                attackMod *= mod;
+            case DEFENSE:
+                defenseMod *= mod;
+            case SPECIAL_ATTACK:
+                specialAttackMod *= mod;
+            case SPECIAL_DEFENSE:
+                specialDefenseMod *= mod;
+            case SPEED:
+                speedMod *= mod;
+            case ACCURACY:
+                accuracyMod *= mod;
+            case EVASION:
+                evasionMod *= mod;
+            default:
+                break;
+        }
+    }
+
+    Move move1;
+    Move move2;
+    Move move3;
+    Move move4;
+
     public void setStatus(Status new_status) {
         if (status == Status.ok) {
             status = new_status;
@@ -116,47 +206,8 @@ public class Pokemon {
         return species.getTypes();
     }
 
-    public int getStat(Stat stat) {
-        switch (stat) {
-            case ATTACK:
-                return attack;
-            case DEFENSE:
-                return defense;
-            case SPECIAL_ATTACK:
-                return specialAttack;
-            case SPECIAL_DEFENSE:
-                return specialDefense;
-            case SPEED:
-                return speed;
-            default:
-                return 0;
-        }
-    }
-
-    public int getStage(Stat stat) {
-        switch (stat) {
-            case ACCURACY:
-                return accuracyStage;
-            case ATTACK:
-                return attackStage;
-            case DEFENSE:
-                return defenseStage;
-            case EVASION:
-                return evasionStage;
-            case SPECIAL_ATTACK:
-                return specialAttackStage;
-            case SPECIAL_DEFENSE:
-                return specialDefenseStage;
-            case SPEED:
-                return speedStage;
-            default:
-                return 0;
-
-        }
-    }
-
     public int getAdjustedStat(Stat stat) {
-        return (int) (getStage(stat) * Stat.getMod(getStage(stat)));
+        return (int) (getStage(stat) * Stat.getMod(getStage(stat)) * getMod(stat));
     }
 
     public boolean isBelow(float treshold) {
