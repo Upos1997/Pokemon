@@ -9,20 +9,18 @@ import modifier.Modifier;
 import modifier.ModifierMove;
 import pokemon.Pokemon;
 
-public class Burn extends Status {
-    static private double damageMod = 0.5;
-    static private double burnDamage = 1 / 16;
-    static private Modifier damageReduction = new ModifierMove(MessageModifier.POWER, damageMod, (field) -> {
+public class Frostbite extends Status {
+    static private Modifier damageReduction = new ModifierMove(MessageModifier.POWER, 0.5f, (field) -> {
         ActionMove action = (ActionMove) field.getCurrentAction();
         Pokemon user = action.getUser();
-        return user.hasStatus(StatusName.BURN) && action.isPhysical();
+        return user.hasStatus(StatusName.FROSTBITE) && action.isSpecial();
     });
     private Reaction eotDamage = new Reaction(pokemon, Reaction.noCheck, (field) -> {
-        int damage = (int) (pokemon.getHpMax() * -burnDamage);
+        int damage = pokemon.getHpMax() / -16;
         pokemon.changeHp(damage);
         return null;
     });
 
-    static protected List<Modifier> modifiers = List.of(damageReduction);
+    protected List<Modifier> modifiers = List.of(damageReduction);
     protected List<Reaction> reactions = List.of(eotDamage);
 }

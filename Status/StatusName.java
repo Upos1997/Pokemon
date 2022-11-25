@@ -4,12 +4,12 @@ import pokemon.Pokemon;
 
 public enum StatusName {
     BURN(new Burn()),
-    FROSTBITE,
-    paralysis,
-    poisoned,
-    badly_poisoned,
-    fainted,
-    drowsy,
+    FROSTBITE(new Frostbite()),
+    PARALYSIS(new Paralysis()),
+    POISONED(new Poisoned()),
+    BADLY_POISONED(new BadlyPoisoned()),
+    FAINTED(new Status()),
+    DROWSY(new Drowsy()),
     OK(new Status());
 
     StatusName(Status status) {

@@ -5,11 +5,13 @@ import java.util.function.Function;
 
 import field.Field;
 
-public abstract class Prevent {
-    Prevent(Function<Field, Boolean> check) {
+public class Prevent {
+    public Prevent(MessagePrevent message, Function<Field, Boolean> check) {
         this.check = check;
+        this.message = message;
     }
 
+    MessagePrevent message;
     Function<Field, Boolean> check;
     BiFunction<Field, Prevent, Boolean> preventCheck = (field, prevent) -> {
         return false;

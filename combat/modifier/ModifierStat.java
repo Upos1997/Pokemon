@@ -7,7 +7,7 @@ import pokemon.Pokemon;
 
 public class ModifierStat extends Modifier {
 
-    public ModifierStat(MessageModifier message, Float modifier, BiFunction<Field, Pokemon, Boolean> check) {
+    public ModifierStat(MessageModifier message, double modifier, BiFunction<Field, Pokemon, Boolean> check) {
         super(message, modifier);
         this.statCheck = check;
     }

@@ -7,13 +7,13 @@ import field.Field;
 import pokemon.Pokemon;
 
 public class Modifier {
-    public Modifier(MessageModifier message, Float modifier) {
+    public Modifier(MessageModifier message, double modifier) {
         this.message = message;
         this.modifier = modifier;
     }
 
     private MessageModifier message;
-    private Float modifier;
+    private double modifier;
     protected Function<Field, Boolean> moveCheck = (field) -> {
         return false;
     };
@@ -21,7 +21,7 @@ public class Modifier {
         return false;
     };
 
-    public float getmodifier() {
+    public double getmodifier() {
         return modifier;
     }
 

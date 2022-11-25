@@ -68,6 +68,8 @@ public abstract class Move implements Cloneable {
                     drain = update.apply(drain);
                 case POWER:
                     damageModifier = update.apply(damageModifier);
+                default:
+                    break;
             }
         }
     }
