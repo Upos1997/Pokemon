@@ -15,6 +15,9 @@ public class Reaction extends Action {
     MessageAction message;
     Function<Field, Boolean> check;
     Function<Field, Void> action;
+    public static Function<Field, Boolean> noCheck = (field) -> {
+        return true;
+    };
 
     public MessageAction getMessage() {
         return message;

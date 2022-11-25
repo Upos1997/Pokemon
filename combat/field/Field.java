@@ -119,7 +119,7 @@ public class Field {
 
     public Boolean isAllowed(Action action, MessagePrevent message) {
         return !prevents.get(message).stream().filter(prevent -> {
-            return prevent.check(this, action);
+            return prevent.check(this);
         }).filter(prevent -> {
             return isPreventAllowed(prevent);
         }).findAny().isPresent();

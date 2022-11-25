@@ -25,6 +25,18 @@ public class ActionMove extends Action {
         return super.takeAction(field);
     }
 
+    public boolean isStatus() {
+        return move.isStatus();
+    }
+
+    public boolean isPhysical() {
+        return move.isPhysical();
+    }
+
+    public boolean isSpecial() {
+        return move.isSpecial();
+    }
+
     public boolean isType(Type type) {
         return move.isType(type);
     }

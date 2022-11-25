@@ -3,8 +3,9 @@ package pokemon;
 import java.util.List;
 import java.util.function.Function;
 
+import Status.Status;
+import Status.StatusName;
 import ability.abilityLogic.Ability;
-import enums.Status;
 import moves.moveLogic.Move;
 
 public class Pokemon {
@@ -17,12 +18,47 @@ public class Pokemon {
         hpCurrent = hpMax;
     }
 
-    public Species species;
-    public int level;
-    public Ability ability;
-    Nature nature;
-    Gender gender;
-    Status status;
+    protected Species species;
+    protected int level;
+    protected long xp;
+    protected Ability ability;
+    protected Nature nature;
+    protected Gender gender;
+    protected Status status;
+
+    public int getLevel() {
+        return level;
+    }
+
+    public long getXp() {
+        return xp;
+    }
+
+    public void gainXp(long amount) {
+        xp += amount;
+    }
+
+    public Ability getAbility() {
+        return ability;
+    }
+
+    public Nature getNature() {
+        return nature;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status newStatus) {
+        if (hasStatus(StatusName.OK)) {
+            status = newStatus;
+        }
+    }
 
     public int hpCurrent;
     public int hpMax;
@@ -31,6 +67,14 @@ public class Pokemon {
     int specialAttack;
     int specialDefense;
     int speed;
+
+    public int getHpCurrent() {
+        return hpCurrent;
+    }
+
+    public int getHpMax() {
+        return hpMax;
+    }
 
     public int getStat(Stat stat) {
         switch (stat) {
@@ -196,12 +240,6 @@ public class Pokemon {
     Move move3;
     Move move4;
 
-    public void setStatus(Status new_status) {
-        if (status == Status.ok) {
-            status = new_status;
-        }
-    }
-
     public List<Type> getTypes() {
         return species.getTypes();
     }
@@ -212,5 +250,13 @@ public class Pokemon {
 
     public boolean isBelow(float treshold) {
         return hpCurrent < hpMax * treshold;
+    }
+
+    public boolean hasStatus(StatusName status) {
+        return status.isSame(this.status);
+    }
+
+    public boolean hasType(Type type) {
+        return getTypes().contains(type);
     }
 }
