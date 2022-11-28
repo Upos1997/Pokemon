@@ -2,8 +2,8 @@ package Status;
 
 import java.util.List;
 
-import action.ActionMove;
 import action.Reaction;
+import action.actionLogic.ActionMove;
 import modifier.MessageModifier;
 import modifier.Modifier;
 import modifier.ModifierMove;

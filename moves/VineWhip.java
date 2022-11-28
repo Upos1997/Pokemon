@@ -7,7 +7,7 @@ import moves.moveLogic.MovePhysical;
 import pokemon.Pokemon;
 import pokemon.Type;
 
-public class VineWhip extends MovePhysical{
+public class VineWhip extends MovePhysical {
 
     static List<Type> types = List.of(Type.GRASS);
     static int ppMax = 25;
@@ -15,7 +15,7 @@ public class VineWhip extends MovePhysical{
 
     @Override
     protected void onHit(Field field, Pokemon user, Pokemon target) {
-        dealDamage(field, user, target);  
+        calcDamage(field, user, target);
     }
-    
+
 }

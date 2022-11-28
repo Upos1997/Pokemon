@@ -1,6 +1,6 @@
 package prevent;
 
 public enum MessagePrevent {
-    PREVENT, MOVE
+    PREVENT, MOVE, LOWER_ATTACK, SWITCH
 
 }

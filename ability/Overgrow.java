@@ -1,8 +1,8 @@
 package ability;
 
 import ability.abilityLogic.AbilityModifier;
-import action.Action;
-import action.ActionMove;
+import action.actionLogic.Action;
+import action.actionLogic.ActionMove;
 import modifier.MessageModifier;
 import modifier.Modifier;
 import modifier.ModifierMove;

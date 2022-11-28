@@ -1,23 +1,20 @@
 package modifier;
 
-import java.util.function.BiFunction;
 import java.util.function.Function;
 
 import field.Field;
-import pokemon.Pokemon;
 
 public class Modifier {
-    public Modifier(MessageModifier message, double modifier) {
+    public Modifier(MessageModifier message, double modifier, Function<Field, Boolean> check) {
         this.message = message;
         this.modifier = modifier;
+        this.check = check;
     }
 
     private MessageModifier message;
     private double modifier;
-    protected Function<Field, Boolean> moveCheck = (field) -> {
-        return false;
-    };
-    protected BiFunction<Field, Pokemon, Boolean> statCheck = (field, pokemon) -> {
+    protected Function<Field, Boolean> check;
+    public static Function<Field, Boolean> noCheck = (field) -> {
         return false;
     };
 
@@ -29,19 +26,7 @@ public class Modifier {
         return message;
     }
 
-    public Function<Field, Boolean> getMoveCheck() {
-        return moveCheck;
-    }
-
-    public BiFunction<Field, Pokemon, Boolean> getStatCheck() {
-        return statCheck;
-    }
-
-    public boolean moveCheck(Field field) {
-        return moveCheck.apply(field);
-    }
-
-    public boolean statCheck(Field field, Pokemon pokemon) {
-        return statCheck.apply(field, pokemon);
+    public boolean check(Field field) {
+        return check.apply(field);
     }
 }

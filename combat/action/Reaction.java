@@ -2,11 +2,13 @@ package action;
 
 import java.util.function.Function;
 
+import action.actionLogic.Action;
+import action.actionLogic.MessageAction;
 import field.Field;
 import pokemon.Pokemon;
 
 public class Reaction extends Action {
-    public Reaction(Pokemon user, Function<Field, Boolean> check, Function<Field, Void> action) {
+    public Reaction(Pokemon user, Function<Field, Boolean> check, Function<Field, Boolean> action) {
         super(user);
         this.check = check;
         this.action = action;
@@ -14,7 +16,7 @@ public class Reaction extends Action {
 
     MessageAction message;
     Function<Field, Boolean> check;
-    Function<Field, Void> action;
+    Function<Field, Boolean> action;
     public static Function<Field, Boolean> noCheck = (field) -> {
         return true;
     };

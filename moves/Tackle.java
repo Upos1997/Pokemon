@@ -14,10 +14,9 @@ public class Tackle extends MovePhysical {
     static int ppMax = 35;
     int ppCurrent = 35;
 
-
     @Override
     protected void onHit(Field field, Pokemon user, Pokemon target) {
-        dealDamage(field, user, target);
+        calcDamage(field, user, target);
     }
-    
+
 }

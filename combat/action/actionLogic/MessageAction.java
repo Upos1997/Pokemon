@@ -1,4 +1,4 @@
-package action;
+package action.actionLogic;
 
 public enum MessageAction {
     BEFORE_SWITCH, AFTER_SWITCH, ROUND_END, TERRAIN_STOPPED, TERRAIN_STARTED, WEATHER_STARTED, WEATHER_STOPPED,

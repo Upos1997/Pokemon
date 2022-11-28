@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import action.Action;
-import action.MessageAction;
 import action.Reaction;
+import action.actionLogic.Action;
+import action.actionLogic.MessageAction;
 import enums.Terrain;
 import enums.Weather;
 import modifier.MessageModifier;
@@ -29,6 +29,10 @@ public class Field {
         return currentAction;
     }
 
+    public void setCurrentAction(Action newAction) {
+        currentAction = newAction;
+    }
+
     Weather weather = Weather.CLEAR_SKIES;
     Terrain terrain = Terrain.NONE;
 
@@ -36,8 +40,24 @@ public class Field {
         return weather;
     }
 
+    public void setWeather(Weather newWeather) {
+        if (!newWeather.equals(weather)) {
+            handleReactions(MessageAction.WEATHER_STOPPED);
+            weather = newWeather;
+            handleReactions(MessageAction.WEATHER_STARTED);
+        }
+    }
+
     public Terrain getTerrain() {
         return terrain;
+    }
+
+    public void setTerrain(Terrain newTerrain) {
+        if (!newTerrain.equals(terrain)) {
+            handleReactions(MessageAction.TERRAIN_STOPPED);
+            terrain = newTerrain;
+            handleReactions(MessageAction.TERRAIN_STARTED);
+        }
     }
 
     Map<MessageAction, List<Reaction>> reactions = new HashMap<>();
@@ -102,18 +122,8 @@ public class Field {
     }
 
     public List<Modifier> getModifiers(MessageModifier message) {
-        return this.modifiers.get(message);
-    }
-
-    public List<Modifier> getMoveModifiers(MessageModifier message) {
-        return getModifiers(message).stream().filter(modifier -> {
-            return modifier.moveCheck(this);
-        }).collect(Collectors.toList());
-    }
-
-    public List<Modifier> getStatModifiers(MessageModifier message, Pokemon pokemon) {
-        return getModifiers(message).stream().filter(modifier -> {
-            return modifier.statCheck(this, pokemon);
+        return this.modifiers.get(message).stream().filter(modifier -> {
+            return modifier.check(this);
         }).collect(Collectors.toList());
     }
 
