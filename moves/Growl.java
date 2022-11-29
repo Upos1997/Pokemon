@@ -1,15 +1,13 @@
 package moves;
 
 import java.util.List;
-import java.util.function.BiFunction;
 
+import action.ActionStatChange;
 import action.actionLogic.Action;
-import field.Field;
 import moves.moveLogic.moveStatus;
 import pokemon.Pokemon;
 import pokemon.Stat;
 import pokemon.Type;
-import prevent.MessagePrevent;
 
 public class Growl extends moveStatus {
 
@@ -18,12 +16,9 @@ public class Growl extends moveStatus {
     int ppCurrent = 40;
 
     @Override
-    protected BiFunction<Field, Action, Void> makeFunction(Pokemon user, Pokemon target) {
-        return (field, action) -> {
-            if (field.isAllowed(action, MessagePrevent.LOWER_ATTACK)) {
-                target.lowered(Stat.ATTACK, 1);
-            }
-            return null;
-        };
+    protected List<Action> makeActions(Pokemon user, Pokemon target) {
+        Action lowerAttack = new ActionStatChange(user, this, target, Stat.ATTACK, -1);
+        return List.of(lowerAttack);
     }
+
 }

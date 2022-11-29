@@ -12,20 +12,16 @@ import prevent.MessagePrevent;
 public class MoveAction extends Action {
 
     public MoveAction(Pokemon user, Move move, Pokemon target, List<MessagePrevent> messages) {
-        super(user);
-        this.move = move;
-        this.target = target;
+        super(user, move, target);
         this.messages = messages;
     }
-
-    private Move move;
-    private Pokemon target;
 
     private List<Type> additionalTypes = Collections.emptyList();
     private Type overwriteType = null;
 
-    public Move getMove() {
-        return move;
+    @Override
+    public Move getSource() {
+        return (Move) source;
     }
 
     public Pokemon getTarget() {
@@ -35,7 +31,7 @@ public class MoveAction extends Action {
     public List<Type> getTypes() {
         List<Type> result = Collections.emptyList();
         if (!overwriteType.equals(null)) {
-            result.addAll(move.getTypes());
+            result.addAll(getSource().getTypes());
             result.addAll(additionalTypes);
         } else {
             result.add(overwriteType);
@@ -43,24 +39,12 @@ public class MoveAction extends Action {
         return result;
     }
 
-    public boolean isStatus() {
-        return move.isStatus();
-    }
-
-    public boolean isPhysical() {
-        return move.isPhysical();
-    }
-
-    public boolean isSpecial() {
-        return move.isSpecial();
-    }
-
     public boolean isType(Type type) {
-        return move.isType(type);
+        return getTypes().contains(type);
     }
 
     @Override
-    boolean action(Field field) {
-        return false;
+    protected boolean action(Field field) {
+        return true;
     }
 }

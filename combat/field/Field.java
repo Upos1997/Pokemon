@@ -4,7 +4,9 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import action.Reaction;
 import action.actionLogic.Action;
@@ -121,10 +123,17 @@ public class Field {
         }
     }
 
+    private Stream<Modifier> filterModifiers(MessageModifier message) {
+        Predicate<Modifier> filter = modifier -> modifier.check(this);
+        return this.modifiers.get(message).stream().filter(filter);
+    }
+
     public List<Modifier> getModifiers(MessageModifier message) {
-        return this.modifiers.get(message).stream().filter(modifier -> {
-            return modifier.check(this);
-        }).collect(Collectors.toList());
+        return filterModifiers(message).collect(Collectors.toList());
+    }
+
+    public boolean hasModifier(MessageModifier message) {
+        return filterModifiers(message).findAny().isPresent();
     }
 
     public Boolean isAllowed(Action action, MessagePrevent message) {

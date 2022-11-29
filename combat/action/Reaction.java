@@ -8,8 +8,9 @@ import field.Field;
 import pokemon.Pokemon;
 
 public class Reaction extends Action {
-    public Reaction(Pokemon user, Function<Field, Boolean> check, Function<Field, Boolean> action) {
-        super(user);
+    public Reaction(Pokemon user, Object source, Pokemon target, Function<Field, Boolean> check,
+            Function<Field, Boolean> action) {
+        super(user, source, target);
         this.check = check;
         this.action = action;
     }
@@ -30,8 +31,7 @@ public class Reaction extends Action {
     }
 
     @Override
-    Void action(Field field) {
-        action.apply(field);
-        return null;
+    protected boolean action(Field field) {
+        return action.apply(field);
     }
 }

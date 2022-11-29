@@ -1,11 +1,9 @@
 package moves.moveLogic;
 
 import java.util.List;
-import java.util.function.BiFunction;
 
+import action.ActionHit;
 import action.actionLogic.Action;
-import action.actionLogic.ActionMove;
-import action.actionLogic.MoveAction;
 import field.Field;
 import field.Slot;
 import pokemon.Pokemon;
@@ -18,7 +16,6 @@ public abstract class Move implements Cloneable {
     static protected double accuracy = 1;
     static protected int ppMax;
     static protected int ppCurrent = ppMax;
-    static protected int power;
     static protected int priority = 0;
 
     public List<Type> getTypes() {
@@ -31,10 +28,6 @@ public abstract class Move implements Cloneable {
 
     public double getAccuracy() {
         return accuracy;
-    }
-
-    public int getPower() {
-        return power;
     }
 
     public int getPriority() {
@@ -59,8 +52,8 @@ public abstract class Move implements Cloneable {
 
     public void use(Field field, Pokemon user, List<Pokemon> targets) {
         for (Pokemon target : targets) {
-            List<MoveAction> actions = makeActions(user, target);
-            for (MoveAction action : actions) {
+            List<Action> actions = makeActions(user, target);
+            for (Action action : actions) {
                 field.setCurrentAction(action);
                 action.takeAction(field);
             }
@@ -71,7 +64,11 @@ public abstract class Move implements Cloneable {
         ppCurrent = ppMax;
     }
 
-    abstract protected List<MoveAction> makeActions(Pokemon user, Pokemon target);
+    abstract protected List<Action> makeActions(Pokemon user, Pokemon target);
+
+    protected Action toHit(Pokemon user, Pokemon target) {
+        return new ActionHit(user, this, target);
+    }
 
     @Override
     public Move clone() {
@@ -95,10 +92,6 @@ public abstract class Move implements Cloneable {
         return false;
     }
 
-    public boolean isType(Type type) {
-        return getTypes().contains(type);
-    }
-
     public boolean isStatus() {
         return false;
     }
@@ -108,6 +101,26 @@ public abstract class Move implements Cloneable {
     }
 
     public boolean isSpecial() {
+        return false;
+    }
+
+    public boolean isSound() {
+        return false;
+    }
+
+    public boolean isBullet() {
+        return false;
+    }
+
+    public boolean isPowder() {
+        return false;
+    }
+
+    public boolean isPunch() {
+        return false;
+    }
+
+    public boolean isBite() {
         return false;
     }
 }

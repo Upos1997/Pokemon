@@ -2,7 +2,7 @@ package moves;
 
 import java.util.List;
 
-import field.Field;
+import action.actionLogic.Action;
 import moves.moveLogic.MovePhysical;
 import pokemon.Pokemon;
 import pokemon.Type;
@@ -15,8 +15,8 @@ public class Tackle extends MovePhysical {
     int ppCurrent = 35;
 
     @Override
-    protected void onHit(Field field, Pokemon user, Pokemon target) {
-        calcDamage(field, user, target);
+    protected List<Action> makeActions(Pokemon user, Pokemon target) {
+
     }
 
 }

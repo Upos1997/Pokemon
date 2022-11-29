@@ -16,7 +16,7 @@ public class SwitchAction extends MoveAction {
     Pokemon target;
 
     @Override
-    boolean action(Field field) {
+    protected boolean action(Field field) {
         field.handleReactions(MessageAction.BEFORE_SWITCH);
         field.getSlot(user).switchOut(target);
         field.handleReactions(MessageAction.AFTER_SWITCH);
