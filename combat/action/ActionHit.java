@@ -2,35 +2,36 @@ package action;
 
 import java.util.List;
 
-import action.actionLogic.MoveAction;
+import action.actionLogic.Action;
 import field.Field;
 import helper.Rng;
 import modifier.MessageModifier;
-import modifier.Modifier;
 import moves.moveLogic.Move;
 import pokemon.Pokemon;
 import pokemon.Stat;
 import prevent.MessagePrevent;
 
-public class ActionHit extends MoveAction {
+public class ActionHit extends Action {
 
     public ActionHit(Pokemon user, Move move, Pokemon target) {
-        super(user, move, target, List.of(MessagePrevent.HIT));
+        super(user, move, target);
     }
 
-    private double accuracyMod = Stat.getAccMod(user.getStage(Stat.ACCURACY), target.getStage(Stat.EVASION));
-    private double accuracy = getSource().getAccuracy();
+    @Override
+    public Move getSource() {
+        return (Move) source;
+    }
+
+    static List<MessagePrevent> messages = List.of(MessagePrevent.HIT);
 
     @Override
     protected boolean action(Field field) {
-        if (field.hasModifier(MessageModifier.AUTO_MISS)) {
-            return false;
-        } else if (getSource().isAutoHit() || field.hasModifier(MessageModifier.AUTO_HIT)) {
+        Move move = getSource();
+        if (move.isAutoHit() || field.hasModifier(MessageModifier.AUTO_HIT)) {
             return true;
         } else {
-            for (Modifier modifier : field.getModifiers(MessageModifier.ACCURACY)) {
-                accuracy *= modifier.getmodifier();
-            }
+            double accuracyMod = Stat.getAccMod(user.getStage(Stat.ACCURACY), target.getStage(Stat.EVASION));
+            double accuracy = doubleAdjustedValue(field, move.getAccuracy(), MessageModifier.ACCURACY);
             return Rng.chance(accuracy * accuracyMod);
         }
     }

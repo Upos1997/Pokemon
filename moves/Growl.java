@@ -13,7 +13,6 @@ public class Growl extends moveStatus {
 
     List<Type> types = List.of(Type.NORMAL);
     int ppMax = 40;
-    int ppCurrent = 40;
 
     @Override
     protected List<Action> makeActions(Pokemon user, Pokemon target) {

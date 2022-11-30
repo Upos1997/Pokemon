@@ -1,11 +1,11 @@
 package modifier;
 
-import java.util.function.Function;
+import java.util.function.Predicate;
 
 import field.Field;
 
 public class Modifier {
-    public Modifier(MessageModifier message, double modifier, Function<Field, Boolean> check) {
+    public Modifier(MessageModifier message, double modifier, Predicate<Field> check) {
         this.message = message;
         this.modifier = modifier;
         this.check = check;
@@ -13,10 +13,8 @@ public class Modifier {
 
     private MessageModifier message;
     private double modifier;
-    protected Function<Field, Boolean> check;
-    public static Function<Field, Boolean> noCheck = (field) -> {
-        return false;
-    };
+    protected Predicate<Field> check;
+    public static Predicate<Field> noCheck = (field) -> true;
 
     public double getmodifier() {
         return modifier;
@@ -27,6 +25,6 @@ public class Modifier {
     }
 
     public boolean check(Field field) {
-        return check.apply(field);
+        return check.test(field);
     }
 }

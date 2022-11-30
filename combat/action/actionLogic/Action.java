@@ -4,7 +4,11 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import field.Field;
+import modifier.MessageModifier;
+import modifier.Modifier;
+import modifier.ModifierType;
 import pokemon.Pokemon;
+import pokemon.Type;
 import prevent.MessagePrevent;
 
 public abstract class Action {
@@ -31,7 +35,24 @@ public abstract class Action {
         return target;
     }
 
-    protected boolean isAllowed(Field field) {
+    public double doubleAdjustedValue(Field field, double baseValue, MessageModifier message) {
+        double result = baseValue;
+        for (Modifier modifier : field.getModifiers(message)) {
+            result *= modifier.getmodifier();
+        }
+        return result;
+    }
+
+    public List<Type> typeAdjustedValue(Field field, List<Type> baseValue, MessageModifier message) {
+        List<Type> result = baseValue;
+        for (Modifier modifier : field.getModifiers(message)) {
+            ModifierType _modifier = (ModifierType) modifier;
+            result = List.of(_modifier.getModifier());
+        }
+        return result;
+    }
+
+    public boolean isAllowed(Field field) {
         Predicate<MessagePrevent> filter = message -> field.isAllowed(this, message);
         return !messages.stream().filter(filter).findAny().isPresent();
     }

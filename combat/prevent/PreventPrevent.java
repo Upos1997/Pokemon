@@ -6,9 +6,7 @@ import field.Field;
 
 public class PreventPrevent extends Prevent {
     PreventPrevent(BiFunction<Field, Prevent, Boolean> preventCheck) {
-        super(MessagePrevent.PREVENT, (field) -> {
-            return false;
-        });
+        super(MessagePrevent.PREVENT, (field) -> false);
         this.preventCheck = preventCheck;
     }
 

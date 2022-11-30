@@ -1,18 +1,17 @@
 package ability;
 
 import ability.abilityLogic.AbilityModifier;
+import action.MoveAction;
 import action.actionLogic.Action;
-import action.actionLogic.ActionMove;
 import modifier.MessageModifier;
 import modifier.Modifier;
-import modifier.ModifierMove;
 import pokemon.Type;
 
 public class Overgrow extends AbilityModifier {
-    Modifier modifier = new ModifierMove(MessageModifier.POWER, 1.5f, (field) -> {
+    Modifier modifier = new Modifier(MessageModifier.ATTACK, 1.5f, (field) -> {
         Action action = field.getCurrentAction();
-        if (action.getClass() == ActionMove.class) {
-            ActionMove actionMove = (ActionMove) action;
+        if (action instanceof MoveAction) {
+            MoveAction actionMove = (MoveAction) action;
             return actionMove.hasUser(user) && actionMove.isType(Type.GRASS) && user.isBelow(1 / 3);
         } else
             return false;

@@ -1,6 +1,5 @@
 package ability.abilityLogic;
 
-import java.util.Collections;
 import java.util.List;
 
 import action.Reaction;
@@ -9,31 +8,19 @@ import modifier.Modifier;
 import pokemon.Pokemon;
 import prevent.Prevent;
 
-public abstract class Ability implements Cloneable{
-    private List<Modifier> modifiers = Collections.emptyList();
-    private List<Prevent> prevents = Collections.emptyList();
-    private List<Reaction> reactions = Collections.emptyList();
+public abstract class Ability implements Cloneable {
     protected Pokemon user;
 
-    public Ability newInstance(Pokemon user){
-        try {
-            Ability newAbility = (Ability) super.clone();
-            newAbility.user = user;
-            return newAbility;
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+    abstract public Ability newInstance(Pokemon user);
 
-    public void activate(Field field){
-        for (Modifier modifier: modifiers){
+    public void activate(Field field) {
+        for (Modifier modifier : modifiers) {
             field.addModifier(modifier);
         }
-        for (Prevent prevent: prevents){
+        for (Prevent prevent : prevents) {
             field.addPrevent(prevent);
         }
-        for (Reaction reaction: reactions){
+        for (Reaction reaction : reactions) {
             field.addReaction(reaction);
         }
     }

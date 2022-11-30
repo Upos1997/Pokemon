@@ -5,7 +5,6 @@ import java.util.List;
 import action.actionLogic.Action;
 import field.Field;
 import modifier.MessageModifier;
-import modifier.Modifier;
 import pokemon.Pokemon;
 import pokemon.Stat;
 import prevent.MessagePrevent;
@@ -32,9 +31,7 @@ public class ActionStatChange extends Action {
 
     @Override
     protected boolean action(Field field) {
-        for (Modifier modifier : field.getModifiers(MessageModifier.CHANGE_STAT)) {
-            stages *= modifier.getmodifier();
-        }
+        int stages = (int) doubleAdjustedValue(field, this.stages, MessageModifier.CHANGE_STAT);
         if (stages > 0) {
             target.wentUp(stat, stages);
         } else {

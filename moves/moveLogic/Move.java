@@ -2,8 +2,8 @@ package moves.moveLogic;
 
 import java.util.List;
 
-import action.ActionHit;
 import action.actionLogic.Action;
+import action.MoveAction;
 import field.Field;
 import field.Slot;
 import pokemon.Pokemon;
@@ -34,6 +34,10 @@ public abstract class Move implements Cloneable {
         return priority;
     }
 
+    public void recharge() {
+        ppCurrent = ppMax;
+    }
+
     static protected double critChance = 1 / 24;
     static protected double critDamage = 1.5;
     static protected double stab = 1.5;
@@ -50,25 +54,21 @@ public abstract class Move implements Cloneable {
         return stab;
     }
 
-    public void use(Field field, Pokemon user, List<Pokemon> targets) {
-        for (Pokemon target : targets) {
-            List<Action> actions = makeActions(user, target);
-            for (Action action : actions) {
+    public void use(Field field, Pokemon user, List<Pokemon> targets, Action type) {
+        if (makeMoveAction(field, user, user).isAllowed(field))
+            for (Pokemon target : targets) {
+                MoveAction action = makeMoveAction(field, user, target);
                 field.setCurrentAction(action);
                 action.takeAction(field);
             }
-        }
+
     }
 
-    public void recharge() {
-        ppCurrent = ppMax;
+    protected MoveAction makeMoveAction(Field field, Pokemon user, Pokemon target) {
+        return new MoveAction(field, user, this, target, makeActions(user, target));
     }
 
     abstract protected List<Action> makeActions(Pokemon user, Pokemon target);
-
-    protected Action toHit(Pokemon user, Pokemon target) {
-        return new ActionHit(user, this, target);
-    }
 
     @Override
     public Move clone() {
