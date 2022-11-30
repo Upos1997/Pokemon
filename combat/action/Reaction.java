@@ -8,7 +8,7 @@ import field.Field;
 import pokemon.Pokemon;
 
 public class Reaction extends Action {
-    public Reaction(Pokemon user, Object source, Pokemon target, Predicate<Field> check,
+    public Reaction(MessageAction message, Pokemon user, Object source, Pokemon target, Predicate<Field> check,
             Predicate<Field> action) {
         super(user, source, target);
         this.check = check;

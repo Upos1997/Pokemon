@@ -9,7 +9,7 @@ import ability.abilityLogic.Ability;
 import moves.moveLogic.Move;
 
 public class Pokemon {
-    Pokemon(Species species, int level) {
+    public Pokemon(Species species, int level) {
         this.species = species;
         this.level = level;
         this.nature = Nature.random();
@@ -259,4 +259,6 @@ public class Pokemon {
     public boolean hasType(Type type) {
         return getTypes().contains(type);
     }
+
+    static final public Pokemon emptyPokemon = new Pokemon(Species.BULBASAUR, 1);
 }

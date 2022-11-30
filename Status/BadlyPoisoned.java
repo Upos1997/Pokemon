@@ -10,7 +10,7 @@ public class BadlyPoisoned extends Status {
     }
 
     protected double poisonDamage = 1 / 16;
-    private Reaction eotDamage = new Reaction(pokemon, Reaction.noCheck, (field) -> {
+    private Reaction eotDamage = new Reaction(afflicted, Reaction.noCheck, (field) -> {
         pokemon.changeHp((int) (pokemon.getHpMax() * -poisonDamage));
         updatePoison();
         return null;
