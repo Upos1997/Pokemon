@@ -1,21 +1,13 @@
 package Status;
 
-import java.util.List;
-
-import action.Reaction;
 import field.Field;
-import modifier.Modifier;
+import helper.Static;
 import pokemon.Pokemon;
-import prevent.Prevent;
 
-abstract public class Status {
+abstract public class Status extends Static {
     Status(Pokemon afflicted) {
         this.afflicted = afflicted;
     }
-
-    protected List<Modifier> modifiers;
-    protected List<Prevent> prevents;
-    protected List<Reaction> reactions;
 
     protected Pokemon afflicted;
 
@@ -24,12 +16,10 @@ abstract public class Status {
     }
 
     public void switchOut(Field field) {
-        cure(field);
+        clearEffects(field);
     }
 
     abstract protected void afflict(Field field);
-
-    abstract protected void cure(Field field);
 
     abstract public Status getInstance(Pokemon pokemon);
 }

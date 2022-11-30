@@ -62,6 +62,7 @@ public abstract class Action {
     }
 
     public boolean takeAction(Field field) {
+        field.setCurrentAction(this);
         if (isAllowed(field)) {
             return action(field);
         } else

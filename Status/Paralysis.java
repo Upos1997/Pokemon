@@ -1,26 +1,41 @@
 package Status;
 
-import java.util.List;
+import java.util.function.Predicate;
 
+import field.Field;
 import helper.Rng;
-import modifier.MessageModifier;
-import modifier.Modifier;
-import modifier.ModifierStat;
 import pokemon.Pokemon;
+import pokemon.Stat;
 import prevent.MessagePrevent;
 import prevent.Prevent;
 
 public class Paralysis extends Status {
-    static private double speedMod = 0.5;
-    static private double movePreventOdds = 0.25;
-    static private Modifier speedReduction = new ModifierStat(MessageModifier.SPEED, speedMod, (field, pokemon) -> {
-        return pokemon.hasStatus(StatusName.PARALYSIS);
-    });
-    static private Prevent movePrevent = new Prevent(MessagePrevent.MOVE, (field) -> {
-        Pokemon user = field.getCurrentAction().getUser();
-        return user.hasStatus(StatusName.PARALYSIS) && Rng.chance(movePreventOdds);
-    });
+    Paralysis(Pokemon afflicted) {
+        super(afflicted);
+    }
 
-    static protected List<Modifier> modifiers = List.of(speedReduction);
-    static protected List<Prevent> prevents = List.of(movePrevent);
+    static private float speedMod = 0.5f;
+    static private float movePreventOdds = 0.25f;
+
+    @Override
+    protected void afflict(Field field) {
+        afflicted.updateMod(Stat.SPEED, speedMod);
+        Predicate<Field> predicate = _field -> {
+            Pokemon user = field.getCurrentAction().getUser();
+            return user.hasStatus(StatusName.PARALYSIS) && Rng.chance(movePreventOdds);
+        };
+        Prevent movePrevent = new Prevent(MessagePrevent.MOVE, predicate);
+        addPrevent(field, movePrevent);
+    }
+
+    @Override
+    public void switchIn(Field field) {
+        super.switchIn(field);
+        afflicted.updateMod(Stat.SPEED, 1 / speedMod);
+    }
+
+    @Override
+    public Paralysis getInstance(Pokemon pokemon) {
+        return new Paralysis(pokemon);
+    }
 }

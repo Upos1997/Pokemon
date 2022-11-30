@@ -3,14 +3,14 @@ package Status;
 import pokemon.Pokemon;
 
 public enum StatusName {
-    BURN(new Burn()),
-    FROSTBITE(new Frostbite()),
-    PARALYSIS(new Paralysis()),
-    POISONED(new Poisoned()),
-    BADLY_POISONED(new BadlyPoisoned()),
-    FAINTED(new Status()),
-    DROWSY(new Drowsy()),
-    OK(new Status());
+    BURN(new Burn(Pokemon.emptyPokemon)),
+    FROSTBITE(new Frostbite(Pokemon.emptyPokemon)),
+    PARALYSIS(new Paralysis(Pokemon.emptyPokemon)),
+    POISONED(new Poisoned(Pokemon.emptyPokemon)),
+    BADLY_POISONED(new BadlyPoisoned(Pokemon.emptyPokemon)),
+    FAINTED(new Fainted(Pokemon.emptyPokemon)),
+    DROWSY(new Drowsy(Pokemon.emptyPokemon)),
+    OK(new Ok(Pokemon.emptyPokemon));
 
     StatusName(Status status) {
         this.status = status;

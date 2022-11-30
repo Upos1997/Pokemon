@@ -1,26 +1,43 @@
 package Status;
 
-import java.util.List;
+import java.util.function.Predicate;
 
+import action.ActionStaticDamage;
+import action.MoveAction;
 import action.Reaction;
-import action.actionLogic.ActionMove;
+import action.actionLogic.MessageAction;
+import field.Field;
 import modifier.MessageModifier;
 import modifier.Modifier;
-import modifier.ModifierMove;
 import pokemon.Pokemon;
 
 public class Frostbite extends Status {
-    static private Modifier damageReduction = new ModifierMove(MessageModifier.POWER, 0.5f, (field) -> {
-        ActionMove action = (ActionMove) field.getCurrentAction();
-        Pokemon user = action.getUser();
-        return user.hasStatus(StatusName.FROSTBITE) && action.isSpecial();
-    });
-    private Reaction eotDamage = new Reaction(pokemon, Reaction.noCheck, (field) -> {
-        int damage = pokemon.getHpMax() / -16;
-        pokemon.changeHp(damage);
-        return null;
-    });
+    Frostbite(Pokemon afflicted) {
+        super(afflicted);
+    }
 
-    protected List<Modifier> modifiers = List.of(damageReduction);
-    protected List<Reaction> reactions = List.of(eotDamage);
+    static private float damageMod = 0.5f;
+    static private float frostDamage = 1 / 16;
+
+    @Override
+    protected void afflict(Field field) {
+        Predicate<Field> predicate = _field -> {
+            MoveAction action = (MoveAction) field.getCurrentAction();
+            return action.getUser().hasStatus(StatusName.FROSTBITE) && action.getSource().isSpecial();
+        };
+        Modifier damageReduction = new Modifier(MessageModifier.POWER, damageMod, predicate);
+        addModifier(field, damageReduction);
+        Predicate<Field> dealDamage = _field -> {
+            int damage = (int) (afflicted.getHpMax() * frostDamage * -1);
+            return new ActionStaticDamage(afflicted, this, afflicted, damage).takeAction(field);
+        };
+        Reaction eotDamage = new Reaction(MessageAction.ROUND_END, afflicted, this, afflicted, Reaction.noCheck,
+                dealDamage);
+        addReaction(field, eotDamage);
+    }
+
+    @Override
+    public Status getInstance(Pokemon pokemon) {
+        return new Frostbite(pokemon);
+    }
 }
