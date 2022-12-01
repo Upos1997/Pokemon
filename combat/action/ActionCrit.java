@@ -25,12 +25,7 @@ public class ActionCrit extends Action {
         if (field.hasModifier(MessageModifier.AUTO_CRIT)) {
             return true;
         } else {
-            if (field.hasModifier(MessageModifier.CRIT_CHANCE1)) {
-                critChance *= 4;
-            }
-            if (field.hasModifier(MessageModifier.CRIT_CHANCE2)) {
-                critChance *= 8;
-            }
+            critChance = doubleAdjustedValue(field, critChance, MessageModifier.CRIT_CHANCE);
             return Rng.chance(critChance);
         }
     }

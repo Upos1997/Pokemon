@@ -1,5 +1,6 @@
-package Status;
+package status;
 
+import field.Field;
 import pokemon.Pokemon;
 
 public class Poisoned extends BadlyPoisoned {
@@ -11,7 +12,12 @@ public class Poisoned extends BadlyPoisoned {
     protected void updatePoison() {
     }
 
-    static protected float poisonDamage = 1 / 8;
+    static protected float basePoisonDamage = 1 / 8;
+
+    @Override
+    public void switchOut(Field field) {
+        super.switchOut(field);
+    }
 
     @Override
     public Poisoned getInstance(Pokemon pokemon) {

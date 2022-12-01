@@ -1,4 +1,4 @@
-package enums;
+package terrain;
 
 public enum Terrain {
     ELECTRIC,

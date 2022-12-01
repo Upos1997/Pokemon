@@ -1,4 +1,4 @@
-package Status;
+package status;
 
 import java.util.function.Predicate;
 
@@ -13,10 +13,11 @@ public class BadlyPoisoned extends Status {
         super(afflicted);
     }
 
-    protected float poisonDamage = 1 / 16;
+    static protected float basePoisonDamage = 1 / 16;
+    protected float poisonDamage = basePoisonDamage;
 
     protected void updatePoison() {
-        poisonDamage += 1 / 16;
+        poisonDamage += basePoisonDamage;
     }
 
     @Override
@@ -31,6 +32,12 @@ public class BadlyPoisoned extends Status {
                 dealDamage);
         addReaction(field, eotDamage);
 
+    }
+
+    @Override
+    public void switchOut(Field field) {
+        super.switchOut(field);
+        poisonDamage = basePoisonDamage;
     }
 
     @Override

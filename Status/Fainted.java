@@ -1,4 +1,4 @@
-package Status;
+package status;
 
 import field.Field;
 import pokemon.Pokemon;

@@ -1,4 +1,4 @@
-package Status;
+package status;
 
 import field.Field;
 import helper.Static;
@@ -16,6 +16,10 @@ abstract public class Status extends Static {
     }
 
     public void switchOut(Field field) {
+        clearEffects(field);
+    }
+
+    protected void cure(Field field) {
         clearEffects(field);
     }
 

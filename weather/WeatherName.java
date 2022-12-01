@@ -1,6 +1,6 @@
-package enums;
+package weather;
 
-public enum Weather {
+public enum WeatherName {
     CLEAR_SKIES,
     SUN,
     HARSH_SUN,
@@ -8,7 +8,6 @@ public enum Weather {
     HEAVY_RAIN,
     SAND,
     HAIL,
-    SHADOW,
     FOG,
     WINDY;
 }

@@ -3,10 +3,10 @@ package pokemon;
 import java.util.List;
 import java.util.function.Function;
 
-import Status.Status;
-import Status.StatusName;
 import ability.abilityLogic.Ability;
 import moves.moveLogic.Move;
+import status.Status;
+import status.StatusName;
 
 public class Pokemon {
     public Pokemon(Species species, int level) {

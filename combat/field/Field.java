@@ -11,13 +11,13 @@ import java.util.stream.Stream;
 import action.Reaction;
 import action.actionLogic.Action;
 import action.actionLogic.MessageAction;
-import enums.Terrain;
-import enums.Weather;
 import modifier.MessageModifier;
 import modifier.Modifier;
 import pokemon.Pokemon;
 import prevent.MessagePrevent;
 import prevent.Prevent;
+import terrain.Terrain;
+import weather.WeatherName;
 
 public class Field {
     Slot allyPokemon = new Slot();
@@ -35,14 +35,14 @@ public class Field {
         currentAction = newAction;
     }
 
-    Weather weather = Weather.CLEAR_SKIES;
+    WeatherName weather = WeatherName.CLEAR_SKIES;
     Terrain terrain = Terrain.NONE;
 
-    public Weather getWeather() {
+    public WeatherName getWeather() {
         return weather;
     }
 
-    public void setWeather(Weather newWeather) {
+    public void setWeather(WeatherName newWeather) {
         if (!newWeather.equals(weather)) {
             handleReactions(MessageAction.WEATHER_STOPPED);
             weather = newWeather;

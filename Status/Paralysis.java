@@ -1,4 +1,4 @@
-package Status;
+package status;
 
 import java.util.function.Predicate;
 
@@ -29,8 +29,8 @@ public class Paralysis extends Status {
     }
 
     @Override
-    public void switchIn(Field field) {
-        super.switchIn(field);
+    public void cure(Field field) {
+        super.cure(field);
         afflicted.updateMod(Stat.SPEED, 1 / speedMod);
     }
 
