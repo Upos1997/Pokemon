@@ -3,46 +3,39 @@ package pokemon;
 import java.util.function.Function;
 
 public enum GrowthRate {
-    ERRATIC((level) -> {
-        if (level <= 50) {
-            return (long) Math.pow(level, 3) * (100 - level) / 50;
-        } else if (level <= 68) {
-            return (long) Math.pow(level, 3) * (150 - level) / 100;
-        } else if (level <= 98) {
-            return (long) Math.pow(level, 3) * (1911 - 10 * level) / 1500;
-        } else {
-            return (long) Math.pow(level, 3) * (160 - level) / 100;
-        }
-    }),
-    FAST((level -> {
-        return (long) Math.pow(level, 3) * 4 / 5;
-    })),
-    MEDIUM_FAST((level) -> {
-        return (long) Math.pow(level, 3);
-    }),
-    MEDIUM_SLOW((level) -> {
-        return (long) (6 / 5 * Math.pow(level, 3) - 15 * Math.pow(level, 2) + 100 * level - 140);
-    }),
-    SLOW((level) -> {
-        return (long) (5 * 4 * Math.pow(level, 3));
-    }),
-    FLUCTUATING((level) -> {
-        if (level <= 15) {
-            return (long) Math.pow(level, 3) * (((level + 1) / 3) + 24) / 50;
-        } else if (level <= 36) {
-            return (long) Math.pow(level, 3) * (level + 14) / 50;
-        } else {
-            return (long) Math.pow(level, 3) * (level / 2 + 32) / 50;
-        }
-    });
+    FAST(xp -> {
+        return (int) Math.pow(xp * 5 / 4, 1 / 3);
+    },
+            level -> {
+                return (long) Math.pow(level, 3) * 4 / 5;
+            }),
+    MEDIUM(xp -> {
+        return (int) Math.pow(xp, 1 / 3);
+    },
+            level -> {
+                return (long) Math.pow(level, 3);
+            }),
+    SLOW(xp -> {
+        return (int) Math.pow(4 / 5 * xp, 1 / 3);
+    },
+            level -> {
+                return (long) (5 / 4 * Math.pow(level, 3));
+            });
 
-    GrowthRate(Function<Long, Long> xp) {
-        this.xpToLevel = xp;
+    GrowthRate(Function<Long, Integer> xpToLevel, Function<Integer, Long> levelToXp) {
+        this.xpToLevel = xpToLevel;
+        this.levelToXp = levelToXp;
     }
 
-    private Function<Long, Long> xpToLevel;
+    private Function<Integer, Long> levelToXp;
+    private Function<Long, Integer> xpToLevel;
 
-    public long calcLevel(long xp) {
+    public int calcLevel(long xp) {
         return xpToLevel.apply(xp);
+    }
+
+    public long toNextLevel(int level, long xp) {
+        long nextLevel = levelToXp.apply(level + 1);
+        return nextLevel - xp;
     }
 }

@@ -1,17 +1,18 @@
 package pokemon;
 
 public enum EggGroup {
-    Amorphous,
-    Bug,
-    Dragon,
-    Fairy,
-    Field,
-    Flying,
-    Grass,
-    Human_Like,
-    Mineral,
-    Monster,
-    Water1,
-    Water2,
-    Water3
+    AMORPHOUS,
+    BUG,
+    DRAGON,
+    FAIRY,
+    FIELD,
+    FLYING,
+    GRASS,
+    HUMAN_LIKE,
+    MINERAL,
+    MONSTER,
+    WATER1,
+    WATER2,
+    WATER3,
+    DITTO;
 }

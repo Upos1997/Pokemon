@@ -1,43 +1,81 @@
 package pokemon;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public enum Type {
-        NORMAL(false),
-        FIRE(false),
-        WATER(false),
-        ELECTRIC(false),
-        GRASS(false),
-        ICE(false),
-        FIGHTING(false),
-        POISON(false),
-        GROUND(false),
-        FLYING(false),
-        PSYCHIC(false),
-        BUG(false),
-        ROCK(false),
-        GHOST(false),
-        DRAGON(false),
-        DARK(false),
-        STEEL(false),
-        FAIRY(true);
+import helper.Color;
 
-        Type(Boolean isLast) {
+public enum Type {
+        NORMAL("Normal", new Color(197, 192, 182), false),
+        FIRE("Fire", new Color(237, 63, 15), false),
+        WATER("Water", new Color(49, 145, 240), false),
+        ELECTRIC("Electric", new Color(253, 186, 24), false),
+        GRASS("Grass", new Color(102, 187, 43), false),
+        ICE("Ice", new Color(160, 229, 251), false),
+        FIGHTING("Fighting", new Color(127, 51, 27), false),
+        POISON("Poison", new Color(145, 68, 147), false),
+        GROUND("Ground", new Color(203, 172, 82), false),
+        FLYING("Flying", new Color(139, 160, 240), false),
+        PSYCHIC("Psychic", new Color(234, 67, 123), false),
+        BUG("Bug", new Color(163, 182, 25), false),
+        ROCK("Rock", new Color(176, 160, 93), false),
+        GHOST("Ghost", new Color(91, 91, 162), false),
+        DRAGON("Dragon", new Color(115, 91, 220), false),
+        DARK("Dark", new Color(79, 58, 45), false),
+        STEEL("Steel", new Color(178, 177, 193), false),
+        FAIRY("Fairy", new Color(238, 167, 239), true);
+
+        Type(String name, Color color, Boolean isLast) {
+                this.name = name;
+                this.color = color;
                 if (isLast) {
                         setupTypes();
                 }
         }
 
-        public List<Type> resistances = new ArrayList<>();
-        public List<Type> weaknesses = new ArrayList<>();
-        public List<Type> immunities = new ArrayList<>();
+        private String name;
+        private Color color;
+        private List<Type> resistances;
+        private List<Type> weaknesses;
+        private List<Type> immunities;
+
+        public String getName() {
+                return name;
+        }
+
+        public Color getColor() {
+                return color;
+        }
+
+        public float getTypeEffectiveness(List<Type> types) {
+                float modifier = 1;
+                for (Type type : types) {
+                        if (resistances.contains(type)) {
+                                modifier = modifier * resistance_multiplier;
+                        } else if (weaknesses.contains(type)) {
+                                modifier = modifier * weakness_multiplier;
+                        } else if (immunities.contains(type)) {
+                                return 0;
+                        }
+                }
+                return modifier;
+        }
+
+        final static float calcTypeEffectiveness(List<Type> attacking, List<Type> defending) {
+                float modifier = 1;
+                for (Type type : defending) {
+                        modifier *= type.getTypeEffectiveness(attacking);
+                }
+                return modifier;
+        }
+
+        final static float resistance_multiplier = (float) 0.5;
+        final static int weakness_multiplier = 2;
 
         final static void setupType(Type type, List<Type> weaknesses, List<Type> resistances, List<Type> immunities) {
-                type.weaknesses.addAll(weaknesses);
-                type.resistances.addAll(resistances);
-                type.immunities.addAll(immunities);
+                type.weaknesses = weaknesses;
+                type.resistances = resistances;
+                type.immunities = immunities;
         }
 
         final static void setupTypes() {
@@ -116,21 +154,4 @@ public enum Type {
                                 List.of(FIGHTING, BUG, DARK),
                                 List.of(DRAGON));
         }
-
-        public float get_modifier(List<Type> types) {
-                float modifier = 1;
-                for (Type type : types) {
-                        if (resistances.contains(type)) {
-                                modifier = modifier * resistance_multiplier;
-                        } else if (weaknesses.contains(type)) {
-                                modifier = modifier * weakness_multiplier;
-                        } else if (immunities.contains(type)) {
-                                return 0;
-                        }
-                }
-                return modifier;
-        }
-
-        final static float resistance_multiplier = (float) 0.5;
-        final static int weakness_multiplier = 2;
 }
