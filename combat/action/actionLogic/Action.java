@@ -22,6 +22,7 @@ public abstract class Action {
     protected Pokemon user;
     protected Pokemon target;
     protected List<MessagePrevent> messages;
+    protected int priority;
 
     public Pokemon getUser() {
         return user;
@@ -33,6 +34,10 @@ public abstract class Action {
 
     public Pokemon getTarget() {
         return target;
+    }
+
+    public int getPriority() {
+        return priority;
     }
 
     public double doubleAdjustedValue(Field field, double baseValue, MessageModifier message) {

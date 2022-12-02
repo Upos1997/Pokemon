@@ -67,7 +67,7 @@ public class ActionDamage extends Action {
         damageMod *= typeEffectiveness(types);
         int damage = (int) (((0.4 * level + 2) * power * attackNumber / defenseNumber / 50 + 2) * damageMod) * -1;
         target.changeHp(damage);
-        field.handleReactions(MessageAction.AFTER_DAMAGE);
+        field.handleReactions(MessageAction.CHANGE_HP);
         return true;
     }
 }

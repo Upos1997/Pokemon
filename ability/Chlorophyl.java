@@ -17,8 +17,8 @@ public class Chlorophyl extends Ability {
 
     protected Predicate<Field> isActive = field -> field.getWeather().equals(WeatherName.SUN)
             || field.getWeather().equals(WeatherName.HARSH_SUN);
-    protected MessageAction activeMessage = MessageAction.WEATHER_STARTED;
-    protected MessageAction dormantMessage = MessageAction.WEATHER_STARTED;
+    protected MessageAction activeMessage = MessageAction.WEATHER_CHANGED;
+    protected MessageAction dormantMessage = MessageAction.WEATHER_CHANGED;
 
     @Override
     public Chlorophyl newInstance(Pokemon user) {

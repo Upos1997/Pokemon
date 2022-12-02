@@ -16,6 +16,7 @@ public class SwitchAction extends Action {
     }
 
     List<MessagePrevent> messages = List.of(MessagePrevent.SWITCH);
+    int priority = 10;
     Pokemon target;
 
     @Override

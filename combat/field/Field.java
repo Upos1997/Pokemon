@@ -1,6 +1,8 @@
 package field;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,16 +16,28 @@ import action.actionLogic.MessageAction;
 import modifier.MessageModifier;
 import modifier.Modifier;
 import pokemon.Pokemon;
+import pokemon.Stat;
 import prevent.MessagePrevent;
 import prevent.Prevent;
 import terrain.Terrain;
+import trainer.Trainer;
 import weather.WeatherName;
 
 public class Field {
+    Field(Trainer ally, Trainer opponent) {
+        this.ally = ally;
+        this.opponent = opponent;
+        allyPokemon.switchOut(ally.getFirstPokemon());
+        opponentPokemon.switchOut(opponent.getFirstPokemon());
+        gameloop();
+    }
+
+    Trainer ally;
+    Trainer opponent;
     Slot allyPokemon = new Slot();
     Slot opponentPokemon = new Slot();
 
-    List<Action> actions = null;
+    List<Action> actions = new ArrayList<>();
 
     Action currentAction;
 
@@ -44,9 +58,8 @@ public class Field {
 
     public void setWeather(WeatherName newWeather) {
         if (!newWeather.equals(weather)) {
-            handleReactions(MessageAction.WEATHER_STOPPED);
             weather = newWeather;
-            handleReactions(MessageAction.WEATHER_STARTED);
+            handleReactions(MessageAction.WEATHER_CHANGED);
         }
     }
 
@@ -56,9 +69,8 @@ public class Field {
 
     public void setTerrain(Terrain newTerrain) {
         if (!newTerrain.equals(terrain)) {
-            handleReactions(MessageAction.TERRAIN_STOPPED);
             terrain = newTerrain;
-            handleReactions(MessageAction.TERRAIN_STARTED);
+            handleReactions(MessageAction.TERRAIN_CHANGED);
         }
     }
 
@@ -190,5 +202,26 @@ public class Field {
 
     public List<Slot> getAll() {
         return List.of(opponentPokemon, allyPokemon);
+    }
+
+    protected void gameloop() {
+        actions.add(ally.takeAction(this));
+        actions.add(opponent.takeAction(this));
+        Comparator<Action> comp = (a, b) -> {
+            int aPrio = a.getPriority();
+            int bPrio = b.getPriority();
+            if (aPrio == bPrio) {
+                int aSpe = a.getUser().getAdjustedStat(Stat.SPEED);
+                int bSpe = b.getUser().getAdjustedStat(Stat.SPEED);
+                return aSpe - bSpe;
+            } else {
+                return aPrio - bPrio;
+            }
+        };
+        actions.sort(comp);
+        for (Action action : actions) {
+            action.takeAction(this);
+        }
+        gameloop();
     }
 }
