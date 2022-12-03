@@ -1,9 +1,10 @@
-package prevent;
+package combat.prevent;
+
+import combat.field.Field;
 
 import java.util.function.BiFunction;
 import java.util.function.Predicate;
 
-import field.Field;
 
 public class Prevent {
     public Prevent(MessagePrevent message, Predicate<Field> check) {

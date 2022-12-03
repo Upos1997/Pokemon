@@ -1,8 +1,8 @@
-package prevent;
+package combat.prevent;
+
+import combat.field.Field;
 
 import java.util.function.BiFunction;
-
-import field.Field;
 
 public class PreventPrevent extends Prevent {
     PreventPrevent(BiFunction<Field, Prevent, Boolean> preventCheck) {

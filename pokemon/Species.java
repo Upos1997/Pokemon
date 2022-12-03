@@ -9,7 +9,7 @@ import ability.AbilityName;
 import moves.MoveName;
 
 public enum Species {
-    BULBASAUR("Bulbasaur", List.of(Type.GRASS, Type.POISON), List.of(AbilityName.OVERGROW, AbilityName.CHLOROPHYLL),
+    BULBASAUR("Bulbasaur", List.of(Type.GRASS, Type.POISON), List.of(AbilityName.OVERGROW),
             0.7, 6.9,
             45, 50, 64, GrowthRate.MEDIUM,
             List.of(EggGroup.GRASS, EggGroup.MONSTER), 0.875, 20,
@@ -43,11 +43,11 @@ public enum Species {
         this.movesOther = movesOther;
     }
 
-    private String name;
-    private List<Type> types;
-    private List<AbilityName> abilities;
-    private double height;
-    private double weight;
+    private final String name;
+    private final List<Type> types;
+    private final List<AbilityName> abilities;
+    private final double height;
+    private final double weight;
 
     public String getName() {
         return name;
@@ -69,10 +69,10 @@ public enum Species {
         return weight;
     }
 
-    private int catchRate;
-    private int friendship;
-    private int baseExp;
-    private GrowthRate growthRate;
+    private final int catchRate;
+    private final int friendship;
+    private final int baseExp;
+    private final GrowthRate growthRate;
 
     public int getCatchRate() {
         return catchRate;
@@ -90,14 +90,12 @@ public enum Species {
         return growthRate;
     }
 
-    private List<EggGroup> eggGroups;
-    private double genderOdds;
-    private int eggCycles;
+    private final List<EggGroup> eggGroups;
+    private final double genderOdds;
+    private final int eggCycles;
 
     public Boolean canBreed(Species with) {
-        return eggGroups.stream().filter(slot -> {
-            return with.eggGroups.contains(slot);
-        }).findFirst().isPresent();
+        return eggGroups.stream().anyMatch(with.eggGroups::contains);
     }
 
     public double getGenderOdds() {
@@ -108,35 +106,28 @@ public enum Species {
         return eggCycles;
     }
 
-    private int hp;
-    private int attack;
-    private int defense;
-    private int specialAttack;
-    private int specialDefense;
-    private int speed;
+    private final int hp;
+    private final int attack;
+    private final int defense;
+    private final int specialAttack;
+    private final int specialDefense;
+    private final int speed;
 
     public int getStat(Stat stat) {
-        switch (stat) {
-            case HP:
-                return hp;
-            case ATK:
-                return attack;
-            case DEF:
-                return defense;
-            case SP_ATK:
-                return specialAttack;
-            case SP_DEF:
-                return specialDefense;
-            case SPE:
-                return speed;
-            default:
-                return 0;
-        }
+        return switch (stat) {
+            case HP -> hp;
+            case ATK -> attack;
+            case DEF -> defense;
+            case SP_ATK -> specialAttack;
+            case SP_DEF -> specialDefense;
+            case SPE -> speed;
+            default -> 0;
+        };
     }
 
     private List<Function<Pokemon, Species>> evolution;
-    private Map<Integer, List<MoveName>> movesLevelUp;
-    private List<MoveName> movesOther;
+    private final Map<Integer, List<MoveName>> movesLevelUp;
+    private final List<MoveName> movesOther;
 
     public Species evolves(Pokemon pokemon) {
         Function<Pokemon, Species> evo = evolution.stream().filter(check -> {
@@ -149,9 +140,9 @@ public enum Species {
 
     public Boolean learns(MoveName move) {
         return Stream.concat(movesOther.stream(), movesLevelUp.values().stream().flatMap(List::stream))
-                .filter(_move -> {
+                .anyMatch(_move -> {
                     return _move == move;
-                }).findAny().isPresent();
+                });
     }
 
     public List<MoveName> getLevelUpMoves(int level) {

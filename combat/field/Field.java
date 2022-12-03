@@ -1,24 +1,19 @@
-package field;
+package combat.field;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import action.Reaction;
-import action.actionLogic.Action;
-import action.actionLogic.MessageAction;
-import modifier.MessageModifier;
-import modifier.Modifier;
+import combat.action.Reaction;
+import combat.action.actionLogic.Action;
+import combat.action.actionLogic.MessageAction;
+import combat.modifier.MessageModifier;
+import combat.modifier.Modifier;
+import combat.prevent.MessagePrevent;
+import combat.prevent.Prevent;
 import pokemon.Pokemon;
 import pokemon.Stat;
-import prevent.MessagePrevent;
-import prevent.Prevent;
 import terrain.Terrain;
 import trainer.Trainer;
 import weather.WeatherName;
@@ -151,17 +146,13 @@ public class Field {
     public Boolean isAllowed(Action action, MessagePrevent message) {
         return !prevents.get(message).stream().filter(prevent -> {
             return prevent.check(this);
-        }).filter(prevent -> {
-            return isPreventAllowed(prevent);
-        }).findAny().isPresent();
+        }).anyMatch(this::isPreventAllowed);
     }
 
     Boolean isPreventAllowed(Prevent prevent) {
         return !prevents.get(MessagePrevent.PREVENT).stream().filter(pprevent -> {
             return pprevent.preventCheck(this, prevent);
-        }).filter(pprevent -> {
-            return isPreventAllowed(pprevent);
-        }).findAny().isPresent();
+        }).anyMatch(this::isPreventAllowed);
     }
 
     public Void handleReactions(MessageAction message) {
@@ -211,8 +202,8 @@ public class Field {
             int aPrio = a.getPriority();
             int bPrio = b.getPriority();
             if (aPrio == bPrio) {
-                int aSpe = a.getUser().getAdjustedStat(Stat.SPEED);
-                int bSpe = b.getUser().getAdjustedStat(Stat.SPEED);
+                int aSpe = a.getUser().getAdjustedStat(Stat.SPE);
+                int bSpe = b.getUser().getAdjustedStat(Stat.SPE);
                 return aSpe - bSpe;
             } else {
                 return aPrio - bPrio;

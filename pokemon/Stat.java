@@ -12,16 +12,16 @@ public enum Stat {
 
     static public double getMod(int stage) {
         if (stage < 0) {
-            return 2 / (2 - stage);
+            return 2f / (2 - stage);
         } else
-            return (2 + stage) / 2;
+            return (2 + stage) / 2f;
     }
 
     static public double getAccMod(int acc, int eva) {
         int totalStage = acc - eva;
         if (totalStage < 0) {
-            return 3 / (3 - totalStage);
+            return 3f / (3 - totalStage);
         } else
-            return (3 + totalStage) / 3;
+            return (3 + totalStage) / 3f;
     }
 }

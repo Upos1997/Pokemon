@@ -1,4 +1,4 @@
-package action.actionLogic;
+package combat.action.actionLogic;
 
 public enum MessageAction {
     BEFORE_SWITCH, AFTER_SWITCH, ROUND_END,

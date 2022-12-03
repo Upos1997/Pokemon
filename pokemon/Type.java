@@ -33,8 +33,8 @@ public enum Type {
                 }
         }
 
-        private String name;
-        private Color color;
+        private final String name;
+        private final Color color;
         private List<Type> resistances;
         private List<Type> weaknesses;
         private List<Type> immunities;
@@ -47,7 +47,7 @@ public enum Type {
                 return color;
         }
 
-        public float getTypeEffectiveness(List<Type> types) {
+        private float getTypeEffectiveness(List<Type> types) {
                 float modifier = 1;
                 for (Type type : types) {
                         if (resistances.contains(type)) {
@@ -61,7 +61,7 @@ public enum Type {
                 return modifier;
         }
 
-        final static float calcTypeEffectiveness(List<Type> attacking, List<Type> defending) {
+        static public float calcTypeEffectiveness(List<Type> attacking, List<Type> defending) {
                 float modifier = 1;
                 for (Type type : defending) {
                         modifier *= type.getTypeEffectiveness(attacking);
@@ -72,13 +72,13 @@ public enum Type {
         final static float resistance_multiplier = (float) 0.5;
         final static int weakness_multiplier = 2;
 
-        final static void setupType(Type type, List<Type> weaknesses, List<Type> resistances, List<Type> immunities) {
+        static void setupType(Type type, List<Type> weaknesses, List<Type> resistances, List<Type> immunities) {
                 type.weaknesses = weaknesses;
                 type.resistances = resistances;
                 type.immunities = immunities;
         }
 
-        final static void setupTypes() {
+        static void setupTypes() {
                 setupType(NORMAL,
                                 List.of(FIGHTING),
                                 Collections.emptyList(),

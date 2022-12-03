@@ -2,13 +2,13 @@ package status;
 
 import java.util.function.Predicate;
 
-import action.ActionStaticDamage;
-import action.MoveAction;
-import action.Reaction;
-import action.actionLogic.MessageAction;
-import field.Field;
-import modifier.MessageModifier;
-import modifier.Modifier;
+import combat.action.ActionStaticDamage;
+import combat.action.MoveAction;
+import combat.action.Reaction;
+import combat.action.actionLogic.MessageAction;
+import combat.field.Field;
+import combat.modifier.MessageModifier;
+import combat.modifier.Modifier;
 import pokemon.Pokemon;
 
 public class Frostbite extends Status {
@@ -16,8 +16,8 @@ public class Frostbite extends Status {
         super(afflicted);
     }
 
-    static private float damageMod = 0.5f;
-    static private float frostDamage = 1 / 16;
+    static private final float damageMod = 0.5f;
+    static private final float frostDamage = 1/16f;
 
     @Override
     protected void afflict(Field field) {

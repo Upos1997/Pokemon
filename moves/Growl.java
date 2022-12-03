@@ -2,8 +2,8 @@ package moves;
 
 import java.util.List;
 
-import action.ActionStatChange;
-import action.actionLogic.Action;
+import combat.action.ActionStatChange;
+import combat.action.actionLogic.Action;
 import moves.moveLogic.moveStatus;
 import pokemon.Pokemon;
 import pokemon.Stat;
@@ -16,7 +16,7 @@ public class Growl extends moveStatus {
 
     @Override
     protected List<Action> makeActions(Pokemon user, Pokemon target) {
-        Action lowerAttack = new ActionStatChange(user, this, target, Stat.ATTACK, -1);
+        Action lowerAttack = new ActionStatChange(user, this, target, Stat.ATK, -1);
         return List.of(lowerAttack);
     }
 

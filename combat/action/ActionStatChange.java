@@ -1,13 +1,13 @@
-package action;
+package combat.action;
 
 import java.util.List;
 
-import action.actionLogic.Action;
-import field.Field;
-import modifier.MessageModifier;
+import combat.action.actionLogic.Action;
+import combat.field.Field;
+import combat.modifier.MessageModifier;
+import combat.prevent.MessagePrevent;
 import pokemon.Pokemon;
 import pokemon.Stat;
-import prevent.MessagePrevent;
 
 public class ActionStatChange extends Action {
 

@@ -2,10 +2,11 @@ package status;
 
 import java.util.function.Predicate;
 
-import action.ActionStaticDamage;
-import action.Reaction;
-import action.actionLogic.MessageAction;
-import field.Field;
+
+import combat.action.ActionStaticDamage;
+import combat.action.Reaction;
+import combat.action.actionLogic.MessageAction;
+import combat.field.Field;
 import pokemon.Pokemon;
 
 public class BadlyPoisoned extends Status {

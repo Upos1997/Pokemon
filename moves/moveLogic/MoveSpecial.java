@@ -3,8 +3,8 @@ package moves.moveLogic;
 import pokemon.Stat;
 
 public abstract class MoveSpecial extends MoveDamaging {
-    protected static Stat attack = Stat.SPECIAL_ATTACK;
-    protected static Stat defense = Stat.SPECIAL_DEFENSE;
+    protected static Stat attack = Stat.SP_ATK;
+    protected static Stat defense = Stat.SP_DEF;
     protected static boolean makesContact = false;
 
     @Override

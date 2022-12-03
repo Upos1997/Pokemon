@@ -1,12 +1,12 @@
-package action;
+package combat.action;
 
 import java.util.List;
 
-import action.actionLogic.Action;
-import action.actionLogic.MessageAction;
-import field.Field;
+import combat.action.actionLogic.Action;
+import combat.action.actionLogic.MessageAction;
+import combat.field.Field;
+import combat.prevent.MessagePrevent;
 import pokemon.Pokemon;
-import prevent.MessagePrevent;
 
 public class ActionStaticDamage extends Action {
 

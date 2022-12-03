@@ -1,6 +1,6 @@
 package status;
 
-import field.Field;
+import combat.field.Field;
 import pokemon.Pokemon;
 
 public class Fainted extends Status {

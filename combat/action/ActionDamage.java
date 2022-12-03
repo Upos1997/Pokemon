@@ -1,12 +1,12 @@
-package action;
+package combat.action;
 
 import java.util.List;
 import java.util.function.Predicate;
 
-import action.actionLogic.Action;
-import action.actionLogic.MessageAction;
-import field.Field;
-import modifier.MessageModifier;
+import combat.action.actionLogic.Action;
+import combat.action.actionLogic.MessageAction;
+import combat.field.Field;
+import combat.modifier.MessageModifier;
 import moves.moveLogic.MoveDamaging;
 import pokemon.Pokemon;
 import pokemon.Stat;
@@ -25,7 +25,7 @@ public class ActionDamage extends Action {
 
     private boolean isStab(List<Type> types) {
         Predicate<Type> predicate = type -> user.getTypes().contains(type);
-        return types.stream().filter(predicate).findAny().isPresent();
+        return types.stream().anyMatch(predicate);
     }
 
     private boolean isCrit(Field field) {
@@ -35,9 +35,7 @@ public class ActionDamage extends Action {
     private double typeEffectiveness(List<Type> types) {
         double result = 1;
         List<Type> targetTypes = target.getTypes();
-        for (Type type : types) {
-            result *= type.get_modifier(targetTypes);
-        }
+        Type.calcTypeEffectiveness(types, targetTypes);
         return result;
     }
 
@@ -47,7 +45,7 @@ public class ActionDamage extends Action {
         Stat defense = move.getDefense();
         int power = (int) doubleAdjustedValue(field, move.getPower(), MessageModifier.POWER);
         double damageMod = doubleAdjustedValue(field, 1, MessageModifier.DAMAGE);
-        List<Type> types = typeAdjustedValue(field, move.getTypes(), MessageModifier.TYPE);
+        List<Type> types = move.getTypes();
         int level = user.getLevel();
         int attackNumber;
         int defenseNumber;

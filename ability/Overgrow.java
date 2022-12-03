@@ -3,11 +3,11 @@ package ability;
 import java.util.function.Predicate;
 
 import ability.abilityLogic.Ability;
-import action.MoveAction;
-import action.actionLogic.MessageAction;
-import field.Field;
-import modifier.MessageModifier;
-import modifier.Modifier;
+import combat.action.MoveAction;
+import combat.action.actionLogic.MessageAction;
+import combat.field.Field;
+import combat.modifier.MessageModifier;
+import combat.modifier.Modifier;
 import pokemon.Pokemon;
 import pokemon.Type;
 
@@ -16,7 +16,7 @@ public class Overgrow extends Ability {
         super(user);
     }
 
-    protected Predicate<Field> isActive = field -> user.isBelow(1 / 3);
+    protected Predicate<Field> isActive = field -> user.isBelow(1/3f);
     protected MessageAction activeMessage = MessageAction.CHANGE_HP;
     protected MessageAction dormantMessage = MessageAction.CHANGE_HP;
 

@@ -3,7 +3,7 @@ import java.util.Random;
 
 public class Rng {
     
-    static private Random rnjesus = new Random();
+    static private final Random rnjesus = new Random();
     static public Boolean chance(double accuracy){
         return rnjesus.nextFloat() < accuracy;
     }

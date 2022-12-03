@@ -11,7 +11,7 @@ public enum MoveName {
         this.move = move;
     }
 
-    private Move move;
+    private final Move move;
 
     public Move getInstance(){
         return move.clone();

@@ -3,31 +3,31 @@ package pokemon;
 import helper.Rng;
 
 public enum Nature {
-    HARDY("Hardy", Stat.ATTACK, Stat.ATTACK),
-    LONELY("Lonely", Stat.ATTACK, Stat.DEFENSE),
-    BRAVE("Brave", Stat.ATTACK, Stat.SPEED),
-    ADAMANT("Adamant", Stat.ATTACK, Stat.SPECIAL_ATTACK),
-    NAUGHTY("Naughty", Stat.ATTACK, Stat.SPECIAL_DEFENSE),
-    BOLD("Bold", Stat.DEFENSE, Stat.ATTACK),
-    DOCILE("Docile", Stat.DEFENSE, Stat.DEFENSE),
-    RELAXED("Relaxed", Stat.DEFENSE, Stat.SPEED),
-    IMPISH("Impish", Stat.DEFENSE, Stat.SPECIAL_ATTACK),
-    LAX("Lax", Stat.DEFENSE, Stat.SPECIAL_DEFENSE),
-    TIMID("Timid", Stat.SPEED, Stat.ATTACK),
-    HASTY("Hasty", Stat.SPEED, Stat.DEFENSE),
-    SERIOUS("Serious", Stat.SPEED, Stat.SPEED),
-    JOLLY("Jolly", Stat.SPEED, Stat.SPECIAL_ATTACK),
-    NAIVE("Naive", Stat.SPEED, Stat.SPECIAL_DEFENSE),
-    MODEST("Modest", Stat.SPECIAL_ATTACK, Stat.ATTACK),
-    MILD("Mild", Stat.SPECIAL_ATTACK, Stat.DEFENSE),
-    QUIET("Quiet", Stat.SPECIAL_ATTACK, Stat.SPEED),
-    BASHFUL("Bashful", Stat.SPECIAL_ATTACK, Stat.SPECIAL_ATTACK),
-    RASH("Rash", Stat.SPECIAL_ATTACK, Stat.SPECIAL_DEFENSE),
-    CALM("Calm", Stat.SPECIAL_DEFENSE, Stat.ATTACK),
-    GENTLE("Gentle", Stat.SPECIAL_DEFENSE, Stat.DEFENSE),
-    SASSY("Sassy", Stat.SPECIAL_DEFENSE, Stat.SPEED),
-    CAREFUL("Careful", Stat.SPECIAL_DEFENSE, Stat.SPECIAL_ATTACK),
-    QUIRKY("Quirky", Stat.SPECIAL_DEFENSE, Stat.SPECIAL_DEFENSE);
+    HARDY("Hardy", Stat.ATK, Stat.ATK),
+    LONELY("Lonely", Stat.ATK, Stat.DEF),
+    BRAVE("Brave", Stat.ATK, Stat.SPE),
+    ADAMANT("Adamant", Stat.ATK, Stat.SP_ATK),
+    NAUGHTY("Naughty", Stat.ATK, Stat.SP_DEF),
+    BOLD("Bold", Stat.DEF, Stat.ATK),
+    DOCILE("Docile", Stat.DEF, Stat.DEF),
+    RELAXED("Relaxed", Stat.DEF, Stat.SPE),
+    IMPISH("Impish", Stat.DEF, Stat.SP_ATK),
+    LAX("Lax", Stat.DEF, Stat.SP_DEF),
+    TIMID("Timid", Stat.SPE, Stat.ATK),
+    HASTY("Hasty", Stat.SPE, Stat.DEF),
+    SERIOUS("Serious", Stat.SPE, Stat.SPE),
+    JOLLY("Jolly", Stat.SPE, Stat.SP_ATK),
+    NAIVE("Naive", Stat.SPE, Stat.SP_DEF),
+    MODEST("Modest", Stat.SP_ATK, Stat.ATK),
+    MILD("Mild", Stat.SP_ATK, Stat.DEF),
+    QUIET("Quiet", Stat.SP_ATK, Stat.SPE),
+    BASHFUL("Bashful", Stat.SP_ATK, Stat.SP_ATK),
+    RASH("Rash", Stat.SP_ATK, Stat.SP_DEF),
+    CALM("Calm", Stat.SP_DEF, Stat.ATK),
+    GENTLE("Gentle", Stat.SP_DEF, Stat.DEF),
+    SASSY("Sassy", Stat.SP_DEF, Stat.SPE),
+    CAREFUL("Careful", Stat.SP_DEF, Stat.SP_ATK),
+    QUIRKY("Quirky", Stat.SP_DEF, Stat.SP_DEF);
 
     Nature(String name, Stat up, Stat down) {
         this.name = name;
@@ -35,9 +35,9 @@ public enum Nature {
         this.down = down;
     }
 
-    String name;
-    Stat up;
-    Stat down;
+    final String name;
+    final Stat up;
+    final Stat down;
 
     public float get_modifier(Stat stat) {
         if (up == stat && down == stat) {
@@ -56,6 +56,6 @@ public enum Nature {
         return natures[Rng.nextInt(natures.length)];
     }
 
-    static float boost = 1.1f;
-    static float detriment = 0.9f;
+    static final float boost = 1.1f;
+    static final float detriment = 0.9f;
 }

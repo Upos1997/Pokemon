@@ -2,9 +2,9 @@ package ability.abilityLogic;
 
 import java.util.function.Predicate;
 
-import action.Reaction;
-import action.actionLogic.MessageAction;
-import field.Field;
+import combat.action.Reaction;
+import combat.action.actionLogic.MessageAction;
+import combat.field.Field;
 import helper.Static;
 import pokemon.Pokemon;
 

@@ -1,4 +1,4 @@
-package field;
+package combat.field;
 
 import pokemon.Pokemon;
 

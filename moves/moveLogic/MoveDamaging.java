@@ -3,11 +3,11 @@ package moves.moveLogic;
 import java.util.Collections;
 import java.util.List;
 
-import action.ActionDamage;
-import action.MoveAction;
-import action.MoveActionDamaging;
-import action.actionLogic.Action;
-import field.Field;
+import combat.action.ActionDamage;
+import combat.action.MoveAction;
+import combat.action.MoveActionDamaging;
+import combat.action.actionLogic.Action;
+import combat.field.Field;
 import pokemon.Pokemon;
 import pokemon.Stat;
 

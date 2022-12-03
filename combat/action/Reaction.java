@@ -1,15 +1,15 @@
-package action;
+package combat.action;
 
 import java.util.function.Predicate;
 
-import action.actionLogic.Action;
-import action.actionLogic.MessageAction;
-import field.Field;
+import combat.action.actionLogic.Action;
+import combat.action.actionLogic.MessageAction;
+import combat.field.Field;
 import pokemon.Pokemon;
 
 public class Reaction extends Action {
     public Reaction(MessageAction message, Pokemon user, Object source, Pokemon target, Predicate<Field> check,
-            Predicate<Field> action) {
+                    Predicate<Field> action) {
         super(user, source, target);
         this.check = check;
         this.action = action;

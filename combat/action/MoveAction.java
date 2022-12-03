@@ -1,21 +1,20 @@
-package action;
+package combat.action;
 
 import java.util.List;
 
-import action.actionLogic.Action;
-import field.Field;
-import modifier.MessageModifier;
+import combat.action.actionLogic.Action;
+import combat.field.Field;
+import combat.modifier.MessageModifier;
+import combat.prevent.MessagePrevent;
 import moves.moveLogic.Move;
 import pokemon.Pokemon;
 import pokemon.Type;
-import prevent.MessagePrevent;
 
 public class MoveAction extends Action {
 
     public MoveAction(Field field, Pokemon user, Move move, Pokemon target, List<Action> actions) {
         super(user, move, target);
         this.messages = List.of(MessagePrevent.MOVE);
-        this.types = typeAdjustedValue(field, move.getTypes(), MessageModifier.TYPE);
         this.actions = actions;
     }
 

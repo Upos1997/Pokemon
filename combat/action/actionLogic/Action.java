@@ -1,15 +1,13 @@
-package action.actionLogic;
+package combat.action.actionLogic;
 
 import java.util.List;
 import java.util.function.Predicate;
 
-import field.Field;
-import modifier.MessageModifier;
-import modifier.Modifier;
-import modifier.ModifierType;
+import combat.field.Field;
+import combat.modifier.MessageModifier;
+import combat.modifier.Modifier;
+import combat.prevent.MessagePrevent;
 import pokemon.Pokemon;
-import pokemon.Type;
-import prevent.MessagePrevent;
 
 public abstract class Action {
     protected Action(Pokemon user, Object source, Pokemon target) {
@@ -43,23 +41,14 @@ public abstract class Action {
     public double doubleAdjustedValue(Field field, double baseValue, MessageModifier message) {
         double result = baseValue;
         for (Modifier modifier : field.getModifiers(message)) {
-            result *= modifier.getmodifier();
-        }
-        return result;
-    }
-
-    public List<Type> typeAdjustedValue(Field field, List<Type> baseValue, MessageModifier message) {
-        List<Type> result = baseValue;
-        for (Modifier modifier : field.getModifiers(message)) {
-            ModifierType _modifier = (ModifierType) modifier;
-            result = List.of(_modifier.getModifier());
+            result *= modifier.getModifier();
         }
         return result;
     }
 
     public boolean isAllowed(Field field) {
         Predicate<MessagePrevent> filter = message -> field.isAllowed(this, message);
-        return !messages.stream().filter(filter).findAny().isPresent();
+        return messages.stream().noneMatch(filter);
     }
 
     public boolean hasUser(Pokemon pokemon) {

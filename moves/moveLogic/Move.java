@@ -2,10 +2,11 @@ package moves.moveLogic;
 
 import java.util.List;
 
-import action.actionLogic.Action;
-import action.MoveAction;
-import field.Field;
-import field.Slot;
+
+import combat.action.MoveAction;
+import combat.action.actionLogic.Action;
+import combat.field.Field;
+import combat.field.Slot;
 import pokemon.Pokemon;
 import pokemon.Type;
 
@@ -38,7 +39,7 @@ public abstract class Move implements Cloneable {
         ppCurrent = ppMax;
     }
 
-    static protected double critChance = 1 / 24;
+    static protected double critChance = 1/24f;
     static protected double critDamage = 1.5;
     static protected double stab = 1.5;
 
@@ -74,7 +75,7 @@ public abstract class Move implements Cloneable {
     public Move clone() {
         try {
             return (Move) super.clone();
-        } catch (CloneNotSupportedException e) {
+        } catch (CloneNotSupportedException ignored) {
 
         }
         return null;

@@ -4,8 +4,8 @@ import pokemon.Stat;
 
 public abstract class MovePhysical extends MoveDamaging {
 
-    static Stat attack = Stat.ATTACK;
-    static Stat defense = Stat.DEFENSE;
+    static Stat attack = Stat.ATK;
+    static Stat defense = Stat.DEF;
     static Boolean makesContact = true;
 
     @Override

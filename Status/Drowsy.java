@@ -2,14 +2,14 @@ package status;
 
 import java.util.function.Predicate;
 
-import action.actionLogic.Action;
-import field.Field;
+import combat.action.actionLogic.Action;
+import combat.field.Field;
+import combat.modifier.MessageModifier;
+import combat.modifier.Modifier;
+import combat.prevent.MessagePrevent;
+import combat.prevent.Prevent;
 import helper.Rng;
-import modifier.MessageModifier;
-import modifier.Modifier;
 import pokemon.Pokemon;
-import prevent.MessagePrevent;
-import prevent.Prevent;
 
 public class Drowsy extends Status {
     Drowsy(Pokemon afflicted) {

@@ -1,15 +1,15 @@
-package action;
+package combat.action;
 
 import java.util.List;
 
-import action.actionLogic.Action;
-import field.Field;
+import combat.action.actionLogic.Action;
+import combat.field.Field;
+import combat.modifier.MessageModifier;
+import combat.prevent.MessagePrevent;
 import helper.Rng;
-import modifier.MessageModifier;
 import moves.moveLogic.Move;
 import pokemon.Pokemon;
 import pokemon.Stat;
-import prevent.MessagePrevent;
 
 public class ActionHit extends Action {
 
@@ -30,7 +30,7 @@ public class ActionHit extends Action {
         if (move.isAutoHit() || field.hasModifier(MessageModifier.AUTO_HIT)) {
             return true;
         } else {
-            double accuracyMod = Stat.getAccMod(user.getStage(Stat.ACCURACY), target.getStage(Stat.EVASION));
+            double accuracyMod = Stat.getAccMod(user.getStage(Stat.ACC), target.getStage(Stat.EVA));
             double accuracy = doubleAdjustedValue(field, move.getAccuracy(), MessageModifier.ACCURACY);
             return Rng.chance(accuracy * accuracyMod);
         }

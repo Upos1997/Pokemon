@@ -3,8 +3,9 @@ package trainer;
 import java.util.ArrayList;
 import java.util.List;
 
-import action.actionLogic.Action;
-import field.Field;
+
+import combat.action.actionLogic.Action;
+import combat.field.Field;
 import pokemon.Pokemon;
 
 public abstract class Trainer {

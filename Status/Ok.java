@@ -1,6 +1,7 @@
 package status;
 
-import field.Field;
+
+import combat.field.Field;
 import pokemon.Pokemon;
 
 public class Ok extends Status {

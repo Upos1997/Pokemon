@@ -1,13 +1,14 @@
 package trainer;
 
-import action.actionLogic.Action;
-import field.Field;
+
+import combat.action.actionLogic.Action;
+import combat.field.Field;
 
 public class Player extends Trainer {
+
 
     @Override
     public Action takeAction(Field field) {
         return null;
     }
-
 }

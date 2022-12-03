@@ -1,8 +1,8 @@
-package modifier;
+package combat.modifier;
+
+import combat.field.Field;
 
 import java.util.function.Predicate;
-
-import field.Field;
 
 public class Modifier {
     public Modifier(MessageModifier message, double modifier, Predicate<Field> check) {
@@ -16,7 +16,7 @@ public class Modifier {
     protected Predicate<Field> check;
     public static Predicate<Field> noCheck = (field) -> true;
 
-    public double getmodifier() {
+    public double getModifier() {
         return modifier;
     }
 

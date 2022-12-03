@@ -2,13 +2,14 @@ package status;
 
 import java.util.function.Predicate;
 
-import action.ActionStaticDamage;
-import action.MoveAction;
-import action.Reaction;
-import action.actionLogic.MessageAction;
-import field.Field;
-import modifier.MessageModifier;
-import modifier.Modifier;
+
+import combat.action.ActionStaticDamage;
+import combat.action.MoveAction;
+import combat.action.Reaction;
+import combat.action.actionLogic.MessageAction;
+import combat.field.Field;
+import combat.modifier.MessageModifier;
+import combat.modifier.Modifier;
 import pokemon.Pokemon;
 
 public class Burn extends Status {

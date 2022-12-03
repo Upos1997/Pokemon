@@ -1,6 +1,7 @@
 package status;
 
-import field.Field;
+
+import combat.field.Field;
 import helper.Static;
 import pokemon.Pokemon;
 

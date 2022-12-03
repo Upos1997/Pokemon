@@ -1,8 +1,8 @@
-package modifier;
+package combat.modifier;
 
 import java.util.function.Predicate;
 
-import field.Field;
+import combat.field.Field;
 import pokemon.Stat;
 
 public class ModifierStat extends Modifier {

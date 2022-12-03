@@ -1,6 +1,6 @@
 package weather;
 
-import field.Field;
+import combat.field.Field;
 import helper.Static;
 
 public abstract class Weather extends Static {

@@ -1,13 +1,13 @@
-package action;
+package combat.action;
 
 import java.util.List;
 
-import action.actionLogic.Action;
-import action.actionLogic.MessageAction;
-import field.Field;
+import combat.action.actionLogic.Action;
+import combat.action.actionLogic.MessageAction;
+import combat.field.Field;
+import combat.prevent.MessagePrevent;
 import moves.moveLogic.Move;
 import pokemon.Pokemon;
-import prevent.MessagePrevent;
 
 public class SwitchAction extends Action {
     SwitchAction(Pokemon user, Move move, Pokemon target) {

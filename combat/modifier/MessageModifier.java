@@ -1,4 +1,4 @@
-package modifier;
+package combat.modifier;
 
 public enum MessageModifier {
     POWER,

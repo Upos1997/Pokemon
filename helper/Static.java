@@ -1,12 +1,13 @@
 package helper;
 
+import combat.action.Reaction;
+import combat.field.Field;
+import combat.modifier.Modifier;
+import combat.prevent.Prevent;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import action.Reaction;
-import field.Field;
-import modifier.Modifier;
-import prevent.Prevent;
 
 public abstract class Static {
     protected List<Reaction> reactions = new ArrayList<>();

@@ -1,9 +1,9 @@
-package action;
+package combat.action;
 
-import action.actionLogic.Action;
-import field.Field;
+import combat.action.actionLogic.Action;
+import combat.field.Field;
+import combat.modifier.MessageModifier;
 import helper.Rng;
-import modifier.MessageModifier;
 import moves.moveLogic.MoveDamaging;
 import pokemon.Pokemon;
 
