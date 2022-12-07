@@ -1,8 +1,0 @@
-package combat.modifier;
-
-public enum MessageModifier {
-    POWER,
-    CRIT_DAMAGE,
-    ACCURACY, DRAIN, AUTO_HIT, SPEED, DAMAGE, CHANGE_STAT, AUTO_MISS, AUTO_CRIT, TYPE,
-    ATTACK, DEFENSE, ATTACK_STAT, DEFENSE_STAT, STAB, CRIT_CHANCE;
-}
