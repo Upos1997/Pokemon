@@ -2,6 +2,7 @@ package src.combat.action.modifier;
 
 import src.combat.action.Action;
 import src.combat.action.reaction.ReactionPokemon;
+import src.combat.field.Field;
 import src.combat.field.SingleField;
 import src.pokemon.Pokemon;
 import src.pokemon.Stat;
@@ -10,7 +11,7 @@ import java.util.function.BiFunction;
 import java.util.function.Predicate;
 
 public class StatModifier extends Modifier {
-    StatModifier(Pokemon user, Object source, Stat stat, float modifier, BiFunction<SingleField, Action, Boolean> check) {
+    StatModifier(Pokemon user, Object source, Stat stat, float modifier, BiFunction<Field, Action, Boolean> check) {
         super(user, source, modifier, check, Modifier.noAction);
         this.stat = stat;
     }

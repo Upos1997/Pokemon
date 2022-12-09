@@ -22,11 +22,11 @@ public class ReactionPool {
         return prevents.stream().filter(prevent -> prevent.checkThenUse(field, action)).noneMatch(prevent -> isAllowed(field, prevent));
     }
 
-    public void applyActionModifiers(Field field, Action action, List<MoveStat> mods){
+    public void applyActionModifiers(Field field, Action action){
         modifiers.stream().filter(modifier -> modifier instanceof MoveModifier).forEach(modifier -> modifier.checkThenUse(field, action));
     }
 
-    public void applyStatModifiers(Field field, Pokemon target, List<Stat> mods){
+    public void applyStatModifiers(Field field, Pokemon target){
         Action action = new ReactionPokemon(target, target);
         modifiers.stream().filter(modifier -> modifier instanceof StatModifier).forEach(modifier -> modifier.checkThenUse(field, action));
     }

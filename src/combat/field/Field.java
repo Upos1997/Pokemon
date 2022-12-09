@@ -30,11 +30,11 @@ public interface Field extends hasReactionPool {
     default boolean isAllowed(Action action) {
         return hasReactionPool.super.isAllowed(this, action);
     }
-    default void applyActionModifiers(Action action, List<MoveStat> mods){
-        hasReactionPool.super.applyActionModifiers(this, action, mods);
+    default void applyActionModifiers(Action action){
+        hasReactionPool.super.applyActionModifiers(this, action);
     }
-    default void applyStatModifiers(Pokemon target, List<Stat> mods){
-        hasReactionPool.super.applyStatModifiers(this, target, mods);
+    default void applyStatModifiers(Pokemon target){
+        hasReactionPool.super.applyStatModifiers(this, target);
     }
     default void handleReactions(Action action) {
         hasReactionPool.super.handleReactions(this, action);

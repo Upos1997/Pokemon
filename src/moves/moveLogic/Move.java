@@ -2,8 +2,7 @@ package src.moves.moveLogic;
 
 import java.util.List;
 
-import src.combat.action.MoveAction;
-import src.combat.action.MoveActionSingle;
+import src.combat.action.ActionMoveStatus;
 import src.combat.field.Field;
 import src.combat.field.Slot;
 import src.pokemon.Pokemon;
@@ -13,7 +12,7 @@ public abstract class Move {
 
     static protected List<Type> types;
     static protected Targeting target = Targeting.ADJACENT;
-    static protected double accuracy = 1;
+    static protected float accuracy = 1;
     static protected int ppMax;
     static protected int ppCurrent = ppMax;
     static protected int priority = 0;
@@ -24,7 +23,7 @@ public abstract class Move {
     public List<Slot> getTargets(Field field, Pokemon user) {
         return target.getTargets(field, user);
     }
-    public double getAccuracy() {
+    public float getAccuracy() {
         return accuracy;
     }
     public int getPriority() {
@@ -34,24 +33,24 @@ public abstract class Move {
         ppCurrent = ppMax;
     }
 
-    static protected double critChance = 1/24f;
-    static protected double critDamage = 1.5;
-    static protected double stab = 1.5;
+    static protected float critChance = 1/24f;
+    static protected float critDamage = 1.5f;
+    static protected float stab = 1.5f;
 
-    public double getCritChance() {
+    public float getCritChance() {
         return critChance;
     }
 
-    public double getCritDamage() {
+    public float getCritDamage() {
         return critDamage;
     }
 
-    public double getStab() {
+    public float getStab() {
         return stab;
     }
 
     abstract public boolean use(Field field, Pokemon user);
-    abstract public boolean singleTarget(Field field, MoveActionSingle action);
+    abstract public boolean singleTarget(Field field, ActionMoveStatus action, Pokemon target);
 
     abstract public Move getInstance();
 

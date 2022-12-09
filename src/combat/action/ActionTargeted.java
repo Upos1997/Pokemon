@@ -4,11 +4,15 @@ import src.combat.field.Field;
 import src.pokemon.Pokemon;
 
 public abstract class ActionTargeted extends Action {
-    protected ActionTargeted(Pokemon user, Object parent, Pokemon target) {
-        super(user, parent);
+    protected ActionTargeted(Pokemon user, Object source, Pokemon target) {
+        super(user, source);
         this.target = target;
     }
-    Pokemon target;
+    protected Pokemon target;
+
+    public Pokemon getTarget(){
+        return target;
+    }
 
     @Override
     protected void handleReactions(Field field) {

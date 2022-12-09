@@ -34,11 +34,11 @@ public interface hasReactionPool {
     default boolean isAllowed(Field field, Action action){
         return getReactionPool().isAllowed(field, action);
     }
-    default void applyActionModifiers(Field field, Action action, List<MoveStat> mods){
-        getReactionPool().applyActionModifiers(field, action, mods);
+    default void applyActionModifiers(Field field, Action action){
+        getReactionPool().applyActionModifiers(field, action);
     }
-    default void applyStatModifiers(Field field, Pokemon target, List<Stat> mods){
-        getReactionPool().applyStatModifiers(field, target, mods);
+    default void applyStatModifiers(Field field, Pokemon target){
+        getReactionPool().applyStatModifiers(field, target);
     }
     default void handleReactions(Field field, Action action){
         getReactionPool().handleReactions(field, action);

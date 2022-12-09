@@ -1,11 +1,12 @@
-package src.combat.action;
+package src.combat.action.MoveAction;
 
+import src.combat.action.ActionTargeted;
 import src.combat.field.Field;
 import src.helper.Rng;
 import src.moves.moveLogic.Move;
 import src.pokemon.Stat;
 
-public class MoveActionHit extends ActionTargeted{
+public class MoveActionHit extends ActionTargeted {
     MoveActionHit(MoveActionSingle source) {
         super(source.user, source, source.target);
         this.move = source.move;

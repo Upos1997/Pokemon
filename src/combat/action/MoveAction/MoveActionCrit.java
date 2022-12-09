@@ -1,5 +1,6 @@
-package src.combat.action;
+package src.combat.action.MoveAction;
 
+import src.combat.action.ActionTargeted;
 import src.combat.field.Field;
 import src.helper.Rng;
 import src.moves.moveLogic.MoveStat;
@@ -7,11 +8,11 @@ import src.moves.moveLogic.Move;
 
 import java.util.List;
 
-public class MoveActionCrit extends ActionTargeted{
+public class MoveActionCrit extends ActionTargeted implements MoveActionDamaging{
     MoveActionCrit(MoveActionDamage source) {
-        super(source.user, source, source.target);
+        super(source.getUser(), source, source.getTarget());
         this.move = source.move;
-        this.autoCrit = move.isAutoCrit();
+        this.autoCrit = source.source.isAutoCrit();
         this.critChance = move.getCritChance();
         this.critDamage = move.getCritDamage();
     }
@@ -35,9 +36,9 @@ public class MoveActionCrit extends ActionTargeted{
     @Override
     public Boolean takeAction(Field field) {
         List<MoveStat> mods = List.of(MoveStat.AUTO_CRIT, MoveStat.CRIT_CHANCE);
-        field.applyActionModifiers(this, mods);
-        user.applyActionModifiers(field, this, mods);
-        target.applyActionModifiers(field, this, mods);
+        field.applyActionModifiers(this);
+        user.applyActionModifiers(field, this);
+        target.applyActionModifiers(field, this);
         return autoCrit || Rng.chance(critChance);
     }
 }

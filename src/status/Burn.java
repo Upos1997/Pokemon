@@ -4,7 +4,7 @@ import java.util.function.Predicate;
 
 
 import combat.action.ActionStaticDamage;
-import src.combat.action.MoveAction;
+import src.combat.action.MoveAction.MoveAction;
 import src.combat.action.reaction.Reaction;
 import combat.action.actionLogic.MessageAction;
 import src.combat.field.SingleField;
@@ -24,7 +24,7 @@ public class Burn extends Status {
     protected void afflict(SingleField field) {
         Predicate<SingleField> check = _field -> {
             MoveAction action = (MoveAction) _field.getCurrentAction();
-            return action.getSource().isPhysical() && action.getUser().equals(afflicted);
+            return action.getRoot().isPhysical() && action.getUser().equals(afflicted);
         };
         Modifier damageReduction = new Modifier(MessageModifier.DAMAGE, damageMod, check);
         addModifier(field, damageReduction);

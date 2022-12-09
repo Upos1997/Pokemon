@@ -3,7 +3,7 @@ package src.status;
 import java.util.function.Predicate;
 
 import combat.action.ActionStaticDamage;
-import src.combat.action.MoveAction;
+import src.combat.action.MoveAction.MoveAction;
 import src.combat.action.reaction.Reaction;
 import combat.action.actionLogic.MessageAction;
 import src.combat.field.SingleField;
@@ -23,7 +23,7 @@ public class Frostbite extends Status {
     protected void afflict(SingleField field) {
         Predicate<SingleField> predicate = _field -> {
             MoveAction action = (MoveAction) field.getCurrentAction();
-            return action.getUser().hasStatus(StatusName.FROSTBITE) && action.getSource().isSpecial();
+            return action.getUser().hasStatus(StatusName.FROSTBITE) && action.getRoot().isSpecial();
         };
         Modifier damageReduction = new Modifier(MessageModifier.POWER, damageMod, predicate);
         addModifier(field, damageReduction);

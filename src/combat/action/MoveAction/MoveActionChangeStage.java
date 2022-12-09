@@ -1,11 +1,14 @@
-package src.combat.action;
+package src.combat.action.MoveAction;
 
+import src.combat.action.ActionMoveStatus;
+import src.combat.action.ActionTargeted;
 import src.combat.field.Field;
+import src.pokemon.Pokemon;
 import src.pokemon.Stat;
 
-public class MoveActionChangeStage extends  ActionTargeted{
-    public MoveActionChangeStage(Stat stat, int stages, MoveActionSingle parent) {
-        super(parent.user, parent, parent.target);
+public class MoveActionChangeStage extends ActionTargeted implements MoveAction{
+    public MoveActionChangeStage(ActionMoveStatus parent, Pokemon target, Stat stat, int stages) {
+        super(parent.getUser(), parent, target);
         this.stat = stat;
         this.stages = stages;
     }

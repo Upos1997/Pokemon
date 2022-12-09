@@ -2,8 +2,8 @@ package src.moves;
 
 import java.util.List;
 
-import src.combat.action.MoveActionChangeStage;
-import src.combat.action.MoveActionSingle;
+import src.combat.action.ActionMoveStatus;
+import src.combat.action.MoveAction.MoveActionChangeStage;
 import src.combat.field.Field;
 import src.moves.moveLogic.Move;
 import src.moves.moveLogic.moveStatus;
@@ -27,8 +27,8 @@ public class Growl extends moveStatus {
     }
 
     @Override
-    public boolean singleTarget(Field field, MoveActionSingle action) {
-        return new MoveActionChangeStage(Stat.ATK, -1, action).action(field);
+    public boolean singleTarget(Field field, ActionMoveStatus action, Pokemon target) {
+        return new MoveActionChangeStage(action, target, Stat.ATK, -1).action(field);
     }
 
     @Override

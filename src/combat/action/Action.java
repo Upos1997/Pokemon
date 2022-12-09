@@ -4,28 +4,24 @@ import src.combat.field.Field;
 import src.pokemon.Pokemon;
 
 public abstract class Action {
-    protected Action(Pokemon user, Object parent){
+    protected Action(Pokemon user, Object source){
         this.user = user;
-        this.parent = parent;
+        this.source = source;
     }
-
     protected Pokemon user;
-    protected Object parent;
+    protected Object source;
 
     public Pokemon getUser(){
         return user;
     }
-    public Object getParent(){
-        return parent;
-    }
-    protected boolean isChild() {
-        return parent instanceof Action;
-    }
     public Object getSource(){
-        if (isChild()){
-            return ((Action) parent).getSource();
+        return source;
+    }
+    public Object getRoot(){
+        if (source instanceof Action action){
+            return action.getSource();
         } else {
-            return parent;
+            return source;
         }
     }
 
@@ -43,8 +39,8 @@ public abstract class Action {
         }else {
             answer = null;
         }
-        if (isChild()){
-            field.setCurrentAction((Action) parent);
+        if (source instanceof Action action){
+            field.setCurrentAction(action);
         }
         return answer;
     }
