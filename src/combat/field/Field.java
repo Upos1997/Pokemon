@@ -1,9 +1,11 @@
 package src.combat.field;
 
 import src.ReactionPool.hasReactionPool;
+import src.combat.action.modifier.Modifiable;
 import src.combat.action.prevent.Preventable;
 import src.combat.action.Action;
 import src.ReactionPool.ReactionPool;
+import src.combat.action.reaction.Reactionable;
 import src.pokemon.Pokemon;
 import src.terrain.Terrain;
 import src.weather.WeatherName;
@@ -11,8 +13,6 @@ import src.weather.WeatherName;
 import java.util.List;
 
 public interface Field extends hasReactionPool {
-    Action getCurrentAction();
-    void setCurrentAction(Action newAction);
     WeatherName getWeather();
     boolean setWeather(WeatherName newWeather);
     Terrain getTerrain();
@@ -26,16 +26,13 @@ public interface Field extends hasReactionPool {
     List<Slot> getSelf(Pokemon pokemon);
     List<Slot> getAll();
 
-    default boolean isAllowed(Preventable action) {
-        return hasReactionPool.super.isAllowed(this, action);
+    default boolean isAllowed(Preventable preventable) {
+        return hasReactionPool.super.isAllowed(this, preventable);
     }
-    default void applyActionModifiers(Action action){
-        hasReactionPool.super.applyActionModifiers(this, action);
+    default void applyModifiers(Modifiable modifiable){
+        hasReactionPool.super.applyActionModifiers(this, modifiable);
     }
-    default void applyStatModifiers(Pokemon target){
-        hasReactionPool.super.applyStatModifiers(this, target);
-    }
-    default void handleReactions(Action action) {
-        hasReactionPool.super.handleReactions(this, action);
+    default void handleReactions(Reactionable reactionable) {
+        hasReactionPool.super.handleReactions(this, reactionable);
     }
 }

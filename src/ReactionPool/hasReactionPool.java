@@ -1,46 +1,40 @@
 package src.ReactionPool;
 
-import src.combat.action.Action;
+import src.combat.action.modifier.Modifiable;
 import src.combat.action.modifier.Modifier;
 import src.combat.action.prevent.Prevent;
+import src.combat.action.prevent.Preventable;
 import src.combat.action.reaction.Reaction;
+import src.combat.action.reaction.Reactionable;
 import src.combat.field.Field;
-import src.moves.moveLogic.MoveStat;
-import src.pokemon.Pokemon;
-import src.pokemon.Stat;
-
-import java.util.List;
 
 public interface hasReactionPool {
     ReactionPool getReactionPool();
     default void addReaction(Reaction reaction) {
-        getReactionPool().add(reaction);
+        getReactionPool().addReaction(reaction);
     }
     default void addModifier(Modifier modifier) {
-        getReactionPool().add(modifier);
+        getReactionPool().addModifier(modifier);
     }
     default void addPrevent(Prevent prevent) {
-        getReactionPool().add(prevent);
+        getReactionPool().addPrevent(prevent);
     }
     default void removeReaction(Reaction reaction) {
-        getReactionPool().remove(reaction);
+        getReactionPool().removeReaction(reaction);
     }
     default void removeModifier(Modifier modifier){
-        getReactionPool().remove(modifier);
+        getReactionPool().removeModifier(modifier);
     }
     default void removePrevent(Prevent prevent){
-        getReactionPool().remove(prevent);
+        getReactionPool().removePrevent(prevent);
     }
-    default boolean isAllowed(Field field, Action action){
-        return getReactionPool().isAllowed(field, action);
+    default boolean isAllowed(Field field, Preventable preventable){
+        return getReactionPool().isAllowed(field, preventable);
     }
-    default void applyActionModifiers(Field field, Action action){
-        getReactionPool().applyActionModifiers(field, action);
+    default void applyModifiers(Field field, Modifiable modifiable){
+        getReactionPool().applyModifiers(field, modifiable);
     }
-    default void applyStatModifiers(Field field, Pokemon target){
-        getReactionPool().applyStatModifiers(field, target);
-    }
-    default void handleReactions(Field field, Action action){
-        getReactionPool().handleReactions(field, action);
+    default void handleReactions(Field field, Reactionable reactionable){
+        getReactionPool().handleReactions(field, reactionable);
     }
 }

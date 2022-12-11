@@ -9,10 +9,17 @@ import java.util.function.BiFunction;
 import java.util.function.Consumer;
 
 public class Prevent extends BaseSource1Pokemon implements Preventable {
-    Prevent(Pokemon user, Source source, BiFunction<Field, Preventable, Boolean> check, Consumer<Field> action) {
+    Prevent(Pokemon user, Source source, Class<?> classCheck, BiFunction<Field, Preventable, Boolean> check, Consumer<Field> action) {
         super(user, source);
+        this.classCheck = classCheck;
         this.check = check;
         this.action = action;
+    }
+
+    protected Class<?> classCheck;
+
+    public Class<?> getClassCheck() {
+        return classCheck;
     }
 
     protected BiFunction<Field, Preventable, Boolean> check;

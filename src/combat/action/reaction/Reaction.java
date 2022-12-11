@@ -13,10 +13,17 @@ import java.util.function.Consumer;
 public class Reaction extends BaseSource1Pokemon implements Reactionable, Preventable, Modifiable {
 
 
-    public Reaction(Pokemon user, Source source, BiFunction<Field, Reactionable, Boolean> check, Consumer<Field> action) {
+    public Reaction(Pokemon user, Source source, Class<?> classCheck, BiFunction<Field, Reactionable, Boolean> check, Consumer<Field> action) {
         super(user, source);
+        this.classCheck = classCheck;
         this.action = action;
         this.check = check;
+    }
+
+    protected Class<?> classCheck;
+
+    public Class<?> getClassCheck() {
+        return classCheck;
     }
 
     protected Consumer<Field> action;
