@@ -2,6 +2,7 @@ package src.moves.moveLogic;
 
 import src.combat.action.ActionMoveDamaging;
 import src.combat.action.ActionMoveStatus;
+import src.combat.action.MoveAction.MoveActionChangeHp;
 import src.combat.action.MoveAction.MoveActionDamage;
 import src.combat.field.Field;
 import src.pokemon.Pokemon;
@@ -27,12 +28,12 @@ public abstract class MoveDamaging extends Move {
         return power;
     }
 
-    protected void singleTarget(Field field, ActionMoveDamaging action, Pokemon target) {
+    protected boolean singleTarget(Field field, ActionMoveDamaging action, Pokemon target) {
         if(super.singleTarget(field, action, target)){
-            int damage = new MoveActionDamage(action, target).action(field)
-        }
-        return
+            int damage = new MoveActionDamage(action, target).action(field);
+            new MoveActionChangeHp(action, target, damage);
+            secondaryEffect(field, action, target);
+            return true;
+        } else return false;
     }
-
-    protected void secondaryEffect(Field field, ActionMoveDamaging action, Pokemon target){}
 }

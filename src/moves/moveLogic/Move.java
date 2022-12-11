@@ -2,6 +2,7 @@ package src.moves.moveLogic;
 
 import java.util.List;
 
+import src.combat.action.ActionMoveDamaging;
 import src.combat.action.ActionMoveStatus;
 import src.combat.action.MoveAction.MoveActionHit;
 import src.combat.field.Field;
@@ -56,8 +57,10 @@ public abstract class Move implements Source {
     }
 
     protected boolean singleTarget(Field field, ActionMoveStatus action, Pokemon target){
-        return new MoveActionHit(action, target).takeAction(field);
+        return new MoveActionHit(action, target).action(field);
     }
+
+    protected abstract void secondaryEffect(Field field, ActionMoveStatus action, Pokemon target);
 
     abstract public Move getInstance();
 

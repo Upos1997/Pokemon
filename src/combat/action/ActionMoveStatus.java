@@ -8,7 +8,7 @@ import src.pokemon.Type;
 
 import java.util.List;
 
-public class ActionMoveStatus extends Action<Boolean> {
+public class ActionMoveStatus extends Action<Void> {
     ActionMoveStatus(Pokemon user, Move source, List<Slot> targets) {
         super(user, source);
         this.targets = targets;
@@ -16,7 +16,7 @@ public class ActionMoveStatus extends Action<Boolean> {
         this.priority = source.getPriority();
         this.accuracy = source.getAccuracy();
         this.autoHit = source.isAutoHit();
-        this.baseValue = false;
+        this.baseValue = null;
     }
     List<Slot> targets;
 
@@ -35,7 +35,8 @@ public class ActionMoveStatus extends Action<Boolean> {
     public boolean autoHit;
 
     @Override
-    protected Boolean takeAction(Field field) {
-        return getSource().use(field, this);
+    protected Void takeAction(Field field) {
+        getSource().use(field, this);
+        return null;
     }
 }

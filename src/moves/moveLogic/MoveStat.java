@@ -1,5 +1,0 @@
-package src.moves.moveLogic;
-
-public enum MoveStat {
-    POWER, ACCURACY, PRIORITY, CRIT_CHANCE, CRIT_DAMAGE, STAB, TYPE, AUTO_CRIT, DAMAGE, ATTACK, DEFENSE, AUTO_HIT;
-}
