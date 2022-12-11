@@ -5,10 +5,11 @@ import java.util.List;
 import src.combat.action.ActionMoveStatus;
 import src.combat.field.Field;
 import src.combat.field.Slot;
+import src.helper.Source;
 import src.pokemon.Pokemon;
 import src.pokemon.Type;
 
-public abstract class Move {
+public abstract class Move implements Source {
 
     static protected List<Type> types;
     static protected Targeting target = Targeting.ADJACENT;
@@ -49,7 +50,7 @@ public abstract class Move {
         return stab;
     }
 
-    abstract public boolean use(Field field, Pokemon user);
+    abstract public boolean use(Field field, Pokemon user, List<Pokemon> pokemons);
     abstract public boolean singleTarget(Field field, ActionMoveStatus action, Pokemon target);
 
     abstract public Move getInstance();

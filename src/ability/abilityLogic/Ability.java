@@ -5,10 +5,11 @@ import java.util.function.Predicate;
 import src.combat.action.reaction.Reaction;
 import combat.action.actionLogic.MessageAction;
 import src.combat.field.SingleField;
+import src.helper.Source;
 import src.helper.Static;
 import src.pokemon.Pokemon;
 
-public abstract class Ability extends Static {
+public abstract class Ability extends Static implements Source {
     protected Ability(Pokemon user) {
         this.user = user;
     }
@@ -16,8 +17,6 @@ public abstract class Ability extends Static {
     protected Pokemon user;
     protected Predicate<SingleField> isActive;
     protected Predicate<SingleField> isDormant = field -> !isActive.test(field);
-    protected MessageAction activeMessage;
-    protected MessageAction dormantMessage;
     protected boolean active = false;
 
     abstract protected void disableAbility(SingleField field);

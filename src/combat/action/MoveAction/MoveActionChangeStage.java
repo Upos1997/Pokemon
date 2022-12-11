@@ -1,16 +1,17 @@
 package src.combat.action.MoveAction;
 
-import src.combat.action.ActionMoveStatus;
 import src.combat.action.ActionTargeted;
 import src.combat.field.Field;
+import src.helper.Source;
 import src.pokemon.Pokemon;
 import src.pokemon.Stat;
 
-public class MoveActionChangeStage extends ActionTargeted implements MoveAction{
-    public MoveActionChangeStage(ActionMoveStatus parent, Pokemon target, Stat stat, int stages) {
-        super(parent.getUser(), parent, target);
+public class MoveActionChangeStage extends ActionTargeted<Boolean> {
+    public MoveActionChangeStage(Pokemon self, Source source, Pokemon target, Stat stat, int stages) {
+        super(self, source, target);
         this.stat = stat;
         this.stages = stages;
+        this.baseValue = false;
     }
 
     public Stat stat;
@@ -19,13 +20,8 @@ public class MoveActionChangeStage extends ActionTargeted implements MoveAction{
     public boolean isLowers(){
         return stages < 0;
     }
-    public boolean isRaise(){
-        return stages > 0;
-    }
-
-    @Override
-    public Boolean action(Field field) {
-        return (Boolean) super.action(field);
+    public boolean isRaises(){
+        return !isLowers();
     }
 
     @Override

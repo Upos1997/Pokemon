@@ -5,28 +5,25 @@ import src.combat.action.ActionTargeted;
 import src.combat.field.Field;
 import src.helper.Rng;
 import src.moves.moveLogic.MoveDamaging;
-import src.moves.moveLogic.MoveStat;
 import src.pokemon.Pokemon;
 import src.pokemon.Stat;
 import src.pokemon.Type;
 
-import java.util.List;
-
-public class MoveActionDamage extends ActionTargeted implements MoveActionDamaging{
+public class MoveActionDamage extends ActionTargeted<Integer>{
     public MoveActionDamage(ActionMoveDamaging source, Pokemon target) {
-        super(source.getUser(), source, target);
+        super(source.getSelf(), source, target);
         this.move =  source.getSource();
-        this.attack = source.getAttack();
-        this.defense = source.getDefense();
-        this.power = source.getPower();
-        this.stab = source.getStab();
-        this.damageMod = source.getDamageMod();
+        this.attack = source.attack;
+        this.defense = source.defense;
+        this.power = source.power;
+        this.stab = source.stab;
+        this.damageMod = source.damageMod;
+        this.baseValue = 0;
     }
 
-    ActionMoveDamaging source;
     @Override
     public ActionMoveDamaging getSource() {
-        return source;
+        return (ActionMoveDamaging) source;
     }
 
     public MoveDamaging move;
@@ -39,82 +36,27 @@ public class MoveActionDamage extends ActionTargeted implements MoveActionDamagi
     public int defenseNumber;
     public float critDamage;
 
-    @Override
-    public int getPower() {
-        return power;
-    }
-    @Override
-    public void setPower(int power) {
-        this.power = power;
-    }
-    @Override
-    public float getDamageMod() {
-        return damageMod;
-    }
-    @Override
-    public void setDamageMod(float damageMod) {
-        this.damageMod = damageMod;
-    }
-    @Override
-    public float getStab() {
-        return stab;
-    }
-    @Override
-    public void setStab(float stab) {
-        this.stab = stab;
-    }
-    @Override
-    public Stat getAttack() {
-        return attack;
-    }
-    @Override
-    public void setAttack(Stat attack) {
-        this.attack = attack;
-    }
-    @Override
-    public Stat getDefense() {
-        return defense;
-    }
-    @Override
-    public void setDefense(Stat defense) {
-        this.defense = defense;
-    }
-    @Override
-    public float getCritDamage() {
-        return critDamage;
-    }
-    @Override
-    public void setCritDamage(float critDamage) {
-        this.critDamage = critDamage;
-    }
-
     private boolean isStab(){
-        return user.getTypes().stream().anyMatch(type -> getTypes().contains(type));
+        return self.getTypes().stream().anyMatch(type -> move.getTypes().contains(type));
     }
     private boolean isCrit(Field field) {
         return new MoveActionCrit(this).takeAction(field);
     }
 
     @Override
-    public Integer action(Field field) {
-        return (Integer) super.action(field);
-    }
-
-    @Override
     public Integer takeAction(Field field) {
-        target.applyActionModifiers(field, this);
-        attackNumber = user.getAdjustedStat(attack);
+        attackNumber = self.getAdjustedStat(attack);
         defenseNumber = target.getAdjustedStat(defense);
         if (isCrit(field)){
             damageMod *= critDamage;
-            attackNumber = Math.max(attackNumber, user.getStat(attack));
+            attackNumber = Math.max(attackNumber, self.getStat(attack));
             defenseNumber = Math.min(defenseNumber, target.getStat(defense));
         }
         if (isStab()){
             damageMod *= stab;
         }
-        damageMod *= Type.calcTypeEffectiveness(getTypes(), target.getTypes());
+        damageMod *= Type.calcTypeEffectiveness(move.getTypes(), target.getTypes());
         damageMod *= Rng.range(0.85, 1);
-        return (int) (((2/5f*user.getLevel()+2)*power*attackNumber/defenseNumber/50+2)*damageMod);
+        return (int) (((2/5f*self.getLevel()+2)*power*attackNumber/defenseNumber/50+2)*damageMod);
     }
 }

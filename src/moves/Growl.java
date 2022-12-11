@@ -22,7 +22,7 @@ public class Growl extends moveStatus {
     }
 
     @Override
-    public boolean use(Field field, Pokemon user) {
+    public boolean use(Field field, Pokemon user, List<Pokemon> pokemons) {
         return false;
     }
 

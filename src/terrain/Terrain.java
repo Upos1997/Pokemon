@@ -1,6 +1,8 @@
 package src.terrain;
 
-public enum Terrain {
+import src.helper.Source;
+
+public enum Terrain implements Source {
     ELECTRIC,
     GRASSY,
     MISTY,

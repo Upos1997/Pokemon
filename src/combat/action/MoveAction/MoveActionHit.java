@@ -1,15 +1,17 @@
 package src.combat.action.MoveAction;
 
+import src.combat.action.ActionMoveStatus;
 import src.combat.action.ActionTargeted;
 import src.combat.field.Field;
 import src.helper.Rng;
 import src.moves.moveLogic.Move;
+import src.pokemon.Pokemon;
 import src.pokemon.Stat;
 
-public class MoveActionHit extends ActionTargeted {
-    MoveActionHit(MoveActionSingle source) {
-        super(source.user, source, source.target);
-        this.move = source.move;
+public class MoveActionHit extends ActionTargeted<Boolean> {
+    MoveActionHit(ActionMoveStatus source, Pokemon target) {
+        super(source.getSelf(), source, target);
+        this.move = source.getSource();
         this.accuracy = move.getAccuracy();
         this.autoHit = move.isAutoHit();
     }
@@ -19,12 +21,7 @@ public class MoveActionHit extends ActionTargeted {
     boolean autoHit;
 
     @Override
-    public Boolean action(Field field) {
-        return (Boolean) super.action(field);
-    }
-
-    @Override
     public Boolean takeAction(Field field) {
-        return autoHit || Rng.chance(accuracy* Stat.getAccMod(user.getStage(Stat.ACC), target.getStage(Stat.EVA)));
+        return autoHit || Rng.chance(accuracy* Stat.getAccMod(self.getStage(Stat.ACC), target.getStage(Stat.EVA)));
     }
 }

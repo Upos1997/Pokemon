@@ -2,10 +2,11 @@ package src.status;
 
 
 import src.combat.field.SingleField;
+import src.helper.Source;
 import src.helper.Static;
 import src.pokemon.Pokemon;
 
-abstract public class Status extends Static {
+abstract public class Status extends Static implements Source {
     Status(Pokemon afflicted) {
         this.afflicted = afflicted;
     }

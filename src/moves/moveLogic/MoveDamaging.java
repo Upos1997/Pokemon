@@ -3,10 +3,11 @@ package src.moves.moveLogic;
 import src.combat.action.ActionMoveDamaging;
 import src.combat.action.ActionMoveStatus;
 import src.combat.action.MoveAction.MoveActionDamage;
-import src.combat.action.MoveAction.MoveActionDealDamage;
 import src.combat.field.Field;
 import src.pokemon.Pokemon;
 import src.pokemon.Stat;
+
+import java.util.List;
 
 public abstract class MoveDamaging extends Move {
 
@@ -31,7 +32,7 @@ public abstract class MoveDamaging extends Move {
     }
 
     @Override
-    public boolean use(Field field, Pokemon user) {
+    public boolean use(Field field, Pokemon user, List<Pokemon> pokemons) {
         return true;
     }
 

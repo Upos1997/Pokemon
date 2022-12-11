@@ -12,7 +12,13 @@ public abstract class Action<T> extends BaseSource1Pokemon implements Modifiable
     protected Action(Pokemon user, Source source){
         super(user, source);
     }
-
+    public Source getRoot(){
+        if (source instanceof Action<?> action){
+            return action.getRoot();
+        } else {
+            return source;
+        }
+    }
     protected T baseValue;
     public T action(Field field){
         T answer;
