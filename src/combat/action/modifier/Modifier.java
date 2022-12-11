@@ -1,26 +1,41 @@
 package src.combat.action.modifier;
 
-import src.combat.action.Action;
-import src.combat.action.Message;
-import src.combat.action.reaction.Reaction;
+import src.combat.action.prevent.Preventable;
 import src.combat.field.Field;
-import src.combat.field.SingleField;
+import src.helper.Source;
 import src.pokemon.Pokemon;
 
 import java.util.function.BiFunction;
-import java.util.function.Predicate;
+import java.util.function.Consumer;
 
-public abstract class Modifier extends Reaction {
-    Modifier(Pokemon user, Object source, float modifier, BiFunction<Field, Action, Boolean> check, Predicate<Field> action) {
-        super(user, source, check, action);
-        this.modifier = modifier;
+public class Modifier implements Modifiable, Preventable {
+    Modifier(Pokemon user, Source source, BiFunction<Field, Modifiable, Boolean> check, Consumer<Modifiable> action) {
+        this.user = user;
+        this.source = source;
+        this.check = check;
+        this.action = action;
     }
 
-    float modifier;
+    protected Pokemon user;
+    protected Source source;
 
-    public float getModifier() {
-        return modifier;
+    public Pokemon getUser() {
+        return user;
     }
 
-    public abstract void undo();
+    public Source getSource() {
+        return source;
+    }
+
+    BiFunction<Field, Modifiable, Boolean> check;
+    Consumer<Modifiable> action;
+
+    public void use(Field field, Modifiable modifiable){
+        if (isAllowed(field)){
+            getModifiers(field);
+            if (check.apply(field, modifiable)){
+                action.accept(modifiable);
+            }
+        }
+    }
 }

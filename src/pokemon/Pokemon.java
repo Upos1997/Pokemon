@@ -10,7 +10,7 @@ import src.moves.moveLogic.Move;
 import src.status.Status;
 import src.status.StatusName;
 
-public class Pokemon implements hasReactionPool {
+public class Pokemon {
     public Pokemon(Species species, int level) {
         this.species = species;
         this.level = level;
@@ -172,11 +172,6 @@ public class Pokemon implements hasReactionPool {
     Move move3;
     Move move4;
 
-    ReactionPool reactionPool = new ReactionPool();
-    @Override
-    public ReactionPool getReactionPool() {
-        return reactionPool;
-    }
     public List<Type> getTypes() {
         return species.getTypes();
     }

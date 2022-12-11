@@ -22,7 +22,7 @@ public class MoveActionDealDamage extends ActionTargeted implements MoveActionDa
 
     @Override
     public Boolean action(Field field) {
-        return (Boolean) super.action(field);
+        return super.action(field) instanceof Boolean;
     }
 
     @Override

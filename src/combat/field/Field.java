@@ -1,11 +1,10 @@
 package src.combat.field;
 
 import src.ReactionPool.hasReactionPool;
+import src.combat.action.prevent.Preventable;
 import src.combat.action.Action;
 import src.ReactionPool.ReactionPool;
-import src.moves.moveLogic.MoveStat;
 import src.pokemon.Pokemon;
-import src.pokemon.Stat;
 import src.terrain.Terrain;
 import src.weather.WeatherName;
 
@@ -27,7 +26,7 @@ public interface Field extends hasReactionPool {
     List<Slot> getSelf(Pokemon pokemon);
     List<Slot> getAll();
 
-    default boolean isAllowed(Action action) {
+    default boolean isAllowed(Preventable action) {
         return hasReactionPool.super.isAllowed(this, action);
     }
     default void applyActionModifiers(Action action){
