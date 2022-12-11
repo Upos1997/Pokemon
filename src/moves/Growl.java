@@ -22,13 +22,8 @@ public class Growl extends moveStatus {
     }
 
     @Override
-    public boolean use(Field field, Pokemon user, List<Pokemon> pokemons) {
-        return false;
-    }
-
-    @Override
-    public boolean singleTarget(Field field, ActionMoveStatus action, Pokemon target) {
-        return new MoveActionChangeStage(action, target, Stat.ATK, -1).action(field);
+    protected void secondaryEffect(Field field, ActionMoveStatus action, Pokemon target) {
+        new MoveActionChangeStage(action.getSelf(), action, target, Stat.ATK, -1);
     }
 
     @Override

@@ -16,6 +16,9 @@ public class Tackle extends MovePhysical {
     static int ppMax = 35;
 
     @Override
+    protected void secondaryEffect(Field field, ActionMoveStatus action, Pokemon target) {}
+
+    @Override
     public Move getInstance() {
         return new Tackle();
     }
