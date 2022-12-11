@@ -19,7 +19,7 @@ public class MoveActionChangeHp extends ActionTargeted<Boolean> {
     }
 
     @Override
-    public Boolean takeAction(Field field) {
+    protected Boolean takeAction(Field field) {
         target.changeHp(damage * -1);
         return true;
     }

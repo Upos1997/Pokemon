@@ -9,7 +9,7 @@ import src.pokemon.Pokemon;
 import src.pokemon.Stat;
 
 public class MoveActionHit extends ActionTargeted<Boolean> {
-    MoveActionHit(ActionMoveStatus source, Pokemon target) {
+    public MoveActionHit(ActionMoveStatus source, Pokemon target) {
         super(source.getSelf(), source, target);
         this.move = source.getSource();
         this.accuracy = move.getAccuracy();
@@ -21,7 +21,7 @@ public class MoveActionHit extends ActionTargeted<Boolean> {
     boolean autoHit;
 
     @Override
-    public Boolean takeAction(Field field) {
+    protected Boolean takeAction(Field field) {
         return autoHit || Rng.chance(accuracy* Stat.getAccMod(self.getStage(Stat.ACC), target.getStage(Stat.EVA)));
     }
 }

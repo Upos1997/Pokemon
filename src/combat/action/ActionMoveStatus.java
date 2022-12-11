@@ -20,6 +20,10 @@ public class ActionMoveStatus extends Action<Boolean> {
     }
     List<Slot> targets;
 
+    public List<Slot> getTargets() {
+        return targets;
+    }
+
     @Override
     public Move getSource() {
         return (Move) source;
@@ -31,7 +35,7 @@ public class ActionMoveStatus extends Action<Boolean> {
     public boolean autoHit;
 
     @Override
-    public Boolean takeAction(Field field) {
-        return getSource().use(field, self, targets.stream().map(Slot::getPokemon).toList());
+    protected Boolean takeAction(Field field) {
+        return getSource().use(field, this);
     }
 }

@@ -25,7 +25,7 @@ public class MoveActionChangeStage extends ActionTargeted<Boolean> {
     }
 
     @Override
-    public Boolean takeAction(Field field) {
+    protected Boolean takeAction(Field field) {
         target.updateStages(stat, stages);
         return true;
     }

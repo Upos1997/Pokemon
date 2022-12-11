@@ -44,7 +44,7 @@ public class MoveActionDamage extends ActionTargeted<Integer>{
     }
 
     @Override
-    public Integer takeAction(Field field) {
+    protected Integer takeAction(Field field) {
         attackNumber = self.getAdjustedStat(attack);
         defenseNumber = target.getAdjustedStat(defense);
         if (isCrit(field)){

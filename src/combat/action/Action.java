@@ -31,5 +31,5 @@ public abstract class Action<T> extends BaseSource1Pokemon implements Modifiable
         }
         return answer;
     }
-    abstract public T takeAction(Field field);
+    abstract protected T takeAction(Field field);
 }

@@ -3,6 +3,7 @@ package src.moves.moveLogic;
 import java.util.List;
 
 import src.combat.action.ActionMoveStatus;
+import src.combat.action.MoveAction.MoveActionHit;
 import src.combat.field.Field;
 import src.combat.field.Slot;
 import src.helper.Source;
@@ -50,8 +51,13 @@ public abstract class Move implements Source {
         return stab;
     }
 
-    abstract public boolean use(Field field, Pokemon user, List<Pokemon> pokemons);
-    abstract public boolean singleTarget(Field field, ActionMoveStatus action, Pokemon target);
+    public void use(Field field, ActionMoveStatus action){
+        action.getTargets().stream().map(Slot::getPokemon).forEach(pokemon -> singleTarget(field, action, pokemon));
+    }
+
+    protected boolean singleTarget(Field field, ActionMoveStatus action, Pokemon target){
+        return new MoveActionHit(action, target).takeAction(field);
+    }
 
     abstract public Move getInstance();
 

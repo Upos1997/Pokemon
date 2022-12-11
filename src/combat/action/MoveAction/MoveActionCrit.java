@@ -25,7 +25,7 @@ public class MoveActionCrit extends ActionTargeted<Boolean> {
     }
 
     @Override
-    public Boolean takeAction(Field field) {
+    protected Boolean takeAction(Field field) {
         return autoCrit || Rng.chance(critChance);
     }
 }

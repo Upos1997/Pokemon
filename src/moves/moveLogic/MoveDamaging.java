@@ -27,22 +27,12 @@ public abstract class MoveDamaging extends Move {
         return power;
     }
 
-    protected boolean secondaryEffect(Field field, ActionMoveDamaging action, Pokemon target){
-        return true;
+    protected void singleTarget(Field field, ActionMoveDamaging action, Pokemon target) {
+        if(super.singleTarget(field, action, target)){
+            int damage = new MoveActionDamage(action, target).action(field)
+        }
+        return
     }
 
-    @Override
-    public boolean use(Field field, Pokemon user, List<Pokemon> pokemons) {
-        return true;
-    }
-
-    @Override
-    public boolean singleTarget(Field field, ActionMoveStatus action, Pokemon target) {
-        if (action instanceof ActionMoveDamaging action1) {
-            int damage = new MoveActionDamage(action1, target).action(field);
-            if (new MoveActionDealDamage(action1, target, damage).action(field)) {
-                return secondaryEffect(field, action1, target);
-            } else return false;
-        } else return false;
-    }
+    protected void secondaryEffect(Field field, ActionMoveDamaging action, Pokemon target){}
 }
