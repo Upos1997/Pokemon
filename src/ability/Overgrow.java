@@ -3,22 +3,17 @@ package src.ability;
 import java.util.function.Predicate;
 
 import src.ability.abilityLogic.Ability;
-import src.combat.action.MoveAction.MoveAction;
-import combat.action.actionLogic.MessageAction;
 import src.combat.field.SingleField;
-import combat.modifier.MessageModifier;
-import combat.modifier.Modifier;
 import src.pokemon.Pokemon;
 import src.pokemon.enums.Type;
 
 public class Overgrow extends Ability {
-    Overgrow(Pokemon user) {
-        super(user);
+    private Overgrow() {
+        super();
+
     }
 
     protected Predicate<SingleField> isActive = field -> user.isBelow(1/3f);
-    protected MessageAction activeMessage = MessageAction.CHANGE_HP;
-    protected MessageAction dormantMessage = MessageAction.CHANGE_HP;
 
     @Override
     public Overgrow newInstance(Pokemon user) {
@@ -37,5 +32,11 @@ public class Overgrow extends Ability {
         };
         Modifier modifier = new Modifier(MessageModifier.DAMAGE, 1.5f, predicate);
         addModifier(field, modifier);
+    }
+
+    private final Overgrow overgrow = new Overgrow();
+
+    public static Overgrow getInstance(){
+        return overgrow;
     }
 }

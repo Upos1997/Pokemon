@@ -1,6 +1,7 @@
 package src.pokemon;
 
 import java.util.List;
+import java.util.function.Function;
 
 import src.ability.abilityLogic.Ability;
 import src.moves.moveLogic.Move;
@@ -8,6 +9,7 @@ import src.pokemon.enums.Gender;
 import src.pokemon.enums.Nature;
 import src.pokemon.enums.Stat;
 import src.pokemon.enums.Type;
+import src.pokemon.species.Species;
 import src.status.Status;
 import src.status.StatusName;
 
@@ -21,6 +23,9 @@ public class Pokemon {
         hpCurrent = hpMax;
     }
 
+    ////////////////////////
+    //variables and getters
+    ////////////////////////
     protected Species species;
     protected int level;
     protected long xp;
@@ -28,6 +33,24 @@ public class Pokemon {
     protected Nature nature;
     protected Gender gender;
     protected Status status;
+    public int hpCurrent;
+    public int hpMax;
+    int attack;
+    int defense;
+    int specialAttack;
+    int specialDefense;
+    int speed;
+    int attackStage = 0;
+    int defenseStage = 0;
+    int specialAttackStage = 0;
+    int specialDefenseStage = 0;
+    int speedStage = 0;
+    int accuracyStage = 0;
+    int evasionStage = 0;
+    Move move1;
+    Move move2;
+    Move move3;
+    Move move4;
 
     public int getLevel() {
         return level;
@@ -35,10 +58,6 @@ public class Pokemon {
 
     public long getXp() {
         return xp;
-    }
-
-    public void gainXp(long amount) {
-        xp += amount;
     }
 
     public Ability getAbility() {
@@ -56,20 +75,6 @@ public class Pokemon {
     public Status getStatus() {
         return status;
     }
-
-    public void setStatus(Status newStatus) {
-        if (hasStatus(StatusName.OK)) {
-            status = newStatus;
-        }
-    }
-
-    public int hpCurrent;
-    public int hpMax;
-    int attack;
-    int defense;
-    int specialAttack;
-    int specialDefense;
-    int speed;
 
     public int getHpCurrent() {
         return hpCurrent;
@@ -90,50 +95,6 @@ public class Pokemon {
         };
     }
 
-    public void modStat(Stat stat, double mod){
-        switch (stat) {
-            case ATK -> attack *= mod;
-            case DEF -> defense *= mod;
-            case SP_ATK -> specialAttack *= mod;
-            case SP_DEF -> specialDefense *= mod;
-            case SPE -> speed *= mod;
-        }
-    }
-
-    float calcBase(int baseStat) {
-        return ((2 * baseStat) * level / 100f) + 5;
-    }
-
-    int calcStat(Stat stat) {
-        int baseStat = species.getStat(stat);
-        return (int) Math.round(calcBase(baseStat) * nature.get_modifier(stat));
-    }
-
-    int calcHp() {
-        return Math.round(calcBase(species.getStat(Stat.HP)) + level + 5);
-    }
-
-    void updateStats() {
-        this.hpMax = calcHp();
-        this.attack = calcStat(Stat.ATK);
-        this.defense = calcStat(Stat.DEF);
-        this.specialAttack = calcStat(Stat.SP_ATK);
-        this.specialDefense = calcStat(Stat.SP_DEF);
-        this.speed = calcStat(Stat.SPE);
-    }
-
-    public void changeHp(int amount) {
-        this.hpCurrent = Math.min(Math.max(hpCurrent + amount, 0), hpMax);
-    }
-
-    int attackStage = 0;
-    int defenseStage = 0;
-    int specialAttackStage = 0;
-    int specialDefenseStage = 0;
-    int speedStage = 0;
-    int accuracyStage = 0;
-    int evasionStage = 0;
-
     public int getStage(Stat stat) {
         return switch (stat) {
             case ATK -> attackStage;
@@ -147,32 +108,6 @@ public class Pokemon {
         };
     }
 
-    public void updateStages(Stat stat, int stages) {
-        switch (stat) {
-            case ATK:
-                attackStage = Math.max(-6, Math.min(6, attackStage+stages));
-            case DEF:
-                defenseStage = Math.max(-6, Math.min(6, defenseStage+stages));
-            case SP_ATK:
-                specialAttackStage = Math.max(-6, Math.min(6, specialAttackStage+stages));
-            case SP_DEF:
-                specialDefenseStage = Math.max(-6, Math.min(6, specialDefenseStage+stages));
-            case SPE:
-                speedStage = Math.max(-6, Math.min(6, speedStage+stages));
-            case ACC:
-                accuracyStage = Math.max(-6, Math.min(6, accuracyStage+stages));
-            case EVA:
-                evasionStage = Math.max(-6, Math.min(6, evasionStage+stages));
-            default:
-                break;
-        }
-    }
-
-    Move move1;
-    Move move2;
-    Move move3;
-    Move move4;
-
     public List<Type> getTypes() {
         return species.getTypes();
     }
@@ -180,6 +115,59 @@ public class Pokemon {
     public int getAdjustedStat(Stat stat) {
         return (int) (getStage(stat) * Stat.getMod(getStage(stat)));
     }
+
+    //////////
+    //setters
+    //////////
+
+    public void gainXp(long amount) {
+        xp += amount;
+    }
+    public void setStatus(Status newStatus) {
+        if (hasStatus(StatusName.OK)) {
+            status = newStatus;
+        }
+    }
+
+    public void modStat(Stat stat, double mod){
+        switch (stat) {
+            case ATK -> attack *= mod;
+            case DEF -> defense *= mod;
+            case SP_ATK -> specialAttack *= mod;
+            case SP_DEF -> specialDefense *= mod;
+            case SPE -> speed *= mod;
+        }
+    }
+
+    public void updateStages(Stat stat, int stages) {
+        Function<Integer, Integer> calcStage = (start) -> Math.max(-6, Math.min(6, start+stages));
+        switch (stat) {
+            case ATK:
+                attackStage = calcStage.apply(attackStage);
+            case DEF:
+                defenseStage = calcStage.apply(defenseStage);
+            case SP_ATK:
+                specialAttackStage = calcStage.apply(specialAttackStage);
+            case SP_DEF:
+                specialDefenseStage = calcStage.apply(specialDefenseStage);
+            case SPE:
+                speedStage = calcStage.apply(speedStage);
+            case ACC:
+                accuracyStage = calcStage.apply(accuracyStage);
+            case EVA:
+                evasionStage = calcStage.apply(evasionStage);
+            default:
+                break;
+        }
+    }
+
+    public void changeHp(int amount) {
+        this.hpCurrent = Math.min(Math.max(hpCurrent + amount, 0), hpMax);
+    }
+
+    //////////////////
+    //boolean methods
+    //////////////////
 
     public boolean isBelow(float threshold) {
         return hpCurrent < hpMax * threshold;
@@ -193,6 +181,29 @@ public class Pokemon {
         return getTypes().contains(type);
     }
 
-    static final public Pokemon emptyPokemon = new Pokemon(Species.BULBASAUR, 1);
+    ////////////////
+    //Other methods
+    ////////////////
 
+    private float calcBase(int baseStat) {
+        return ((2 * baseStat) * level / 100f) + 5;
+    }
+
+    private int calcStat(Stat stat) {
+        int baseStat = species.getStat(stat);
+        return Math.round(calcBase(baseStat) * nature.get_modifier(stat));
+    }
+
+    private int calcHp() {
+        return Math.round(calcBase(species.getStat(Stat.HP)) + level + 5);
+    }
+
+    private void updateStats() {
+        this.hpMax = calcHp();
+        this.attack = calcStat(Stat.ATK);
+        this.defense = calcStat(Stat.DEF);
+        this.specialAttack = calcStat(Stat.SP_ATK);
+        this.specialDefense = calcStat(Stat.SP_DEF);
+        this.speed = calcStat(Stat.SPE);
+    }
 }
