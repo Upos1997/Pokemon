@@ -10,6 +10,10 @@ import src.moves.Growl;
 import src.moves.Tackle;
 import src.moves.VineWhip;
 import src.moves.moveLogic.Move;
+import src.pokemon.enums.EggGroup;
+import src.pokemon.enums.GrowthRate;
+import src.pokemon.enums.Stat;
+import src.pokemon.enums.Type;
 
 public enum Species {
     BULBASAUR("Bulbasaur", List.of(Type.GRASS, Type.POISON), List.of(AbilityName.OVERGROW),

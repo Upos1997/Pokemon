@@ -6,7 +6,7 @@ import src.combat.field.Field;
 import src.helper.Rng;
 import src.moves.moveLogic.Move;
 import src.pokemon.Pokemon;
-import src.pokemon.Stat;
+import src.pokemon.enums.Stat;
 
 public class MoveActionHit extends ActionTargeted<Boolean> {
     public MoveActionHit(ActionMoveStatus source, Pokemon target) {

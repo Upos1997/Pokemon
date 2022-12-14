@@ -7,7 +7,7 @@ import src.combat.field.Field;
 import src.moves.moveLogic.Move;
 import src.moves.moveLogic.MovePhysical;
 import src.pokemon.Pokemon;
-import src.pokemon.Type;
+import src.pokemon.enums.Type;
 
 public class VineWhip extends MovePhysical {
     private VineWhip(){
@@ -22,7 +22,6 @@ public class VineWhip extends MovePhysical {
 
     static private final VineWhip vineWhip = new VineWhip();
 
-    @Override
     public static Move getInstance() {
         return vineWhip;
     }

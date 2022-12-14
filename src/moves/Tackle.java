@@ -7,7 +7,7 @@ import src.combat.field.Field;
 import src.moves.moveLogic.Move;
 import src.moves.moveLogic.MovePhysical;
 import src.pokemon.Pokemon;
-import src.pokemon.Type;
+import src.pokemon.enums.Type;
 
 public class Tackle extends MovePhysical {
     private Tackle(){
@@ -22,7 +22,6 @@ public class Tackle extends MovePhysical {
 
     static final private Tackle tackle = new Tackle();
 
-    @Override
     public static Move getInstance() {
         return tackle;
     }

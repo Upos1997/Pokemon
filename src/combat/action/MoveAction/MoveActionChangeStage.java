@@ -4,7 +4,7 @@ import src.combat.action.ActionTargeted;
 import src.combat.field.Field;
 import src.helper.Source;
 import src.pokemon.Pokemon;
-import src.pokemon.Stat;
+import src.pokemon.enums.Stat;
 
 public class MoveActionChangeStage extends ActionTargeted<Boolean> {
     public MoveActionChangeStage(Pokemon self, Source source, Pokemon target, Stat stat, int stages) {

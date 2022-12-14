@@ -6,7 +6,7 @@ import src.combat.action.MoveAction.MoveActionChangeHp;
 import src.combat.action.MoveAction.MoveActionDamage;
 import src.combat.field.Field;
 import src.pokemon.Pokemon;
-import src.pokemon.Stat;
+import src.pokemon.enums.Stat;
 
 public abstract class MoveDamaging extends Move {
 

@@ -1,4 +1,4 @@
-package src.pokemon;
+package src.pokemon.enums;
 
 import java.util.Collections;
 import java.util.List;

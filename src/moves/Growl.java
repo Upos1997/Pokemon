@@ -8,8 +8,8 @@ import src.combat.field.Field;
 import src.moves.moveLogic.Move;
 import src.moves.moveLogic.moveStatus;
 import src.pokemon.Pokemon;
-import src.pokemon.Stat;
-import src.pokemon.Type;
+import src.pokemon.enums.Stat;
+import src.pokemon.enums.Type;
 
 public class Growl extends moveStatus {
     private Growl(){
@@ -29,8 +29,7 @@ public class Growl extends moveStatus {
 
     static private final Growl growl = new Growl();
 
-    @Override
-    public static Move getInstance() {
+    static public Move getInstance() {
         return growl;
     }
 }

@@ -1,12 +1,13 @@
 package src.pokemon;
 
 import java.util.List;
-import java.util.function.Function;
 
-import src.ReactionPool.ReactionPool;
-import src.ReactionPool.hasReactionPool;
 import src.ability.abilityLogic.Ability;
 import src.moves.moveLogic.Move;
+import src.pokemon.enums.Gender;
+import src.pokemon.enums.Nature;
+import src.pokemon.enums.Stat;
+import src.pokemon.enums.Type;
 import src.status.Status;
 import src.status.StatusName;
 

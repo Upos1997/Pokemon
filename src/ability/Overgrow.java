@@ -9,7 +9,7 @@ import src.combat.field.SingleField;
 import combat.modifier.MessageModifier;
 import combat.modifier.Modifier;
 import src.pokemon.Pokemon;
-import src.pokemon.Type;
+import src.pokemon.enums.Type;
 
 public class Overgrow extends Ability {
     Overgrow(Pokemon user) {

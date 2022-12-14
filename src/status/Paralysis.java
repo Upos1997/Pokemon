@@ -8,7 +8,7 @@ import combat.prevent.MessagePrevent;
 import combat.prevent.Prevent;
 import src.helper.Rng;
 import src.pokemon.Pokemon;
-import src.pokemon.Stat;
+import src.pokemon.enums.Stat;
 
 public class Paralysis extends Status {
     Paralysis(Pokemon afflicted) {

@@ -3,7 +3,7 @@ package src.combat.action;
 import src.combat.field.Slot;
 import src.moves.moveLogic.MoveDamaging;
 import src.pokemon.Pokemon;
-import src.pokemon.Stat;
+import src.pokemon.enums.Stat;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package src.pokemon;
+package src.pokemon.enums;
 
 public enum Stat {
     HP,

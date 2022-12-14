@@ -1,6 +1,6 @@
 package src.moves.moveLogic;
 
-import src.pokemon.Stat;
+import src.pokemon.enums.Stat;
 
 public abstract class MovePhysical extends MoveDamaging {
     protected MovePhysical(){
