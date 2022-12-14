@@ -3,7 +3,6 @@ package src.ability.abilityLogic;
 import java.util.function.Predicate;
 
 import src.combat.action.reaction.Reaction;
-import combat.action.actionLogic.MessageAction;
 import src.combat.field.SingleField;
 import src.helper.Source;
 import src.helper.Static;

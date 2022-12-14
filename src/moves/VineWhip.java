@@ -10,16 +10,20 @@ import src.pokemon.Pokemon;
 import src.pokemon.Type;
 
 public class VineWhip extends MovePhysical {
-
-    static List<Type> types = List.of(Type.GRASS);
-    static int power = 45;
-    static int ppMax = 25;
+    private VineWhip(){
+        super();
+        types = List.of(Type.GRASS);
+        power = 45;
+        ppMax = 25;
+    }
 
     @Override
     protected void secondaryEffect(Field field, ActionMoveStatus action, Pokemon target) {}
 
+    static private final VineWhip vineWhip = new VineWhip();
+
     @Override
-    public Move getInstance() {
-        return new VineWhip();
+    public static Move getInstance() {
+        return vineWhip;
     }
 }

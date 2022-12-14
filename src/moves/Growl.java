@@ -12,9 +12,10 @@ import src.pokemon.Stat;
 import src.pokemon.Type;
 
 public class Growl extends moveStatus {
-
-    static final List<Type> types = List.of(Type.NORMAL);
-    static final int ppMax = 40;
+    private Growl(){
+        types = List.of(Type.NORMAL);
+        ppMax = 40;
+    }
 
     @Override
     public boolean isSound() {
@@ -26,9 +27,10 @@ public class Growl extends moveStatus {
         new MoveActionChangeStage(action.getSelf(), action, target, Stat.ATK, -1);
     }
 
-    @Override
-    public Move getInstance() {
-        return new Growl();
-    }
+    static private final Growl growl = new Growl();
 
+    @Override
+    public static Move getInstance() {
+        return growl;
+    }
 }

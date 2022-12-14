@@ -8,8 +8,6 @@ import src.combat.field.Field;
 import src.pokemon.Pokemon;
 import src.pokemon.Stat;
 
-import java.util.List;
-
 public abstract class MoveDamaging extends Move {
 
     protected Stat attack;
@@ -28,11 +26,12 @@ public abstract class MoveDamaging extends Move {
         return power;
     }
 
-    protected boolean singleTarget(Field field, ActionMoveDamaging action, Pokemon target) {
-        if(super.singleTarget(field, action, target)){
-            int damage = new MoveActionDamage(action, target).action(field);
-            new MoveActionChangeHp(action, target, damage);
-            secondaryEffect(field, action, target);
+    @Override
+    protected boolean singleTarget(Field field, ActionMoveStatus action, Pokemon target) {
+        if(super.singleTarget(field, action, target) && action instanceof ActionMoveDamaging actionDam){
+            int damage = new MoveActionDamage(actionDam, target).action(field);
+            new MoveActionChangeHp(actionDam, target, damage);
+            secondaryEffect(field, actionDam, target);
             return true;
         } else return false;
     }

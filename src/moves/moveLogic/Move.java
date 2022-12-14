@@ -2,7 +2,6 @@ package src.moves.moveLogic;
 
 import java.util.List;
 
-import src.combat.action.ActionMoveDamaging;
 import src.combat.action.ActionMoveStatus;
 import src.combat.action.MoveAction.MoveActionHit;
 import src.combat.field.Field;
@@ -13,12 +12,11 @@ import src.pokemon.Type;
 
 public abstract class Move implements Source {
 
-    static protected List<Type> types;
-    static protected Targeting target = Targeting.ADJACENT;
-    static protected float accuracy = 1;
-    static protected int ppMax;
-    static protected int ppCurrent = ppMax;
-    static protected int priority = 0;
+    protected List<Type> types;
+    protected Targeting target = Targeting.ADJACENT;
+    protected float accuracy = 1;
+    protected int ppMax;
+    protected int priority = 0;
 
     public List<Type> getTypes() {
         return types;
@@ -31,9 +29,6 @@ public abstract class Move implements Source {
     }
     public int getPriority() {
         return priority;
-    }
-    public void recharge() {
-        ppCurrent = ppMax;
     }
 
     static protected float critChance = 1/24f;
@@ -61,8 +56,6 @@ public abstract class Move implements Source {
     }
 
     protected abstract void secondaryEffect(Field field, ActionMoveStatus action, Pokemon target);
-
-    abstract public Move getInstance();
 
     public boolean makesContact() {
         return false;
@@ -111,4 +104,6 @@ public abstract class Move implements Source {
     public boolean isSlicing() {
         return false;
     }
+
+    public abstract Move getInstance();
 }

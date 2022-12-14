@@ -6,7 +6,10 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 
 import src.ability.AbilityName;
-import src.moves.MoveName;
+import src.moves.Growl;
+import src.moves.Tackle;
+import src.moves.VineWhip;
+import src.moves.moveLogic.Move;
 
 public enum Species {
     BULBASAUR("Bulbasaur", List.of(Type.GRASS, Type.POISON), List.of(AbilityName.OVERGROW),
@@ -14,13 +17,13 @@ public enum Species {
             45, 50, 64, GrowthRate.MEDIUM,
             List.of(EggGroup.GRASS, EggGroup.MONSTER), 0.875, 20,
             45, 49, 49, 65, 65, 45,
-            Map.of(1, List.of(MoveName.GROWL, MoveName.TACKLE), 3, List.of(MoveName.VINE_WHIP)),
+            Map.of(1, List.of(Growl.getInstance(), Tackle.getInstance()), 3, List.of(VineWhip.getInstance())),
             List.of());
 
     Species(String name, List<Type> types, List<AbilityName> abilities, double height, double weight, int catchRate,
             int friendship, int baseExp, GrowthRate growthRate, List<EggGroup> eggGroups, double genderOdds,
             int eggCycles, int hp, int attack, int defense, int specialAttack, int specialDefense, int speed,
-            Map<Integer, List<MoveName>> movesLevelUp, List<MoveName> movesOther) {
+            Map<Integer, List<Move>> movesLevelUp, List<Move> movesOther) {
         this.name = name;
         this.types = types;
         this.abilities = abilities;
@@ -126,8 +129,8 @@ public enum Species {
     }
 
     private List<Function<Pokemon, Species>> evolution;
-    private final Map<Integer, List<MoveName>> movesLevelUp;
-    private final List<MoveName> movesOther;
+    private final Map<Integer, List<Move>> movesLevelUp;
+    private final List<Move> movesOther;
 
     public Species evolves(Pokemon pokemon) {
         Function<Pokemon, Species> evo = evolution.stream().filter(check -> {
@@ -138,14 +141,14 @@ public enum Species {
         return evo.apply(pokemon);
     }
 
-    public Boolean learns(MoveName move) {
+    public Boolean learns(Move move) {
         return Stream.concat(movesOther.stream(), movesLevelUp.values().stream().flatMap(List::stream))
                 .anyMatch(_move -> {
                     return _move == move;
                 });
     }
 
-    public List<MoveName> getLevelUpMoves(int level) {
+    public List<Move> getLevelUpMoves(int level) {
         return movesLevelUp.get(level);
     }
 }
