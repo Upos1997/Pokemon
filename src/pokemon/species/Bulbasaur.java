@@ -35,4 +35,9 @@ public class Bulbasaur extends Species {
         movesLevelUp.put(1, List.of(Growl.getInstance(), Tackle.getInstance(), VineWhip.getInstance()));
         movesOther = Collections.emptyList();
     }
+
+    static final private Bulbasaur instance = new Bulbasaur();
+    public static Bulbasaur getInstance() {
+        return instance;
+    }
 }

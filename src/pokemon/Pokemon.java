@@ -1,17 +1,16 @@
 package src.pokemon;
 
-import java.util.List;
-import java.util.function.Function;
-
 import src.ability.abilityLogic.Ability;
 import src.moves.moveLogic.Move;
 import src.pokemon.enums.Gender;
 import src.pokemon.enums.Nature;
 import src.pokemon.enums.Stat;
-import src.pokemon.enums.Type;
+import src.types.Type;
 import src.pokemon.species.Species;
 import src.status.Status;
 import src.status.StatusName;
+
+import java.util.List;
 
 public class Pokemon {
     public Pokemon(Species species, int level) {
@@ -40,13 +39,7 @@ public class Pokemon {
     int specialAttack;
     int specialDefense;
     int speed;
-    int attackStage = 0;
-    int defenseStage = 0;
-    int specialAttackStage = 0;
-    int specialDefenseStage = 0;
-    int speedStage = 0;
-    int accuracyStage = 0;
-    int evasionStage = 0;
+
     Move move1;
     Move move2;
     Move move3;
@@ -95,25 +88,8 @@ public class Pokemon {
         };
     }
 
-    public int getStage(Stat stat) {
-        return switch (stat) {
-            case ATK -> attackStage;
-            case DEF -> defenseStage;
-            case SP_ATK -> specialAttackStage;
-            case SP_DEF -> specialDefenseStage;
-            case SPE -> speedStage;
-            case ACC -> accuracyStage;
-            case EVA -> evasionStage;
-            default -> 0;
-        };
-    }
-
     public List<Type> getTypes() {
         return species.getTypes();
-    }
-
-    public int getAdjustedStat(Stat stat) {
-        return (int) (getStage(stat) * Stat.getMod(getStage(stat)));
     }
 
     //////////
@@ -136,28 +112,6 @@ public class Pokemon {
             case SP_ATK -> specialAttack *= mod;
             case SP_DEF -> specialDefense *= mod;
             case SPE -> speed *= mod;
-        }
-    }
-
-    public void updateStages(Stat stat, int stages) {
-        Function<Integer, Integer> calcStage = (start) -> Math.max(-6, Math.min(6, start+stages));
-        switch (stat) {
-            case ATK:
-                attackStage = calcStage.apply(attackStage);
-            case DEF:
-                defenseStage = calcStage.apply(defenseStage);
-            case SP_ATK:
-                specialAttackStage = calcStage.apply(specialAttackStage);
-            case SP_DEF:
-                specialDefenseStage = calcStage.apply(specialDefenseStage);
-            case SPE:
-                speedStage = calcStage.apply(speedStage);
-            case ACC:
-                accuracyStage = calcStage.apply(accuracyStage);
-            case EVA:
-                evasionStage = calcStage.apply(evasionStage);
-            default:
-                break;
         }
     }
 

@@ -35,7 +35,7 @@ public class Species {
     protected int specialAttack;
     protected int specialDefense;
     protected int speed;
-    protected List<Function<Pokemon, Species>> evolution;
+    protected List<Function<Pokemon, Species>> evolutions;
     protected Map<Integer, List<Move>> movesLevelUp;
     protected List<Move> movesOther;
 
