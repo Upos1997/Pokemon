@@ -5,7 +5,7 @@ import java.util.function.Predicate;
 import src.ability.abilityLogic.Ability;
 import src.combat.field.SingleField;
 import src.pokemon.Pokemon;
-import src.pokemon.enums.Type;
+import src.types.Type;
 
 public class Overgrow extends Ability {
     private Overgrow() {

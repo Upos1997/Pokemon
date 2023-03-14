@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.util.List;
 
 public class Dark extends Type {
-    public Dark() {
+    private Dark() {
         super("Dark", new Color(79, 58, 45),
                 List.of(Dark.getInstance(), Ghost.getInstance()),
                 List.of(Bug.getInstance(), Fairy.getInstance(), Fighting.getInstance()),

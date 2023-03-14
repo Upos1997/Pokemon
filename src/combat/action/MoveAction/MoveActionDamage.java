@@ -7,7 +7,7 @@ import src.helper.Rng;
 import src.moves.moveLogic.MoveDamaging;
 import src.pokemon.Pokemon;
 import src.pokemon.enums.Stat;
-import src.pokemon.enums.Type;
+import src.types.Type;
 
 public class MoveActionDamage extends ActionTargeted<Integer>{
     public MoveActionDamage(ActionMoveDamaging source, Pokemon target) {

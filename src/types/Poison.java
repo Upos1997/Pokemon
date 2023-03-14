@@ -22,6 +22,7 @@ public class Poison extends Type{
 
     @Override
     public void setupPrevents(Pokemon pokemon, Field field) {
+        super.setupPrevents(pokemon, field);
         //poison immunity//
         //if grounded, remove toxic spikes//
     }

@@ -9,11 +9,11 @@ import src.moves.moveLogic.Move;
 import src.moves.moveLogic.moveStatus;
 import src.pokemon.Pokemon;
 import src.pokemon.enums.Stat;
-import src.pokemon.enums.Type;
+import src.types.Normal;
 
 public class Growl extends moveStatus {
     private Growl(){
-        types = List.of(Type.NORMAL);
+        types = List.of(Normal.getInstance());
         ppMax = 40;
     }
 

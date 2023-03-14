@@ -3,7 +3,7 @@ package src.types;
 import src.combat.field.Field;
 import src.pokemon.Pokemon;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.Collections;
 import java.util.List;
 
@@ -22,6 +22,7 @@ public class Flying extends Type{
 
     @Override
     public void setupPrevents(Pokemon pokemon, Field field) {
+        super.setupPrevents(pokemon, field);
         //remove grounded tag//
     }
 }

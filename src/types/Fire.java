@@ -22,6 +22,7 @@ public class Fire extends Type{
 
     @Override
     public void setupPrevents(Pokemon pokemon, Field field) {
+        super.setupPrevents(pokemon, field);
         //immunity burned//
     }
 }

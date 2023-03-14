@@ -8,7 +8,7 @@ import src.combat.field.Field;
 import src.combat.field.Slot;
 import src.helper.Source;
 import src.pokemon.Pokemon;
-import src.pokemon.enums.Type;
+import src.types.Type;
 
 public abstract class Move implements Source {
 

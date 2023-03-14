@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class Electric extends Type{
-    public Electric() {
+    private Electric() {
         super("Electric", new Color(253, 186, 24),
                 List.of(Electric.getInstance(), Flying.getInstance(), Steel.getInstance()),
                 List.of(Ground.getInstance()),
@@ -22,6 +22,7 @@ public class Electric extends Type{
 
     @Override
     public void setupPrevents(Pokemon pokemon, Field field) {
+        super.setupPrevents(pokemon, field);
         //paralysis immunity//
     }
 }

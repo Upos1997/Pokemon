@@ -11,7 +11,7 @@ import src.pokemon.Pokemon;
 import src.pokemon.enums.EggGroup;
 import src.pokemon.enums.GrowthRate;
 import src.pokemon.enums.Stat;
-import src.pokemon.enums.Type;
+import src.types.Type;
 
 public class Species {
     //////////////
@@ -102,11 +102,6 @@ public class Species {
     ////////////////
     //other methods
     ////////////////
-
-    public Species evolves(Pokemon pokemon) {
-        Function<Pokemon, Species> evo = evolution.stream().filter(check -> !(check.apply(pokemon) == this)).findAny().orElse((_pokemon) -> this);
-        return evo.apply(pokemon);
-    }
 
     public Boolean learns(Move move) {
         return Stream.concat(movesOther.stream(), movesLevelUp.values().stream().flatMap(List::stream))

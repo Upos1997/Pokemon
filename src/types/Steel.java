@@ -7,7 +7,7 @@ import java.awt.Color;
 import java.util.List;
 
 public class Steel extends Type{
-    public Steel() {
+    private Steel() {
         super("Steel", new Color(178, 177, 193),
                 List.of(Bug.getInstance(), Dragon.getInstance(), Fairy.getInstance(), Flying.getInstance(), Grass.getInstance(), Ice.getInstance(), Normal.getInstance(), Psychic.getInstance(), Rock.getInstance(), Steel.getInstance()),
                 List.of(Fighting.getInstance(), Fire.getInstance(), Ground.getInstance()),

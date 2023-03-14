@@ -6,7 +6,8 @@ import src.moves.Tackle;
 import src.moves.VineWhip;
 import src.pokemon.enums.EggGroup;
 import src.pokemon.enums.GrowthRate;
-import src.pokemon.enums.Type;
+import src.types.Grass;
+import src.types.Poison;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -16,7 +17,7 @@ public class Bulbasaur extends Species {
 
     Bulbasaur() {
         name="Bulbasaur";
-        types = List.of(Type.GRASS, Type.POISON);
+        types = List.of(Grass.getInstance(), Poison.getInstance());
         abilities = List.of(Overgrow.getInstance());
         height = 0.7;
         weight = 6.9;

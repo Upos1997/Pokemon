@@ -36,7 +36,7 @@ public abstract class Type {
         float modifier = 1;
         for (Type type : types) {
             if (resistances.contains(type)) {
-                modifier = modifier * Constants.TYPE_RESISTANCE_MODIFIER;
+                modifier =  modifier * Constants.TYPE_RESISTANCE_MODIFIER;
             } else if (weaknesses.contains(type)) {
                 modifier = modifier * Constants.TYPE_WEAKNESS_MODIFIER;
             } else if (immunities.contains(type)) {

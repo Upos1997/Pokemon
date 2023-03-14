@@ -7,7 +7,7 @@ import java.awt.Color;
 import java.util.List;
 
 public class Ground extends Type{
-    public Ground() {
+    private Ground() {
         super("Ground", new Color(203, 172, 82),
                 List.of(Poison.getInstance(), Rock.getInstance()),
                 List.of(Grass.getInstance(), Ice.getInstance(), Water.getInstance()),
@@ -21,6 +21,7 @@ public class Ground extends Type{
 
     @Override
     public void setupPrevents(Pokemon pokemon, Field field) {
+        super.setupPrevents(pokemon, field);
         //immunity thunder wave//
     }
 }

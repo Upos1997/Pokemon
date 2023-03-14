@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class Bug extends Type {
-    public Bug() {
+    private Bug() {
         super("Bug", new Color(163, 182, 25),
                 List.of(Fighting.getInstance(), Grass.getInstance(), Ground.getInstance()),
                 List.of(Fire.getInstance(), Flying.getInstance(), Rock.getInstance()),

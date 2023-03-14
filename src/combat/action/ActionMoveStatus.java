@@ -4,7 +4,7 @@ import src.combat.field.Field;
 import src.combat.field.Slot;
 import src.moves.moveLogic.Move;
 import src.pokemon.Pokemon;
-import src.pokemon.enums.Type;
+import src.types.Type;
 
 import java.util.List;
 

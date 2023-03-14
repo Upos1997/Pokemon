@@ -9,7 +9,6 @@ import java.util.List;
 
 public class Grass extends Type{
 
-
     private Grass() {
         super("Grass", new Color(102, 187, 43),
                 List.of(Electric.getInstance(), Grass.getInstance(), Ground.getInstance(), Water.getInstance()),
@@ -24,6 +23,7 @@ public class Grass extends Type{
 
     @Override
     public void setupPrevents(Pokemon pokemon, Field field) {
+        super.setupPrevents(pokemon, field);
         //Immunity Leech Seed//
         //Immunity powder tag//
     }
