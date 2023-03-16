@@ -1,8 +1,5 @@
 package src.types;
 
-import src.combat.field.Field;
-import src.pokemon.Pokemon;
-
 import java.awt.Color;
 import java.util.Collections;
 import java.util.List;

@@ -1,12 +1,13 @@
-package src.moves.moveLogic;
+package src.moves;
 
 import java.util.List;
 
 import src.combat.action.ActionMoveStatus;
 import src.combat.action.MoveAction.MoveActionHit;
-import src.combat.field.Field;
+import src.combat.Field;
 import src.combat.field.Slot;
 import src.helper.Source;
+import src.moves.moveLogic.Targeting;
 import src.pokemon.Pokemon;
 import src.types.Type;
 

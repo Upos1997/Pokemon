@@ -1,9 +1,10 @@
-package src.combat.field;
+package src.combat;
 
 import src.ReactionPool.hasReactionPool;
 import src.combat.action.modifier.Modifiable;
 import src.combat.action.prevent.Preventable;
 import src.combat.action.reaction.Reactionable;
+import src.combat.field.Slot;
 import src.pokemon.Pokemon;
 import src.terrain.Terrain;
 import src.weather.WeatherName;

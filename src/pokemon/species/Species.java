@@ -6,7 +6,7 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 
 import src.ability.Ability;
-import src.moves.moveLogic.Move;
+import src.moves.Move;
 import src.pokemon.Pokemon;
 import src.pokemon.enums.EggGroup;
 import src.pokemon.enums.GrowthRate;
@@ -31,7 +31,6 @@ public class Species {
     protected float genderOdds = 0.5f;
     protected int eggCycles = 20;
     protected StatList baseStats;
-    protected int speed;
     protected List<Function<Pokemon, Species>> evolutions;
     protected Map<Integer, List<Move>> movesLevelUp;
     protected List<Move> movesOther;

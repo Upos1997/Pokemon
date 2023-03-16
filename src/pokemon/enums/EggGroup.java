@@ -14,5 +14,5 @@ public enum EggGroup {
     WATER1,
     WATER2,
     WATER3,
-    DITTO;
+    DITTO
 }

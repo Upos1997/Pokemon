@@ -1,11 +1,8 @@
 package src.pokemon.species;
 
-import src.ability.Overgrow;
-import src.moves.Growl;
-import src.moves.Tackle;
-import src.moves.VineWhip;
 import src.pokemon.enums.EggGroup;
 import src.pokemon.enums.GrowthRate;
+import src.pokemon.enums.StatList;
 import src.types.Grass;
 import src.types.Poison;
 
@@ -18,7 +15,7 @@ public class Bulbasaur extends Species {
     Bulbasaur() {
         name="Bulbasaur";
         types = List.of(Grass.getInstance(), Poison.getInstance());
-        abilities = List.of(Overgrow.getInstance());
+        abilities = Collections.emptyList();
         height = 0.7;
         weight = 6.9;
         catchRate = 45;
@@ -26,14 +23,8 @@ public class Bulbasaur extends Species {
         growthRate = GrowthRate.MEDIUM;
         eggGroups = List.of(EggGroup.GRASS, EggGroup.MONSTER);
         genderOdds = 1/8f;
-        hp = 45;
-        attack = 49;
-        defense = 49;
-        specialAttack = 65;
-        specialDefense = 65;
-        speed = 45;
+        baseStats = new StatList(45, 49, 49, 65, 65, 45);
         movesLevelUp = new HashMap<>();
-        movesLevelUp.put(1, List.of(Growl.getInstance(), Tackle.getInstance(), VineWhip.getInstance()));
         movesOther = Collections.emptyList();
     }
 

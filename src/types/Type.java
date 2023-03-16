@@ -1,7 +1,7 @@
 package src.types;
 
 import src.combat.action.prevent.Prevent;
-import src.combat.field.Field;
+import src.combat.Field;
 import src.helper.Constants;
 import src.pokemon.Pokemon;
 

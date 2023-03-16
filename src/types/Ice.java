@@ -1,6 +1,6 @@
 package src.types;
 
-import src.combat.field.Field;
+import src.combat.Field;
 import src.pokemon.Pokemon;
 
 import java.awt.*;

@@ -1,7 +1,7 @@
 package src.pokemon;
 
 import src.ability.Ability;
-import src.moves.moveLogic.Move;
+import src.moves.Move;
 import src.pokemon.enums.*;
 import src.pokemon.species.Species;
 import src.status.Ok;
@@ -83,21 +83,23 @@ public class Pokemon {
         } else return false;
     }
 
-    ////////////////
-    //Other methods
-    ////////////////
 
-    private float calcBase(int baseStat) {
-        return ((2 * baseStat) * level / 100f) + 5;
+    private float calcBase(Stat stat) {
+        int baseStatCalc = 2 * species.getBaseStat(stat);
+        int IVStatCalc = getIv(stat);
+        float EVStatCalc = getEv(stat)/4f;
+        float result =  baseStatCalc + IVStatCalc + EVStatCalc;
+        result *= level/100f;
+        result += 5;
+        return result;
     }
 
     private int calcStat(Stat stat) {
-        int baseStat = species.getBaseStat(stat);
-        return Math.round(calcBase(baseStat) * nature.get_modifier(stat));
+        return Math.round(calcBase(stat) * nature.get_modifier(stat));
     }
 
     private int calcHp() {
-        return Math.round(calcBase(species.getBaseStat(Stat.HP)) + level + 5);
+        return Math.round(calcBase(Stat.HP) + level + 5);
     }
 
     private void updateStats() {
