@@ -1,5 +1,6 @@
 package src.pokemon.enums;
 
+import src.helper.Constants;
 import src.helper.Rng;
 
 public enum Nature {
@@ -29,23 +30,26 @@ public enum Nature {
     CAREFUL("Careful", Stat.SP_DEF, Stat.SP_ATK),
     QUIRKY("Quirky", Stat.SP_DEF, Stat.SP_DEF);
 
+    private final String name;
+    private final Stat up;
+    private final Stat down;
+
     Nature(String name, Stat up, Stat down) {
         this.name = name;
         this.up = up;
         this.down = down;
     }
 
-    final String name;
-    final Stat up;
-    final Stat down;
-
+    public String getName(){
+        return name;
+    }
     public float get_modifier(Stat stat) {
         if (up == stat && down == stat) {
             return 1;
         } else if (up == stat) {
-            return boost;
+            return Constants.NATURE_UP;
         } else if (down == stat) {
-            return detriment;
+            return Constants.NATURE_DOWN;
         } else {
             return 1;
         }
@@ -55,7 +59,4 @@ public enum Nature {
         Nature[] natures = Nature.values();
         return natures[Rng.nextInt(natures.length)];
     }
-
-    static final float boost = 1.1f;
-    static final float detriment = 0.9f;
 }

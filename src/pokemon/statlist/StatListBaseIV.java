@@ -1,28 +1,39 @@
-package src.pokemon.enums;
+package src.pokemon.statlist;
 
 import src.helper.Constants;
 import src.helper.Rng;
+import src.pokemon.enums.Stat;
 
 import java.util.Arrays;
 
-public class StatListIV extends StatList {
-    public StatListIV(int hp, int attack, int defense, int specialAttack, int specialDefense, int speed) {
+public class StatListBaseIV extends StatListBase {
+    public StatListBaseIV(int hp, int attack, int defense, int specialAttack, int specialDefense, int speed) {
         super(hp, attack, defense, specialAttack, specialDefense, speed);
         this.MAX_VALUE = Constants.IV_MAX_STAT;
     }
-    public StatListIV(){
+    public StatListBaseIV(){
         super(0, 0, 0, 0, 0, 0);
         this.MAX_VALUE = Constants.IV_MAX_STAT;
         randomIV();
     }
 
     @Override
-    public void modStat(Stat stat, int change) {
-        int totalBuffer = sum()+change - Constants.IV_MAX_TOTAL;
+    public void modStatAdd(Stat stat, int change) {
+        int newStat = calcNewStat(getStat(stat)+change);
+        setStat(stat, newStat);
+    }
+    @Override
+    public void modStatMul(Stat stat, float change) {
+        int newStat = calcNewStat(Math.round(getStat(stat)*change));
+        setStat(stat, newStat);
+    }
+
+    private int calcNewStat(int newStat){
+        int totalBuffer = newStat - Constants.IV_MAX_TOTAL;
         if (totalBuffer > 0) {
-            change = totalBuffer;
+            newStat -= totalBuffer;
         }
-        super.modStat(stat, change);
+        return newStat;
     }
 
     private void randomIV(){

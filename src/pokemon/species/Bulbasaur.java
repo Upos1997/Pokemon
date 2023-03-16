@@ -1,8 +1,8 @@
 package src.pokemon.species;
 
 import src.pokemon.enums.EggGroup;
-import src.pokemon.enums.GrowthRate;
-import src.pokemon.enums.StatList;
+import src.pokemon.growthrate.GrowthRateMedium;
+import src.pokemon.statlist.StatListBase;
 import src.types.Grass;
 import src.types.Poison;
 
@@ -16,14 +16,14 @@ public class Bulbasaur extends Species {
         name="Bulbasaur";
         types = List.of(Grass.getInstance(), Poison.getInstance());
         abilities = Collections.emptyList();
-        height = 0.7;
-        weight = 6.9;
+        height = 0.7f;
+        weight = 6.9f;
         catchRate = 45;
         baseExp = 64;
-        growthRate = GrowthRate.MEDIUM;
+        growthRate = GrowthRateMedium.getInstance();
         eggGroups = List.of(EggGroup.GRASS, EggGroup.MONSTER);
         genderOdds = 1/8f;
-        baseStats = new StatList(45, 49, 49, 65, 65, 45);
+        baseStats = new StatListBase(45, 49, 49, 65, 65, 45);
         movesLevelUp = new HashMap<>();
         movesOther = Collections.emptyList();
     }

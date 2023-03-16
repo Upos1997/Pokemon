@@ -1,6 +1,9 @@
-package src.pokemon.enums;
+package src.pokemon.statlist;
 
-public class StatList {
+import src.helper.Constants;
+import src.pokemon.enums.Stat;
+
+public class StatListBase implements StatList{
     protected int MIN_VALUE = 0;
     protected int MAX_VALUE = Integer.MAX_VALUE;
     protected int hp;
@@ -10,13 +13,21 @@ public class StatList {
     protected int specialDefense;
     protected int speed;
 
-    public StatList(int hp, int attack, int defense, int specialAttack, int specialDefense, int speed){
+    public StatListBase(int hp, int attack, int defense, int specialAttack, int specialDefense, int speed){
         this.hp = hp;
         this.attack = attack;
         this.defense = defense;
         this.specialAttack = specialAttack;
         this.specialDefense = specialDefense;
         this.speed = speed;
+    }
+    public StatListBase(){
+        this.hp = 0;
+        this.attack = 0;
+        this.defense = 0;
+        this.specialAttack = 0;
+        this.specialDefense = 0;
+        this.speed = 0;
     }
 
     protected int sum(){
@@ -51,7 +62,10 @@ public class StatList {
         };
     }
 
-    public void modStat(Stat stat, int change){
+    public void modStatAdd(Stat stat, int change){
         setStat(stat, getStat(stat) + change);
+    }
+    public void modStatMul(Stat stat, float change){
+        setStat(stat, Math.round(getStat(stat)*change));
     }
 }

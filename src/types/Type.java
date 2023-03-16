@@ -1,6 +1,5 @@
 package src.types;
 
-import src.combat.action.prevent.Prevent;
 import src.combat.Field;
 import src.helper.Constants;
 import src.pokemon.Pokemon;
@@ -10,6 +9,12 @@ import java.util.List;
 
 public abstract class Type {
 
+    final private String name;
+    final private Color color;
+    final private List<Type> resistances;
+    final private List<Type> weaknesses;
+    private final List<Type> immunities;
+
     public Type(String name, Color color, List<Type> resistances, List<Type> weaknesses, List<Type> immunities) {
         this.name = name;
         this.color = color;
@@ -17,12 +22,6 @@ public abstract class Type {
         this.weaknesses = weaknesses;
         this.immunities = immunities;
     }
-    final private String name;
-    final private Color color;
-
-    final private List<Type> resistances;
-    final private List<Type> weaknesses;
-    private final List<Type> immunities;
 
     public String getName(){
         return this.name;
@@ -36,11 +35,11 @@ public abstract class Type {
         float modifier = 1;
         for (Type type : types) {
             if (resistances.contains(type)) {
-                modifier =  modifier * Constants.TYPE_RESISTANCE_MODIFIER;
+                modifier *= Constants.TYPE_RESISTANCE_MODIFIER;
             } else if (weaknesses.contains(type)) {
-                modifier = modifier * Constants.TYPE_WEAKNESS_MODIFIER;
+                modifier *= Constants.TYPE_WEAKNESS_MODIFIER;
             } else if (immunities.contains(type)) {
-                return 0;
+                modifier *= Constants.TYPE_IMMUNITY_MODIFIER;
             }
         }
         return modifier;
