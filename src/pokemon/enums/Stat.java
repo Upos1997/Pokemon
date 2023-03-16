@@ -17,7 +17,7 @@ public enum Stat {
             return (2 + stage) / 2f;
     }
 
-    static public double getAccMod(int acc, int eva) {
+    static public double getMod(int acc, int eva) {
         int totalStage = acc - eva;
         if (totalStage < 0) {
             return 3f / (3 - totalStage);

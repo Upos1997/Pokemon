@@ -1,4 +1,4 @@
-package src.ability.abilityLogic;
+package src.ability;
 
 import java.util.function.Predicate;
 

@@ -5,12 +5,13 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-import src.ability.abilityLogic.Ability;
+import src.ability.Ability;
 import src.moves.moveLogic.Move;
 import src.pokemon.Pokemon;
 import src.pokemon.enums.EggGroup;
 import src.pokemon.enums.GrowthRate;
 import src.pokemon.enums.Stat;
+import src.pokemon.enums.StatList;
 import src.types.Type;
 
 public class Species {
@@ -29,11 +30,7 @@ public class Species {
     protected List<EggGroup> eggGroups;
     protected float genderOdds = 0.5f;
     protected int eggCycles = 20;
-    protected int hp;
-    protected int attack;
-    protected int defense;
-    protected int specialAttack;
-    protected int specialDefense;
+    protected StatList baseStats;
     protected int speed;
     protected List<Function<Pokemon, Species>> evolutions;
     protected Map<Integer, List<Move>> movesLevelUp;
@@ -47,7 +44,7 @@ public class Species {
         return types;
     }
 
-    public List<Ability> abilities() {
+    public List<Ability> getAbilities() {
         return abilities;
     }
 
@@ -83,16 +80,8 @@ public class Species {
         return eggCycles;
     }
 
-    public int getStat(Stat stat) {
-        return switch (stat) {
-            case HP -> hp;
-            case ATK -> attack;
-            case DEF -> defense;
-            case SP_ATK -> specialAttack;
-            case SP_DEF -> specialDefense;
-            case SPE -> speed;
-            default -> 0;
-        };
+    public int getBaseStat(Stat stat) {
+        return baseStats.getStat(stat);
     }
 
     public List<Move> getLevelUpMoves(int level) {

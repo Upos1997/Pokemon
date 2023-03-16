@@ -2,7 +2,6 @@ package src.ability;
 
 import java.util.function.Predicate;
 
-import src.ability.abilityLogic.Ability;
 import src.combat.field.SingleField;
 import src.pokemon.Pokemon;
 import src.types.Type;

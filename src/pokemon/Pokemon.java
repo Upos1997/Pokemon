@@ -1,138 +1,86 @@
 package src.pokemon;
 
-import src.ability.abilityLogic.Ability;
+import src.ability.Ability;
 import src.moves.moveLogic.Move;
-import src.pokemon.enums.Gender;
-import src.pokemon.enums.Nature;
-import src.pokemon.enums.Stat;
-import src.types.Type;
+import src.pokemon.enums.*;
 import src.pokemon.species.Species;
+import src.status.Ok;
 import src.status.Status;
-import src.status.StatusName;
-
-import java.util.List;
 
 public class Pokemon {
-    public Pokemon(Species species, int level) {
+    private final Species species;
+    private String nickname;
+    private int level;
+    private long xp;
+    private Ability ability;
+    private Nature nature;
+    private Gender gender;
+    private Status status;
+
+    private int hpCurrent;
+    private StatList stats;
+    private StatList ev;
+    private StatList iv;
+
+    private Move move1;
+    private Move move2;
+    private Move move3;
+    private Move move4;
+
+    public Pokemon(Species species, int level, Nature nature, Gender gender, StatListEV ev, StatListIV iv) {
         this.species = species;
         this.level = level;
-        this.nature = Nature.random();
-        this.gender = Gender.random(species.getGenderOdds());
+        this.nature = nature;
+        this.gender = gender;
+        this.ev = ev;
+        this.iv = iv;
         updateStats();
-        hpCurrent = hpMax;
+        hpCurrent = stats.getStat(Stat.HP);
     }
 
-    ////////////////////////
-    //variables and getters
-    ////////////////////////
-    protected Species species;
-    protected int level;
-    protected long xp;
-    protected Ability ability;
-    protected Nature nature;
-    protected Gender gender;
-    protected Status status;
-    public int hpCurrent;
-    public int hpMax;
-    int attack;
-    int defense;
-    int specialAttack;
-    int specialDefense;
-    int speed;
+    //////////
+    //getters
+    //////////
 
-    Move move1;
-    Move move2;
-    Move move3;
-    Move move4;
-
+    public Species getSpecies(){
+        return species;
+    }
     public int getLevel() {
         return level;
     }
-
     public long getXp() {
         return xp;
     }
-
-    public Ability getAbility() {
+    public Ability getAbility(){
         return ability;
     }
-
-    public Nature getNature() {
+    public Nature getNature(){
         return nature;
     }
-
-    public Gender getGender() {
-        return gender;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public int getHpCurrent() {
+    public Gender getGender(){return gender;}
+    public Status getStatus(){return status;}
+    public int getHpCurrent(){
         return hpCurrent;
     }
-
-    public int getHpMax() {
-        return hpMax;
+    public int getStat(Stat stat){
+        return stats.getStat(stat);
+    }
+    public int getEv(Stat stat) {
+        return ev.getStat(stat);
+    }
+    public int getIv(Stat stat){
+        return iv.getStat(stat);
     }
 
-    public int getStat(Stat stat) {
-        return switch (stat) {
-            case ATK -> attack;
-            case DEF -> defense;
-            case SP_ATK -> specialAttack;
-            case SP_DEF -> specialDefense;
-            case SPE -> speed;
-            default -> 0;
-        };
-    }
 
-    public List<Type> getTypes() {
-        return species.getTypes();
+    public void gainXp(long amount){
+        xp = xp + amount;
     }
-
-    //////////
-    //setters
-    //////////
-
-    public void gainXp(long amount) {
-        xp += amount;
-    }
-    public void setStatus(Status newStatus) {
-        if (hasStatus(StatusName.OK)) {
+    public boolean setStatus(Status newStatus){
+        if (status.equals(Ok.class)){
             status = newStatus;
-        }
-    }
-
-    public void modStat(Stat stat, double mod){
-        switch (stat) {
-            case ATK -> attack *= mod;
-            case DEF -> defense *= mod;
-            case SP_ATK -> specialAttack *= mod;
-            case SP_DEF -> specialDefense *= mod;
-            case SPE -> speed *= mod;
-        }
-    }
-
-    public void changeHp(int amount) {
-        this.hpCurrent = Math.min(Math.max(hpCurrent + amount, 0), hpMax);
-    }
-
-    //////////////////
-    //boolean methods
-    //////////////////
-
-    public boolean isBelow(float threshold) {
-        return hpCurrent < hpMax * threshold;
-    }
-
-    public boolean hasStatus(StatusName status) {
-        return status.isSame(this.status);
-    }
-
-    public boolean hasType(Type type) {
-        return getTypes().contains(type);
+            return true;
+        } else return false;
     }
 
     ////////////////
@@ -144,20 +92,20 @@ public class Pokemon {
     }
 
     private int calcStat(Stat stat) {
-        int baseStat = species.getStat(stat);
+        int baseStat = species.getBaseStat(stat);
         return Math.round(calcBase(baseStat) * nature.get_modifier(stat));
     }
 
     private int calcHp() {
-        return Math.round(calcBase(species.getStat(Stat.HP)) + level + 5);
+        return Math.round(calcBase(species.getBaseStat(Stat.HP)) + level + 5);
     }
 
     private void updateStats() {
-        this.hpMax = calcHp();
-        this.attack = calcStat(Stat.ATK);
-        this.defense = calcStat(Stat.DEF);
-        this.specialAttack = calcStat(Stat.SP_ATK);
-        this.specialDefense = calcStat(Stat.SP_DEF);
-        this.speed = calcStat(Stat.SPE);
+        stats.setStat(Stat.HP, calcHp());
+        stats.setStat(Stat.ATK, calcStat(Stat.ATK));
+        stats.setStat(Stat.DEF, calcStat(Stat.DEF));
+        stats.setStat(Stat.SP_ATK, calcStat(Stat.SP_ATK));
+        stats.setStat(Stat.SP_DEF, calcStat(Stat.SP_DEF));
+        stats.setStat(Stat.SPE, calcStat(Stat.SPE));
     }
 }
