@@ -1,8 +1,8 @@
-public abstract class Effect {
+public abstract class EffectDecorator {
    private Source source;
    private Effect next;
 
-   protected Effect(Source source){
+   protected EffectDecorator(Source source){
       this.source = source;
 }
    
