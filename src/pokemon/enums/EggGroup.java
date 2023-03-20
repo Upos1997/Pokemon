@@ -20,14 +20,16 @@ public enum EggGroup {
     UNDISCOVERED;
 
     public boolean canBreed(EggGroup eggGroup){
-        if (this == UNDISCOVERED || eggGroup == UNDISCOVERED){
+        if (this == UNDISCOVERED || eggGroup == UNDISCOVERED)
             return false;
-        } else if (this == DITTO ^ eggGroup == DITTO){
+        else if (this == DITTO ^ eggGroup == DITTO)
             return true;
-        } else return this == eggGroup;
+        else
+            return this == eggGroup;
     }
 
-    public boolean canBreed(List<EggGroup> eggGroupList){
+    public boolean canBreed(List<EggGroup> eggGroupList)
+    {
         return eggGroupList.stream().anyMatch(this::canBreed);
     }
 }

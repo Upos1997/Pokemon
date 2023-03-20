@@ -5,7 +5,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class Psychic extends Type {
-    private Psychic() {
+    private Psychic()
+    {
         super("Psychic", new Color(234, 67, 123),
                 List.of(Fighting.getInstance(), Psychic.getInstance()),
                 List.of(Bug.getInstance(), Dark.getInstance(), Ghost.getInstance()),
@@ -13,7 +14,8 @@ public class Psychic extends Type {
     }
 
     private static final Psychic instance = new Psychic();
-    public static Psychic getInstance(){
+    public static Psychic getInstance()
+    {
         return instance;
     }
 }

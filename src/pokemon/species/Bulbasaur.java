@@ -29,7 +29,8 @@ public class Bulbasaur extends Species {
     }
 
     static final private Bulbasaur instance = new Bulbasaur();
-    public static Bulbasaur getInstance() {
+    public static Bulbasaur getInstance()
+    {
         return instance;
     }
 }

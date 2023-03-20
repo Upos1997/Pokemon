@@ -6,7 +6,8 @@ import java.util.List;
 
 public class Water extends Type{
 
-    private Water() {
+    private Water()
+    {
         super("Water", new Color(237, 63, 15),
                 List.of(Fire.getInstance(), Ice.getInstance(), Steel.getInstance(), Water.getInstance()),
                 List.of(Electric.getInstance(), Grass.getInstance()),
@@ -14,7 +15,8 @@ public class Water extends Type{
     }
 
     static final private Water instance = new Water();
-    static public Water getInstance() {
+    static public Water getInstance()
+    {
         return instance;
     }
 }

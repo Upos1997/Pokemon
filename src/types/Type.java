@@ -1,6 +1,6 @@
 package src.types;
 
-import src.combat.Field;
+import src.combat.field.Field;
 import src.helper.Constants;
 import src.pokemon.Pokemon;
 
@@ -15,7 +15,8 @@ public abstract class Type {
     final private List<Type> weaknesses;
     private final List<Type> immunities;
 
-    public Type(String name, Color color, List<Type> resistances, List<Type> weaknesses, List<Type> immunities) {
+    public Type(String name, Color color, List<Type> resistances, List<Type> weaknesses, List<Type> immunities)
+    {
         this.name = name;
         this.color = color;
         this.resistances = resistances;
@@ -23,33 +24,34 @@ public abstract class Type {
         this.immunities = immunities;
     }
 
-    public String getName(){
+    public String getName()
+    {
         return this.name;
     }
-    public Color getColor(){
+    public Color getColor()
+    {
         return this.color;
     }
     public void setupPrevents(Pokemon pokemon, Field field){}
 
-    private float getTypeEffectiveness(List<Type> types) {
+    private float getTypeEffectiveness(List<Type> types)
+    {
         float modifier = 1;
-        for (Type type : types) {
-            if (resistances.contains(type)) {
+        for (Type type : types)
+            if (resistances.contains(type))
                 modifier *= Constants.TYPE_RESISTANCE_MODIFIER;
-            } else if (weaknesses.contains(type)) {
+            else if (weaknesses.contains(type))
                 modifier *= Constants.TYPE_WEAKNESS_MODIFIER;
-            } else if (immunities.contains(type)) {
+            else if (immunities.contains(type))
                 modifier *= Constants.TYPE_IMMUNITY_MODIFIER;
-            }
-        }
         return modifier;
     }
 
-    static public float calcTypeEffectiveness(List<Type> attacking, List<Type> defending) {
+    static public float calcTypeEffectiveness(List<Type> attacking, List<Type> defending)
+    {
         float modifier = 1;
-        for (Type type : defending) {
+        for (Type type : defending)
             modifier *= type.getTypeEffectiveness(attacking);
-        }
         return modifier;
     }
 }

@@ -1,6 +1,6 @@
 package src.types;
 
-import src.combat.Field;
+import src.combat.field.Field;
 import src.pokemon.Pokemon;
 
 import java.awt.Color;
@@ -16,12 +16,14 @@ public class Fire extends Type{
     }
 
     static final private Fire instance = new Fire();
-    static public Fire getInstance() {
+    static public Fire getInstance()
+    {
         return instance;
     }
 
     @Override
-    public void setupPrevents(Pokemon pokemon, Field field) {
+    public void setupPrevents(Pokemon pokemon, Field field)
+    {
         super.setupPrevents(pokemon, field);
         //immunity burned//
     }

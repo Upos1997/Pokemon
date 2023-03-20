@@ -6,7 +6,8 @@ import java.util.List;
 
 public class Normal extends Type{
 
-    private Normal() {
+    private Normal()
+    {
         super("Normal", new Color(197, 192, 182),
                 Collections.emptyList(),
                 List.of(Fighting.getInstance()),
@@ -14,7 +15,8 @@ public class Normal extends Type{
     }
 
     static final private Normal instance = new Normal();
-    static public Normal getInstance() {
+    static public Normal getInstance()
+    {
         return instance;
     }
 }

@@ -34,28 +34,31 @@ public enum Nature {
     private final Stat up;
     private final Stat down;
 
-    Nature(String name, Stat up, Stat down) {
+    Nature(String name, Stat up, Stat down)
+    {
         this.name = name;
         this.up = up;
         this.down = down;
     }
 
-    public String getName(){
+    public String getName()
+    {
         return name;
     }
-    public float get_modifier(Stat stat) {
-        if (up == stat && down == stat) {
+    public float get_modifier(Stat stat)
+    {
+        if (up == stat && down == stat)
             return 1;
-        } else if (up == stat) {
+        else if (up == stat)
             return Constants.NATURE_UP;
-        } else if (down == stat) {
+        else if (down == stat)
             return Constants.NATURE_DOWN;
-        } else {
+        else
             return 1;
-        }
     }
 
-    static public Nature random() {
+    static public Nature random()
+    {
         Nature[] natures = Nature.values();
         return natures[Rng.nextInt(natures.length)];
     }

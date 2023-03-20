@@ -33,51 +33,66 @@ public class Species {
     protected Map<Integer, List<Move>> movesLevelUp;
     protected List<Move> movesOther;
 
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
-    public List<Type> getTypes() {
+    public List<Type> getTypes()
+    {
         return types;
     }
-    public List<Ability> getAbilities() {
+    public List<Ability> getAbilities()
+    {
         return abilities;
     }
-    public double getHeight() {
+    public double getHeight()
+    {
         return height;
     }
-    public double getWeight() {
+    public double getWeight()
+    {
         return weight;
     }
-    public int getCatchRate() {
+    public int getCatchRate()
+    {
         return catchRate;
     }
-    public int getFriendship() {
+    public int getFriendship()
+    {
         return friendship;
     }
-    public int getBaseExp() {
+    public int getBaseExp()
+    {
         return baseExp;
     }
-    public GrowthRate getGrowthRate() {
+    public GrowthRate getGrowthRate()
+    {
         return growthRate;
     }
-    public double getGenderOdds() {
+    public double getGenderOdds()
+    {
         return genderOdds;
     }
-    public int getEggCycles() {
+    public int getEggCycles()
+    {
         return eggCycles;
     }
-    public int getBaseStat(Stat stat) {
+    public int getBaseStat(Stat stat)
+    {
         return baseStats.getStat(stat);
     }
-    public List<Move> getLevelUpMoves(int level) {
+    public List<Move> getLevelUpMoves(int level)
+    {
         return movesLevelUp.get(level);
     }
 
-    public boolean learns(Move move) {
+    public boolean learns(Move move)
+    {
         return Stream.concat(movesOther.stream(), movesLevelUp.values().stream().flatMap(List::stream))
                 .anyMatch(_move -> _move == move);
     }
-    public boolean canBreed(Species species) {
+    public boolean canBreed(Species species)
+    {
         return eggGroups.stream().anyMatch(eggGroup -> eggGroup.canBreed(species.eggGroups));
     }
 }

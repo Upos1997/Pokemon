@@ -11,13 +11,16 @@ public abstract class Move {
     protected int ppMax;
     protected int priority = 0;
 
-    public List<Type> getTypes() {
+    public List<Type> getTypes()
+    {
         return types;
     }
-    public float getAccuracy() {
+    public float getAccuracy()
+    {
         return accuracy;
     }
-    public int getPriority() {
+    public int getPriority()
+    {
         return priority;
     }
 }

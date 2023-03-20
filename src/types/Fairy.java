@@ -4,7 +4,8 @@ import java.awt.Color;
 import java.util.List;
 
 public class Fairy extends Type{
-    private Fairy() {
+    private Fairy()
+    {
         super("Fairy", new Color(238, 167, 239),
                 List.of(Bug.getInstance(), Dark.getInstance(), Fighting.getInstance()),
                 List.of(Poison.getInstance(), Steel.getInstance()),
@@ -12,7 +13,8 @@ public class Fairy extends Type{
     }
 
     private static final Fairy instance =  new Fairy();
-    public static Fairy getInstance(){
+    public static Fairy getInstance()
+    {
         return instance;
     }
 }

@@ -10,18 +10,19 @@ public enum Stat {
     ACC,
     EVA;
 
-    static public double getMod(int stage) {
-        if (stage < 0) {
+    static public float getMod(int stage)
+    {
+        if (stage < 0)
             return 2f / (2 - stage);
-        } else
+        else
             return (2 + stage) / 2f;
     }
 
-    static public double getMod(int acc, int eva) {
+    static public float getMod(int acc, int eva) {
         int totalStage = acc - eva;
-        if (totalStage < 0) {
+        if (totalStage < 0)
             return 3f / (3 - totalStage);
-        } else
+        else
             return (3 + totalStage) / 3f;
     }
 }
