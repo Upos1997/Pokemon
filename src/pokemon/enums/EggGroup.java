@@ -1,6 +1,6 @@
 package src.pokemon.enums;
 
-import java.util.List;
+import java.util.Arrays;
 
 public enum EggGroup {
     AMORPHOUS,
@@ -28,8 +28,8 @@ public enum EggGroup {
             return this == eggGroup;
     }
 
-    public boolean canBreed(List<EggGroup> eggGroupList)
+    public boolean canBreed(EggGroup[] eggGroupList)
     {
-        return eggGroupList.stream().anyMatch(this::canBreed);
+        return Arrays.stream(eggGroupList).anyMatch(this::canBreed);
     }
 }

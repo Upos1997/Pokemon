@@ -5,22 +5,32 @@ import src.pokemon.Pokemon;
 import src.pokemon.enums.Stat;
 import src.pokemon.statlist.StatList;
 import src.pokemon.statlist.StatListStages;
+import src.types.Type;
 
 public class Combatant {
-    private Pokemon pokemon;
+    private final Pokemon pokemon;
     private Ability ability;
+    private Type[] types;
     private final StatList stages = new StatListStages();
 
 
-    Combatant(Pokemon pokemon){
+    Combatant(Pokemon pokemon)
+    {
         this.pokemon = pokemon;
+        this.ability = pokemon.getAbility();
+        this.types = pokemon.
     }
 
     public int getStage(Stat stat)
     {
         return stages.getStat(stat);
     }
-    public int getStat(Stat stat) {
+    public int getStat(Stat stat)
+    {
         return Math.round(pokemon.getStat(stat) * Stat.getMod(getStage(stat)));
+    }
+    public Type[] getTypes()
+    {
+        return pokemon.getTypes();
     }
 }

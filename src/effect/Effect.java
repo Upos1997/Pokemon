@@ -1,8 +1,8 @@
 package src.effect;
 
+import src.combat.Combatant;
 import src.combat.field.Field;
 import src.helper.Source;
-import src.pokemon.Pokemon;
 
 public class Effect extends EffectDecorator {
 
@@ -12,7 +12,7 @@ public class Effect extends EffectDecorator {
     }
 
     @Override
-    protected boolean doEffect(Field field, Pokemon[] targets)
+    protected boolean doEffect(Field field, Combatant target)
     {
         return true;
     }
@@ -27,7 +27,13 @@ public class Effect extends EffectDecorator {
             EffectDecorator addedEffect;
             switch (effectNames[counter])
             {
-                case ""
+                case "hit":
+                {
+                    addedEffect = new EffectToHit(source, Integer.parseInt(effectNames[counter+1]));
+                    counter++;
+                }
+                default:
+                    addedEffect = new Effect(source);
             }
             previousEffect.setNext(addedEffect);
             previousEffect = addedEffect;

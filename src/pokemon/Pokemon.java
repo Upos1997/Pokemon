@@ -9,6 +9,7 @@ import src.pokemon.statlist.StatListBase;
 import src.pokemon.statlist.StatListBaseEV;
 import src.pokemon.statlist.StatListBaseIV;
 import src.status.Status;
+import src.types.Type;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,6 +95,10 @@ public class Pokemon {
     public Move getMove(int moveNumber)
     {
         return moveList.get(moveNumber);
+    }
+    public Type[] getTypes()
+    {
+        species.getTypes();
     }
 
     public void setStatus(Status newStatus)

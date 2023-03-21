@@ -1,8 +1,11 @@
 package src.effect;
 
+import src.combat.Combatant;
 import src.combat.field.Field;
 import src.helper.Source;
 import src.pokemon.Pokemon;
+
+import java.util.Arrays;
 
 public abstract class EffectDecorator {
    private final Source source;
@@ -13,7 +16,7 @@ public abstract class EffectDecorator {
       this.source = source;
    }
    
-   protected abstract boolean doEffect(Field field, Pokemon[] targets);
+   protected abstract boolean doEffect(Field field, Combatant target);
 
    private boolean hasNext()
    {
@@ -29,10 +32,9 @@ public abstract class EffectDecorator {
       return source;
    }
 
-   public void execute(Field field, Pokemon[] targets){
-     if (doEffect(field, targets) && hasNext())
-     {
-        next.execute(field, targets);
-     }
+   public void execute(Field field, Combatant[] targets){
+      Combatant[] newTargets = Arrays.stream(targets).filter(target -> doEffect(field, target)).toArray(Combatant[]::new);
+     if (hasNext())
+        next.execute(field, newTargets);
    }
 }

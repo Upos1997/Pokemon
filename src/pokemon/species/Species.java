@@ -1,5 +1,6 @@
 package src.pokemon.species;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -17,31 +18,31 @@ import src.types.Type;
 public class Species {
 
     protected String name;
-    protected List<Type> types;
-    protected List<Ability> abilities;
+    protected Type[] types;
+    protected Ability[] abilities;
     protected float height;
     protected float weight;
     protected int catchRate;
     protected int friendship = 50;
     protected int baseExp;
     protected GrowthRate growthRate;
-    protected List<EggGroup> eggGroups;
+    protected EggGroup[] eggGroups;
     protected float genderOdds = 0.5f;
     protected int eggCycles = 20;
     protected StatList baseStats;
-    protected List<Function<Pokemon, Species>> evolutions;
-    protected Map<Integer, List<Move>> movesLevelUp;
-    protected List<Move> movesOther;
+    protected Function<Pokemon, Species>[] evolutions;
+    protected Map<Integer, Move[]> movesLevelUp;
+    protected Move[] movesOther;
 
     public String getName()
     {
         return name;
     }
-    public List<Type> getTypes()
+    public Type[] getTypes()
     {
         return types;
     }
-    public List<Ability> getAbilities()
+    public Ability[] getAbilities()
     {
         return abilities;
     }
@@ -81,18 +82,18 @@ public class Species {
     {
         return baseStats.getStat(stat);
     }
-    public List<Move> getLevelUpMoves(int level)
+    public Move[] getLevelUpMoves(int level)
     {
         return movesLevelUp.get(level);
     }
 
     public boolean learns(Move move)
     {
-        return Stream.concat(movesOther.stream(), movesLevelUp.values().stream().flatMap(List::stream))
+        return Stream.concat(Arrays.stream(movesOther), movesLevelUp.values().stream().flatMap(Arrays::stream))
                 .anyMatch(_move -> _move == move);
     }
     public boolean canBreed(Species species)
     {
-        return eggGroups.stream().anyMatch(eggGroup -> eggGroup.canBreed(species.eggGroups));
+        return Arrays.stream(eggGroups).anyMatch(eggGroup -> eggGroup.canBreed(species.eggGroups));
     }
 }
