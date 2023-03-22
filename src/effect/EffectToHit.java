@@ -8,19 +8,24 @@ import src.pokemon.enums.Stat;
 
 public class EffectToHit extends EffectDecorator{
     private final float accuracy;
+    private final boolean autoHit = false;
+    private final boolean autoMiss = false;
 
-    protected EffectToHit(Source source, float accuracy) {
+    protected EffectToHit(Source source, float accuracy)
+    {
         super(source);
         this.accuracy = accuracy;
     }
 
     @Override
-    protected boolean doEffect(Field field, Combatant target) {
-        if (field.isAllowed(this))
-        {
-            Combatant user = field.getCurrentAction().getUser();
+    protected boolean doEffect(Field field, Combatant target)
+    {
+        Combatant user = field.getCurrentAction().getUser();
+        if (autoHit)
+            return true;
+        else if (autoMiss)
+            return false;
+        else
             return Rng.chance(accuracy * Stat.getMod(user.getStage(Stat.ACC), target.getStage(Stat.EVA)));
-        }
-        else return false;
     }
 }
