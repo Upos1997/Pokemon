@@ -18,7 +18,7 @@ public class Combatant {
     {
         this.pokemon = pokemon;
         this.ability = pokemon.getAbility();
-        this.types = pokemon.
+        this.types = pokemon.getTypes();
     }
 
     public int getStage(Stat stat)

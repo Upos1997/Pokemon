@@ -8,7 +8,8 @@ public enum Stat {
     SP_DEF,
     SPE,
     ACC,
-    EVA;
+    EVA,
+    CRIT;
 
     static public float getMod(int stage)
     {
@@ -18,11 +19,17 @@ public enum Stat {
             return (2 + stage) / 2f;
     }
 
-    static public float getMod(int acc, int eva) {
+    static public float getMod(int acc, int eva)
+    {
         int totalStage = acc - eva;
         if (totalStage < 0)
             return 3f / (3 - totalStage);
         else
             return (3 + totalStage) / 3f;
+    }
+
+    static public float getCritChance(int stage)
+    {
+        return 1 / (24f - (4f * stage));
     }
 }

@@ -13,6 +13,7 @@ public class StatListStages implements StatList {
     private int speed = 0;
     private int accuracy = 0;
     private int evasion = 0;
+    private int criticalChance = 0;
 
 
     @Override
@@ -27,6 +28,7 @@ public class StatListStages implements StatList {
                     case SPE -> speed;
                     case ACC -> accuracy;
                     case EVA -> evasion;
+                    case CRIT -> criticalChance;
                 };
     }
 
@@ -46,6 +48,7 @@ public class StatListStages implements StatList {
             case SPE -> speed = newStat;
             case ACC -> accuracy = newStat;
             case EVA -> evasion = newStat;
+            case CRIT -> criticalChance = newStat;
         }
     }
 
