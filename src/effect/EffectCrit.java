@@ -8,24 +8,19 @@ import src.pokemon.enums.Stat;
 
 public class EffectCrit extends EffectDecorator
 {
-    private float critChance;
+    private int critStageChange;
     private boolean autoCrit = false;
 
 
-    protected EffectCrit(Source source, float critChance)
+    public EffectCrit(Source source, int critStageChange)
     {
         super(source);
-        this.critChance = critChance;
+        this.critStageChange = critStageChange;
     }
 
-    public void modChanceAdd(float change)
+    public void modChanceAdd(int change)
     {
-        critChance += change;
-    }
-
-    public void modChanceMul(float multiplier)
-    {
-        critChance *= multiplier;
+        critStageChange += change;
     }
 
     public void setAutoCrit()
@@ -44,7 +39,8 @@ public class EffectCrit extends EffectDecorator
         else
         {
             int critStage = field.getCurrentAction().getUser().getStage(Stat.CRIT);
-            return Rng.chance(Stat.getCritChance(critStage));
+            float critChance = Stat.getCritMod(critStage + critStageChange);
+            return Rng.chance(critChance);
         }
     }
 }

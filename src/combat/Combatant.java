@@ -33,4 +33,8 @@ public class Combatant {
     {
         return pokemon.getTypes();
     }
+
+    public int getLevel() {
+        return pokemon.getLevel();
+    }
 }

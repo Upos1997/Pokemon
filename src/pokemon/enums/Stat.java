@@ -1,5 +1,7 @@
 package src.pokemon.enums;
 
+import src.helper.Constants;
+
 public enum Stat {
     HP,
     ATK,
@@ -11,25 +13,28 @@ public enum Stat {
     EVA,
     CRIT;
 
-    static public float getMod(int stage)
+    static private float calcMod(int stage, float stepSize)
     {
         if (stage < 0)
-            return 2f / (2 - stage);
+            return stepSize / (stepSize - stage);
         else
-            return (2 + stage) / 2f;
+            return (stepSize + stage) / stepSize;
+    }
+
+    static public float getMod(int stage)
+    {
+        return calcMod(stage, Constants.STAGE_STEP);
     }
 
     static public float getMod(int acc, int eva)
     {
         int totalStage = acc - eva;
-        if (totalStage < 0)
-            return 3f / (3 - totalStage);
-        else
-            return (3 + totalStage) / 3f;
+        return calcMod(totalStage, Constants.ACC_STEP);
     }
 
     static public float getCritChance(int stage)
     {
-        return 1 / (24f - (4f * stage));
+        int stepSize = Math.ceilDiv(Constants.CRIT_ODDS, 6);
+        return (float) Math.pow(Constants.CRIT_ODDS - (stage * stepSize), -1);
     }
 }
