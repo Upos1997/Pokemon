@@ -20,4 +20,7 @@ public class Constants {
 
     public static final int STAGE_STEP = 2;
     public static final int ACC_STEP = 3;
+
+    public static final float DAMAGE_RANGE_MIN = 0.85f;
+    public static final float DAMAGE_RANGE_MAX = 1;
 }

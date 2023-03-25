@@ -29,12 +29,23 @@ public class Combatant {
     {
         return Math.round(pokemon.getStat(stat) * Stat.getMod(getStage(stat)));
     }
+    public int getBaseStat(Stat stat)
+    {
+        return pokemon.getStat(stat);
+    }
     public Type[] getTypes()
     {
         return pokemon.getTypes();
     }
-
     public int getLevel() {
         return pokemon.getLevel();
+    }
+    public void damage(int amount)
+    {
+        pokemon.changeHp(amount * -1);
+    }
+    public void heal(int amount)
+    {
+        pokemon.changeHp(amount);
     }
 }

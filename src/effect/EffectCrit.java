@@ -39,7 +39,7 @@ public class EffectCrit extends EffectDecorator
         else
         {
             int critStage = field.getCurrentAction().getUser().getStage(Stat.CRIT);
-            float critChance = Stat.getCritMod(critStage + critStageChange);
+            float critChance = Stat.getCritChance(critStage + critStageChange);
             return Rng.chance(critChance);
         }
     }

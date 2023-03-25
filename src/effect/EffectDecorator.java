@@ -3,11 +3,10 @@ package src.effect;
 import src.combat.Combatant;
 import src.combat.field.Field;
 import src.helper.Source;
-import src.pokemon.Pokemon;
 
 import java.util.Arrays;
 
-public abstract class EffectDecorator implements {
+public abstract class EffectDecorator {
    private final Source source;
    private EffectDecorator next;
 
@@ -30,22 +29,30 @@ public abstract class EffectDecorator implements {
       return source;
    }
 
-   public void execute(Field field, Combatant[] targets){
+   public boolean execute(Field field, Combatant[] targets){
       if (field.isAllowed(this))
       {
          field.modify(this);
          Combatant[] newTargets = Arrays.stream(targets).filter(target -> doEffect(field, target)).toArray(Combatant[]::new);
+         if (newTargets.length == 0)
+            return false;
          if (hasNext())
             next.execute(field, newTargets);
          field.reverseModify(this);
+         return true;
       }
+      else
+         return false;
    }
 
-   public boolean singleExecute(Field field, Combatant target)
+   public boolean execute(Field field, Combatant target)
    {
-      if (field.isAllowed(this, target)) {
+      if (field.isAllowed(this, target))
+      {
          field.modify(this, target);
          boolean result = doEffect(field, target);
+         if (result && hasNext())
+            result = next.execute(field, target);
          field.reverseModify(this, target);
          return result;
       }
