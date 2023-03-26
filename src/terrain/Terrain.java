@@ -6,9 +6,9 @@ import src.helper.Tag;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Terrain implements Source {
+public abstract class Terrain implements Source {
 
-    private List<Tag> tags = new ArrayList<>();
+    private final List<Tag> tags = new ArrayList<>();
     @Override
     public boolean hasTag(Tag tag) {
         return tags.contains(tag);

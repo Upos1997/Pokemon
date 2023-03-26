@@ -13,7 +13,7 @@ public abstract class Move implements Source {
     protected float accuracy = 1;
     protected int ppMax;
     protected int priority = 0;
-    protected List<Tag> tags = new ArrayList<>();
+    private final List<Tag> tags = new ArrayList<>();
 
     Move(Type[] types, int ppMax)
     {
