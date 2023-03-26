@@ -4,14 +4,14 @@ import src.combat.field.Field;
 import src.pokemon.Pokemon;
 
 import java.awt.Color;
-import java.util.List;
 
 public class Ghost extends Type{
-    private Ghost() {
+    private Ghost()
+    {
         super("Ghost", new Color(91, 91, 162),
-                List.of(Bug.getInstance(), Poison.getInstance()),
-                List.of(Ghost.getInstance(), Dark.getInstance()),
-                List.of(Normal.getInstance(), Fighting.getInstance()));
+                new Type[]{Types.BUG.getInstance(), Types.POISON.getInstance()},
+                new Type[]{Types.GHOST.getInstance(), Types.DARK.getInstance()},
+                new Type[]{Types.NORMAL.getInstance(), Types.FIGHTING.getInstance()});
     }
 
     private static final Ghost instance = new Ghost();

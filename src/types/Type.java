@@ -6,7 +6,6 @@ import src.pokemon.Pokemon;
 
 import java.awt.Color;
 import java.util.Arrays;
-import java.util.List;
 
 public abstract class Type {
 
@@ -35,24 +34,15 @@ public abstract class Type {
     }
     public void setupPrevents(Pokemon pokemon, Field field){}
 
-    private float getTypeEffectiveness(Type[] types)
-    {
+    public float getTypeEffectiveness(Type[] types) {
         float modifier = 1;
         for (Type type : types)
             if (Arrays.stream(resistances).anyMatch(resistance -> resistance == type))
                 modifier *= Constants.TYPE_RESISTANCE_MODIFIER;
-            else if (Arrays.stream(resistances).anyMatch(weakness -> weakness == type))
+            else if (Arrays.stream(weaknesses).anyMatch(weakness -> weakness == type))
                 modifier *= Constants.TYPE_WEAKNESS_MODIFIER;
-            else if (Arrays.stream(resistances).anyMatch(immunity -> immunity == type))
+            else if (Arrays.stream(immunities).anyMatch(immunity -> immunity == type))
                 modifier *= Constants.TYPE_IMMUNITY_MODIFIER;
-        return modifier;
-    }
-
-    static public float calcTypeEffectiveness(Type[] attacking, Type[] defending)
-    {
-        float modifier = 1;
-        for (Type type : defending)
-            modifier *= type.getTypeEffectiveness(attacking);
         return modifier;
     }
 }

@@ -3,6 +3,11 @@ package src.effect;
 import src.combat.Combatant;
 import src.combat.field.Field;
 import src.helper.Source;
+import src.moves.Move;
+import src.moves.MoveDamaging;
+import src.types.Type;
+
+import java.util.Arrays;
 
 public class Effect extends EffectDecorator {
 
@@ -24,16 +29,19 @@ public class Effect extends EffectDecorator {
         int counter = 0;
         while(counter < effectNames.length)
         {
-            EffectDecorator addedEffect;
+            EffectDecorator addedEffect = new Effect(source);
             switch (effectNames[counter])
             {
-                case "hit":
+                case "hit" ->
                 {
-                    addedEffect = new EffectToHit(source, Integer.parseInt(effectNames[counter+1]));
+                    addedEffect = new EffectToHit(source, Integer.parseInt(effectNames[counter + 1]));
                     counter++;
                 }
-                default:
-                    addedEffect = new Effect(source);
+                case "damage" ->
+                {
+                    addedEffect = new EffectDealDamage(source, Integer.parseInt(effectNames[counter + 1]));
+                    counter++;
+                }
             }
             previousEffect.setNext(addedEffect);
             previousEffect = addedEffect;

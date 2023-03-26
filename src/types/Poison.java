@@ -11,9 +11,9 @@ public class Poison extends Type{
     private Poison()
     {
         super("Poison", new Color(145, 68, 147),
-                List.of(Fighting.getInstance(), Poison.getInstance(), Bug.getInstance(), Grass.getInstance(), Fairy.getInstance()),
-                List.of(Ground.getInstance(), Psychic.getInstance()),
-                Collections.emptyList());
+                new Type[]{Types.FIGHTING.getInstance(), Types.POISON.getInstance(), Types.BUG.getInstance(), Types.GRASS.getInstance(), Types.FAIRY.getInstance()},
+                new Type[]{Types.GROUND.getInstance(), Types.PSYCHIC.getInstance()},
+                new Type[0]);
     }
 
     private static final Poison instance = new Poison();

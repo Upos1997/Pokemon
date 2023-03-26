@@ -1,17 +1,15 @@
 package src.types;
 
 import java.awt.Color;
-import java.util.Collections;
-import java.util.List;
 
 public class Water extends Type{
 
     private Water()
     {
         super("Water", new Color(237, 63, 15),
-                List.of(Fire.getInstance(), Ice.getInstance(), Steel.getInstance(), Water.getInstance()),
-                List.of(Electric.getInstance(), Grass.getInstance()),
-                Collections.emptyList());
+                new Type[]{Types.FIRE.getInstance(), Types.ICE.getInstance(), Types.STEEL.getInstance(), Types.WATER.getInstance()},
+                new Type[]{Types.ELECTRIC.getInstance(), Types.GRASS.getInstance()},
+                new Type[0]);
     }
 
     static final private Water instance = new Water();

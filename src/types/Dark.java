@@ -1,15 +1,14 @@
 package src.types;
 
 import java.awt.Color;
-import java.util.List;
 
 public class Dark extends Type {
     private Dark()
     {
         super("Dark", new Color(79, 58, 45),
-                List.of(Dark.getInstance(), Ghost.getInstance()),
-                List.of(Bug.getInstance(), Fairy.getInstance(), Fighting.getInstance()),
-                List.of(Psychic.getInstance()));
+                new Type[]{Types.DARK.getInstance(), Types.GHOST.getInstance()},
+                new Type[]{Types.BUG.getInstance(), Types.FAIRY.getInstance(), Types.FIGHTING.getInstance()},
+                new Type[]{Types.PSYCHIC.getInstance()});
     }
 
     private static final Dark instance = new Dark();

@@ -98,7 +98,7 @@ public class Pokemon {
     }
     public Type[] getTypes()
     {
-        species.getTypes();
+        return species.getTypes();
     }
 
     public void setStatus(Status newStatus)

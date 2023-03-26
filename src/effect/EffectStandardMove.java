@@ -7,6 +7,7 @@ import src.helper.Rng;
 import src.helper.Source;
 import src.pokemon.enums.Stat;
 import src.types.Type;
+import src.types.Types;
 
 import java.util.Arrays;
 import java.util.stream.Stream;
@@ -71,7 +72,7 @@ public class EffectStandardMove extends EffectDecorator{
     protected boolean doEffect(Field field, Combatant target)
     {
         Combatant user = field.getCurrentAction().getUser();
-        damageMul *= Type.calcTypeEffectiveness(types, target.getTypes());
+        damageMul *= Types.calcTypeEffectiveness(types, target.getTypes());
         if (damageMul == 0)
             return false;
         if (isStab(user))

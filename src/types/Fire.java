@@ -10,13 +10,13 @@ import java.util.List;
 public class Fire extends Type{
     private Fire() {
         super("Fire", new Color(237, 63, 15),
-                List.of(Bug.getInstance(), Fairy.getInstance(), Fire.getInstance(), Grass.getInstance(), Ice.getInstance(), Steel.getInstance()),
-                List.of(Ground.getInstance(), Rock.getInstance(), Water.getInstance()),
-                Collections.emptyList());
+                new Type[]{Types.BUG.getInstance(), Types.FAIRY.getInstance(), Types.FIRE.getInstance(), Types.GRASS.getInstance(), Types.ICE.getInstance(), Types.STEEL.getInstance()},
+                new Type[]{Types.GROUND.getInstance(), Types.ROCK.getInstance(), Types.WATER.getInstance()},
+                new Type[0]);
     }
 
-    static final private Fire instance = new Fire();
-    static public Fire getInstance()
+    private static final Fire instance = new Fire();
+    public static Fire getInstance()
     {
         return instance;
     }

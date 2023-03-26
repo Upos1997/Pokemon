@@ -1,16 +1,14 @@
 package src.types;
 
 import java.awt.Color;
-import java.util.Collections;
-import java.util.List;
 
 public class Rock extends Type{
     private Rock()
     {
         super("Rock", new Color(176, 160, 93),
-                List.of(Fire.getInstance(), Flying.getInstance(), Normal.getInstance(), Poison.getInstance()),
-                List.of(Fighting.getInstance(), Grass.getInstance(), Ground.getInstance(), Steel.getInstance(), Water.getInstance()),
-                Collections.emptyList());
+                new Type[]{Types.FIRE.getInstance(), Types.FLYING.getInstance(), Types.NORMAL.getInstance(), Types.POISON.getInstance()},
+                new Type[]{Types.FIGHTING.getInstance(), Types.GRASS.getInstance(), Types.GROUND.getInstance(), Types.STEEL.getInstance(), Types.WATER.getInstance()},
+                new Type[0]);
     }
 
     private static final Rock instance = new Rock();

@@ -1,17 +1,15 @@
 package src.types;
 
 import java.awt.Color;
-import java.util.Collections;
-import java.util.List;
 
 public class Normal extends Type{
 
     private Normal()
     {
         super("Normal", new Color(197, 192, 182),
-                Collections.emptyList(),
-                List.of(Fighting.getInstance()),
-                List.of(Ghost.getInstance()));
+                new Type[0],
+                new Type[]{Types.FIGHTING.getInstance()},
+                new Type[]{Types.GHOST.getInstance()});
     }
 
     static final private Normal instance = new Normal();

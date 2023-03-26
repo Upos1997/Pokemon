@@ -8,12 +8,12 @@ import java.util.Collections;
 import java.util.List;
 
 public class Flying extends Type{
-    public Flying()
+    private Flying()
     {
         super("Flying", new Color(139, 160, 240),
-                List.of(Bug.getInstance(), Fighting.getInstance(), Grass.getInstance()),
-                List.of(Electric.getInstance(), Ice.getInstance(), Rock.getInstance()),
-                Collections.emptyList());
+                new Type[]{Types.BUG.getInstance(), Types.FIGHTING.getInstance(), Types.GRASS.getInstance()},
+                new Type[]{Types.ELECTRIC.getInstance(), Types.ICE.getInstance(), Types.ROCK.getInstance()},
+                new Type[0]);
     }
 
     private static final Flying instance = new Flying();

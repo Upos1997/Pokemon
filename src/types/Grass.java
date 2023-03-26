@@ -4,17 +4,15 @@ import src.combat.field.Field;
 import src.pokemon.Pokemon;
 
 import java.awt.Color;
-import java.util.Collections;
-import java.util.List;
 
 public class Grass extends Type{
 
     private Grass()
     {
         super("Grass", new Color(102, 187, 43),
-                List.of(Electric.getInstance(), Grass.getInstance(), Ground.getInstance(), Water.getInstance()),
-                List.of(Bug.getInstance(), Fire.getInstance(), Flying.getInstance(), Ice.getInstance(), Poison.getInstance()),
-                Collections.emptyList());
+                new Type[]{Types.ELECTRIC.getInstance(), Types.GRASS.getInstance(), Types.GROUND.getInstance(), Types.WATER.getInstance()},
+                new Type[]{Types.BUG.getInstance(), Types.FIRE.getInstance(), Types.FLYING.getInstance(), Types.ICE.getInstance(), Types.POISON.getInstance()},
+                new Type[0]);
     }
 
     static final private Grass instance = new Grass();

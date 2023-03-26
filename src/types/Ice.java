@@ -3,17 +3,15 @@ package src.types;
 import src.combat.field.Field;
 import src.pokemon.Pokemon;
 
-import java.awt.*;
-import java.util.Collections;
-import java.util.List;
+import java.awt.Color;
 
 public class Ice extends Type {
     private Ice()
     {
         super("Ice", new Color(160, 229, 251),
-                List.of(Ice.getInstance()),
-                List.of(Fighting.getInstance(), Fire.getInstance(), Rock.getInstance(), Steel.getInstance()),
-                Collections.emptyList());
+                new Type[]{Types.ICE.getInstance()},
+                new Type[]{Types.FIGHTING.getInstance(), Types.FIRE.getInstance(), Types.ROCK.getInstance(), Types.STEEL.getInstance()},
+                new Type[0]);
     }
 
     private static final Ice instance = new Ice();
