@@ -1,5 +1,7 @@
 package src.weather;
 
-public abstract class Weather {
+import src.helper.Source;
+
+public abstract class Weather implements Source {
 
 }

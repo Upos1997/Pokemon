@@ -1,5 +1,7 @@
 package src.status;
 
-abstract public class Status {
+import src.helper.Source;
+
+abstract public class Status implements Source {
 
 }
