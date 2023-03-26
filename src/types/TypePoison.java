@@ -4,11 +4,9 @@ import src.combat.field.Field;
 import src.pokemon.Pokemon;
 
 import java.awt.Color;
-import java.util.Collections;
-import java.util.List;
 
-public class Poison extends Type{
-    private Poison()
+public class TypePoison extends Type{
+    private TypePoison()
     {
         super("Poison", new Color(145, 68, 147),
                 new Type[]{Types.FIGHTING.getInstance(), Types.POISON.getInstance(), Types.BUG.getInstance(), Types.GRASS.getInstance(), Types.FAIRY.getInstance()},
@@ -16,8 +14,8 @@ public class Poison extends Type{
                 new Type[0]);
     }
 
-    private static final Poison instance = new Poison();
-    public static Poison getInstance()
+    private static final TypePoison instance = new TypePoison();
+    public static TypePoison getInstance()
     {
         return instance;
     }

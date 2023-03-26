@@ -3,24 +3,24 @@ package src.types;
 import java.util.Arrays;
 
 public enum Types {
-    BUG(Bug.getInstance()),
-    DARK(Dark.getInstance()),
-    DRAGON(Dragon.getInstance()),
-    ELECTRIC(Electric.getInstance()),
-    FAIRY(Fairy.getInstance()),
-    FIGHTING(Fighting.getInstance()),
-    FIRE(Fire.getInstance()),
-    FLYING(Flying.getInstance()),
-    GHOST(Ghost.getInstance()),
-    GRASS(Grass.getInstance()),
-    GROUND(Ground.getInstance()),
-    ICE(Ice.getInstance()),
-    NORMAL(Normal.getInstance()),
-    POISON(Poison.getInstance()),
-    PSYCHIC(Psychic.getInstance()),
-    ROCK(Rock.getInstance()),
-    STEEL(Steel.getInstance()),
-    WATER(Water.getInstance());
+    BUG(TypeBug.getInstance()),
+    DARK(TypeDark.getInstance()),
+    DRAGON(TypeDragon.getInstance()),
+    ELECTRIC(TypeElectric.getInstance()),
+    FAIRY(TypeFairy.getInstance()),
+    FIGHTING(TypeFighting.getInstance()),
+    FIRE(TypeFire.getInstance()),
+    FLYING(TypeFlying.getInstance()),
+    GHOST(TypeGhost.getInstance()),
+    GRASS(TypeGrass.getInstance()),
+    GROUND(TypeGround.getInstance()),
+    ICE(TypeIce.getInstance()),
+    NORMAL(TypeNormal.getInstance()),
+    POISON(TypePoison.getInstance()),
+    PSYCHIC(TypePsychic.getInstance()),
+    ROCK(TypeRock.getInstance()),
+    STEEL(TypeSteel.getInstance()),
+    WATER(TypeWater.getInstance());
 
     private final Type instance;
 

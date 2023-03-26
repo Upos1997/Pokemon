@@ -2,9 +2,9 @@ package src.types;
 
 import java.awt.Color;
 
-public class Normal extends Type{
+public class TypeNormal extends Type{
 
-    private Normal()
+    private TypeNormal()
     {
         super("Normal", new Color(197, 192, 182),
                 new Type[0],
@@ -12,8 +12,8 @@ public class Normal extends Type{
                 new Type[]{Types.GHOST.getInstance()});
     }
 
-    static final private Normal instance = new Normal();
-    static public Normal getInstance()
+    static final private TypeNormal instance = new TypeNormal();
+    static public TypeNormal getInstance()
     {
         return instance;
     }

@@ -5,8 +5,8 @@ import src.pokemon.Pokemon;
 
 import java.awt.Color;
 
-public class Electric extends Type{
-    private Electric()
+public class TypeElectric extends Type{
+    private TypeElectric()
     {
         super("Electric", new Color(253, 186, 24),
                 new Type[]{Types.ELECTRIC.getInstance(), Types.FLYING.getInstance(), Types.STEEL.getInstance()},
@@ -14,8 +14,8 @@ public class Electric extends Type{
                 new Type[0]);
     }
 
-    private static final Electric instance = new Electric();
-    public static Electric getInstance()
+    private static final TypeElectric instance = new TypeElectric();
+    public static TypeElectric getInstance()
     {
         return instance;
     }

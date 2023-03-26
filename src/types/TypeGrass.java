@@ -5,9 +5,9 @@ import src.pokemon.Pokemon;
 
 import java.awt.Color;
 
-public class Grass extends Type{
+public class TypeGrass extends Type{
 
-    private Grass()
+    private TypeGrass()
     {
         super("Grass", new Color(102, 187, 43),
                 new Type[]{Types.ELECTRIC.getInstance(), Types.GRASS.getInstance(), Types.GROUND.getInstance(), Types.WATER.getInstance()},
@@ -15,8 +15,8 @@ public class Grass extends Type{
                 new Type[0]);
     }
 
-    static final private Grass instance = new Grass();
-    public static Grass getInstance()
+    static final private TypeGrass instance = new TypeGrass();
+    public static TypeGrass getInstance()
     {
         return instance;
     }

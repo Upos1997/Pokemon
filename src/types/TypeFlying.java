@@ -4,11 +4,9 @@ import src.combat.field.Field;
 import src.pokemon.Pokemon;
 
 import java.awt.Color;
-import java.util.Collections;
-import java.util.List;
 
-public class Flying extends Type{
-    private Flying()
+public class TypeFlying extends Type{
+    private TypeFlying()
     {
         super("Flying", new Color(139, 160, 240),
                 new Type[]{Types.BUG.getInstance(), Types.FIGHTING.getInstance(), Types.GRASS.getInstance()},
@@ -16,8 +14,8 @@ public class Flying extends Type{
                 new Type[0]);
     }
 
-    private static final Flying instance = new Flying();
-    public static Flying getInstance()
+    private static final TypeFlying instance = new TypeFlying();
+    public static TypeFlying getInstance()
     {
         return instance;
     }

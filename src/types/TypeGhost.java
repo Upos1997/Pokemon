@@ -5,8 +5,8 @@ import src.pokemon.Pokemon;
 
 import java.awt.Color;
 
-public class Ghost extends Type{
-    private Ghost()
+public class TypeGhost extends Type{
+    private TypeGhost()
     {
         super("Ghost", new Color(91, 91, 162),
                 new Type[]{Types.BUG.getInstance(), Types.POISON.getInstance()},
@@ -14,8 +14,8 @@ public class Ghost extends Type{
                 new Type[]{Types.NORMAL.getInstance(), Types.FIGHTING.getInstance()});
     }
 
-    private static final Ghost instance = new Ghost();
-    public static Ghost getInstance()
+    private static final TypeGhost instance = new TypeGhost();
+    public static TypeGhost getInstance()
     {
         return instance;
     }

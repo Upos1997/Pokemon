@@ -5,19 +5,17 @@ import src.moves.Move;
 import src.pokemon.enums.EggGroup;
 import src.pokemon.growthrate.GrowthRateMedium;
 import src.pokemon.statlist.StatListBase;
-import src.types.Grass;
-import src.types.Poison;
+import src.types.TypeGrass;
+import src.types.TypePoison;
 import src.types.Type;
 
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 
 public class Bulbasaur extends Species {
 
     Bulbasaur() {
         name="Bulbasaur";
-        types = new Type[]{Grass.getInstance(), Poison.getInstance()};
+        types = new Type[]{TypeGrass.getInstance(), TypePoison.getInstance()};
         abilities = new Ability[0];
         height = 0.7f;
         weight = 6.9f;

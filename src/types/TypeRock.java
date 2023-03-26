@@ -2,8 +2,8 @@ package src.types;
 
 import java.awt.Color;
 
-public class Rock extends Type{
-    private Rock()
+public class TypeRock extends Type{
+    private TypeRock()
     {
         super("Rock", new Color(176, 160, 93),
                 new Type[]{Types.FIRE.getInstance(), Types.FLYING.getInstance(), Types.NORMAL.getInstance(), Types.POISON.getInstance()},
@@ -11,8 +11,8 @@ public class Rock extends Type{
                 new Type[0]);
     }
 
-    private static final Rock instance = new Rock();
-    public static Rock getInstance()
+    private static final TypeRock instance = new TypeRock();
+    public static TypeRock getInstance()
     {
         return instance;
     }

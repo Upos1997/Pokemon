@@ -1,11 +1,9 @@
 package src.types;
 
-import java.awt.*;
-import java.util.Collections;
-import java.util.List;
+import java.awt.Color;
 
-public class Fighting extends Type{
-    private Fighting()
+public class TypeFighting extends Type{
+    private TypeFighting()
     {
         super("Fighting", new Color(127, 51, 27),
                 new Type[]{Types.BUG.getInstance(), Types.DARK.getInstance(), Types.ROCK.getInstance()},
@@ -13,8 +11,8 @@ public class Fighting extends Type{
                 new Type[0]);
     }
 
-    private static final Fighting instance = new Fighting();
-    public static Fighting getInstance()
+    private static final TypeFighting instance = new TypeFighting();
+    public static TypeFighting getInstance()
     {
         return instance;
     }

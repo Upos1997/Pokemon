@@ -2,8 +2,8 @@ package src.types;
 
 import java.awt.Color;
 
-public class Dragon extends Type{
-    private Dragon()
+public class TypeDragon extends Type{
+    private TypeDragon()
     {
         super("Dragon", new Color(115, 91, 220),
                 new Type[]{Types.ELECTRIC.getInstance(), Types.FIRE.getInstance(), Types.GRASS.getInstance(), Types.FIRE.getInstance()},
@@ -11,8 +11,8 @@ public class Dragon extends Type{
                 new Type[0]);
     }
 
-    private static final Dragon instance = new Dragon();
-    public static Dragon getInstance()
+    private static final TypeDragon instance = new TypeDragon();
+    public static TypeDragon getInstance()
     {
         return instance;
     }

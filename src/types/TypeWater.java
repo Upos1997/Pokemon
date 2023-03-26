@@ -2,9 +2,9 @@ package src.types;
 
 import java.awt.Color;
 
-public class Water extends Type{
+public class TypeWater extends Type{
 
-    private Water()
+    private TypeWater()
     {
         super("Water", new Color(237, 63, 15),
                 new Type[]{Types.FIRE.getInstance(), Types.ICE.getInstance(), Types.STEEL.getInstance(), Types.WATER.getInstance()},
@@ -12,8 +12,8 @@ public class Water extends Type{
                 new Type[0]);
     }
 
-    static final private Water instance = new Water();
-    static public Water getInstance()
+    static final private TypeWater instance = new TypeWater();
+    static public TypeWater getInstance()
     {
         return instance;
     }

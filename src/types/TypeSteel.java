@@ -5,8 +5,8 @@ import src.pokemon.Pokemon;
 
 import java.awt.Color;
 
-public class Steel extends Type{
-    private Steel()
+public class TypeSteel extends Type{
+    private TypeSteel()
     {
         super("Steel", new Color(178, 177, 193),
                 new Type[]{Types.BUG.getInstance(), Types.DRAGON.getInstance(), Types.FAIRY.getInstance(), Types.GRASS.getInstance(), Types.ICE.getInstance(), Types.NORMAL.getInstance(), Types.PSYCHIC.getInstance(), Types.ROCK.getInstance(), Types.STEEL.getInstance()},
@@ -14,8 +14,8 @@ public class Steel extends Type{
                 new Type[]{Types.POISON.getInstance()});
     }
 
-    private static final Steel instance = new Steel();
-    public static Steel getInstance()
+    private static final TypeSteel instance = new TypeSteel();
+    public static TypeSteel getInstance()
     {
         return instance;
     }

@@ -5,8 +5,8 @@ import src.pokemon.Pokemon;
 
 import java.awt.Color;
 
-public class Ice extends Type {
-    private Ice()
+public class TypeIce extends Type {
+    private TypeIce()
     {
         super("Ice", new Color(160, 229, 251),
                 new Type[]{Types.ICE.getInstance()},
@@ -14,8 +14,8 @@ public class Ice extends Type {
                 new Type[0]);
     }
 
-    private static final Ice instance = new Ice();
-    public static Ice getInstance()
+    private static final TypeIce instance = new TypeIce();
+    public static TypeIce getInstance()
     {
         return instance;
     }

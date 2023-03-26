@@ -4,10 +4,9 @@ import src.combat.field.Field;
 import src.pokemon.Pokemon;
 
 import java.awt.Color;
-import java.util.List;
 
-public class Ground extends Type{
-    private Ground()
+public class TypeGround extends Type{
+    private TypeGround()
     {
         super("Ground", new Color(203, 172, 82),
                 new Type[]{Types.POISON.getInstance(), Types.ROCK.getInstance()},
@@ -15,8 +14,8 @@ public class Ground extends Type{
                 new Type[]{Types.ELECTRIC.getInstance()});
     }
 
-    private static final Ground instance = new Ground();
-    public static Ground getInstance()
+    private static final TypeGround instance = new TypeGround();
+    public static TypeGround getInstance()
     {
             return instance;
     }

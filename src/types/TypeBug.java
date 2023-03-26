@@ -2,8 +2,8 @@ package src.types;
 
 import java.awt.Color;
 
-public class Bug extends Type {
-    private Bug()
+public class TypeBug extends Type {
+    private TypeBug()
     {
         super("Bug", new Color(163, 182, 25),
                 new Type[]{Types.FIGHTING.getInstance(), Types.GRASS.getInstance(), Types.GROUND.getInstance()},
@@ -11,8 +11,8 @@ public class Bug extends Type {
                 new Type[0]);
     }
 
-    private static final Bug instance = new Bug();
-    public static Bug getInstance()
+    private static final TypeBug instance = new TypeBug();
+    public static TypeBug getInstance()
     {
         return instance;
     }

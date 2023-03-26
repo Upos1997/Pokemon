@@ -2,8 +2,8 @@ package src.types;
 
 import java.awt.Color;
 
-public class Fairy extends Type{
-    private Fairy()
+public class TypeFairy extends Type{
+    private TypeFairy()
     {
         super("Fairy", new Color(238, 167, 239),
                 new Type[]{Types.BUG.getInstance(), Types.DARK.getInstance(), Types.FIGHTING.getInstance()},
@@ -11,8 +11,8 @@ public class Fairy extends Type{
                 new Type[]{Types.DRAGON.getInstance()});
     }
 
-    private static final Fairy instance = new Fairy();
-    public static Fairy getInstance()
+    private static final TypeFairy instance = new TypeFairy();
+    public static TypeFairy getInstance()
     {
         return instance;
     }
